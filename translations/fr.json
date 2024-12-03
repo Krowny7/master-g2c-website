@@ -1,0 +1,72 @@
+{
+    "nav": {
+        "home": "Accueil",
+        "program": "Programme",
+        "why_g2c": "Pourquoi G2C ?",
+        "testimonials": "Témoignages",
+        "partners": "Partenaires",
+        "student_life": "Vie Étudiante",
+        "admissions": "Admissions"
+    },
+    "home": {
+        "title": "Master G2C",
+        "subtitle": "Master en Gestion d'Actifs, Contrôle des Risques et Conformité",
+        "learn_more": "En savoir plus",
+        "apply_now": "Postuler"
+    },
+    "program": {
+        "title": "Notre Programme",
+        "m1": {
+            "title": "Master 1",
+            "description": "Première année du programme"
+        },
+        "m2": {
+            "title": "Master 2",
+            "description": "Deuxième année du programme"
+        },
+        "erasmus": {
+            "title": "Programme Erasmus",
+            "description": "6 mois d'échange international"
+        }
+    },
+    "why_g2c": {
+        "title": "Pourquoi Choisir le Master G2C ?",
+        "excellence": {
+            "title": "Excellence Académique",
+            "description": "Programme reconnu par les professionnels"
+        },
+        "international": {
+            "title": "Dimension Internationale",
+            "description": "Programme Erasmus avec des universités prestigieuses"
+        },
+        "career": {
+            "title": "Insertion Professionnelle",
+            "description": "95% d'insertion dans les 6 mois"
+        }
+    },
+    "testimonials": {
+        "title": "Témoignages",
+        "students": "Témoignages d'Étudiants",
+        "alumni": "Témoignages d'Anciens",
+        "recruiters": "Témoignages de Recruteurs"
+    },
+    "partners": {
+        "title": "Nos Partenaires",
+        "companies": "Entreprises Partenaires",
+        "universities": "Universités Partenaires",
+        "opportunities": "Opportunités"
+    },
+    "student_life": {
+        "title": "Vie Étudiante",
+        "campus": "Campus",
+        "activities": "Activités",
+        "associations": "Associations"
+    },
+    "admissions": {
+        "title": "Admissions",
+        "requirements": "Prérequis",
+        "process": "Processus",
+        "deadlines": "Dates Limites",
+        "apply": "Postuler"
+    }
+}

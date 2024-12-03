@@ -1,0 +1,189 @@
+{% extends "public/base_public.html" %}
+
+{% block title %}Débouchés - Master G2C{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <h1 class="display-4 mb-5 text-center">Débouchés Professionnels</h1>
+
+    <!-- Métiers visés -->
+    <div class="card mb-5 border-0 shadow-sm">
+        <div class="card-header bg-dark text-white py-3">
+            <h2 class="h3 mb-0">Métiers visés</h2>
+        </div>
+        <div class="card-body p-4">
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body">
+                            <div class="text-center mb-3">
+                                <i class="fas fa-chart-line fa-3x text-dark"></i>
+                            </div>
+                            <h3 class="h4 text-center mb-3">Gestion d'Actifs</h3>
+                            <ul class="list-unstyled">
+                                <li class="mb-2"><i class="fas fa-check text-dark me-2"></i>Gérant de portefeuille</li>
+                                <li class="mb-2"><i class="fas fa-check text-dark me-2"></i>Analyste financier</li>
+                                <li class="mb-2"><i class="fas fa-check text-dark me-2"></i>Gestionnaire de fonds</li>
+                                <li><i class="fas fa-check text-dark me-2"></i>Stratégiste d'investissement</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body">
+                            <div class="text-center mb-3">
+                                <i class="fas fa-shield-alt fa-3x text-dark"></i>
+                            </div>
+                            <h3 class="h4 text-center mb-3">Contrôle des Risques</h3>
+                            <ul class="list-unstyled">
+                                <li class="mb-2"><i class="fas fa-check text-dark me-2"></i>Risk Manager</li>
+                                <li class="mb-2"><i class="fas fa-check text-dark me-2"></i>Analyste des risques</li>
+                                <li class="mb-2"><i class="fas fa-check text-dark me-2"></i>Contrôleur interne</li>
+                                <li><i class="fas fa-check text-dark me-2"></i>Quantitative Risk Analyst</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body">
+                            <div class="text-center mb-3">
+                                <i class="fas fa-balance-scale fa-3x text-dark"></i>
+                            </div>
+                            <h3 class="h4 text-center mb-3">Conformité</h3>
+                            <ul class="list-unstyled">
+                                <li class="mb-2"><i class="fas fa-check text-dark me-2"></i>Compliance Officer</li>
+                                <li class="mb-2"><i class="fas fa-check text-dark me-2"></i>Chargé de conformité</li>
+                                <li class="mb-2"><i class="fas fa-check text-dark me-2"></i>Auditeur interne</li>
+                                <li><i class="fas fa-check text-dark me-2"></i>Responsable réglementaire</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Statistiques d'insertion -->
+    <div class="card mb-5 border-0 shadow-sm">
+        <div class="card-header bg-dark text-white py-3">
+            <h2 class="h3 mb-0">Insertion Professionnelle</h2>
+        </div>
+        <div class="card-body p-4">
+            <div class="row g-4">
+                <div class="col-md-3">
+                    <div class="text-center p-4">
+                        <div class="display-4 mb-2">95%</div>
+                        <p class="mb-0">Taux d'insertion à 6 mois</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="text-center p-4">
+                        <div class="display-4 mb-2">42k€</div>
+                        <p class="mb-0">Salaire moyen à la sortie</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="text-center p-4">
+                        <div class="display-4 mb-2">80%</div>
+                        <p class="mb-0">CDI dès la sortie</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="text-center p-4">
+                        <div class="display-4 mb-2">70%</div>
+                        <p class="mb-0">Emploi en Île-de-France</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Témoignages -->
+    <div class="card mb-5 border-0 shadow-sm">
+        <div class="card-header bg-dark text-white py-3">
+            <h2 class="h3 mb-0">Témoignages d'Anciens</h2>
+        </div>
+        <div class="card-body p-4">
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body">
+                            <div class="d-flex mb-3">
+                                <div class="flex-shrink-0">
+                                    <div class="rounded-circle bg-dark bg-opacity-10 p-3">
+                                        <i class="fas fa-user text-dark"></i>
+                                    </div>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h3 class="h5 mb-1">Sophie Martin</h3>
+                                    <p class="mb-0">Promotion 2022 - Risk Manager chez BNP Paribas</p>
+                                </div>
+                            </div>
+                            <p class="mb-0 fst-italic">
+                                "Le Master G2C m'a fourni une base solide en gestion des risques et m'a permis d'accéder rapidement à un poste à responsabilité. La formation pratique et les intervenants professionnels sont de vrais atouts."
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body">
+                            <div class="d-flex mb-3">
+                                <div class="flex-shrink-0">
+                                    <div class="rounded-circle bg-dark bg-opacity-10 p-3">
+                                        <i class="fas fa-user text-dark"></i>
+                                    </div>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h3 class="h5 mb-1">Thomas Dubois</h3>
+                                    <p class="mb-0">Promotion 2021 - Gérant de portefeuille chez Amundi</p>
+                                </div>
+                            </div>
+                            <p class="mb-0 fst-italic">
+                                "L'accès aux terminaux Bloomberg pendant la formation et les cas pratiques m'ont donné une longueur d'avance pour mon entrée dans le monde professionnel."
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Entreprises partenaires -->
+    <div class="card border-0 shadow-sm">
+        <div class="card-header bg-dark text-white py-3">
+            <h2 class="h3 mb-0">Ils recrutent nos diplômés</h2>
+        </div>
+        <div class="card-body p-4">
+            <div class="row row-cols-2 row-cols-md-4 g-4 text-center">
+                <div class="col">
+                    <div class="p-3">
+                        <i class="fas fa-building fa-3x mb-3 text-dark"></i>
+                        <p class="mb-0">BNP Paribas</p>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="p-3">
+                        <i class="fas fa-building fa-3x mb-3 text-dark"></i>
+                        <p class="mb-0">Société Générale</p>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="p-3">
+                        <i class="fas fa-building fa-3x mb-3 text-dark"></i>
+                        <p class="mb-0">Amundi</p>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="p-3">
+                        <i class="fas fa-building fa-3x mb-3 text-dark"></i>
+                        <p class="mb-0">AXA IM</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

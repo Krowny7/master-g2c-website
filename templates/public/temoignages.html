@@ -1,0 +1,226 @@
+{% extends "public/base_public.html" %}
+
+{% block title %}Témoignages - Master G2C{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <h1 class="display-4 mb-5 text-center">Témoignages</h1>
+
+    <!-- Success Stories -->
+    <div class="row g-4 mb-5">
+        <div class="col-md-6" data-aos="fade-up">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body p-4">
+                    <div class="d-flex align-items-center mb-4">
+                        <img src="{{ url_for('static', filename='img/testimonials/profile1.jpg') }}" alt="Sophie Martin" class="rounded-circle me-3" style="width: 64px; height: 64px; object-fit: cover;">
+                        <div>
+                            <h3 class="h5 mb-1">Sophie Martin</h3>
+                            <p class="mb-0 text-muted">Promotion 2021 - Risk Manager chez BNP Paribas</p>
+                        </div>
+                    </div>
+                    <p class="mb-3">"Le Master G2C a été un véritable tremplin pour ma carrière. La formation complète en gestion des risques m'a permis d'intégrer directement un poste à responsabilité chez BNP Paribas."</p>
+                    <div class="d-flex align-items-center">
+                        <a href="#" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#videoModal1">
+                            <i class="fas fa-play me-2"></i>Voir le témoignage vidéo
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body p-4">
+                    <div class="d-flex align-items-center mb-4">
+                        <img src="{{ url_for('static', filename='img/testimonials/profile2.jpg') }}" alt="Thomas Dubois" class="rounded-circle me-3" style="width: 64px; height: 64px; object-fit: cover;">
+                        <div>
+                            <h3 class="h5 mb-1">Thomas Dubois</h3>
+                            <p class="mb-0 text-muted">Promotion 2020 - Portfolio Manager chez Amundi</p>
+                        </div>
+                    </div>
+                    <p class="mb-3">"L'expérience Erasmus à la LSE a été déterminante. Elle m'a ouvert des portes et m'a permis de construire un réseau international précieux dans ma carrière actuelle."</p>
+                    <div class="d-flex align-items-center">
+                        <a href="#" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#videoModal2">
+                            <i class="fas fa-play me-2"></i>Voir le témoignage vidéo
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Statistiques d'Insertion -->
+    <div class="card mb-5 border-0 shadow-sm">
+        <div class="card-body p-4">
+            <h2 class="h3 mb-4 text-center">Insertion Professionnelle</h2>
+            <div class="row text-center g-4">
+                <div class="col-md-3 col-6">
+                    <div class="p-3 rounded bg-light">
+                        <h3 class="h2 mb-2">95%</h3>
+                        <p class="mb-0">Taux d'emploi à 6 mois</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="p-3 rounded bg-light">
+                        <h3 class="h2 mb-2">80%</h3>
+                        <p class="mb-0">CDI dès la sortie</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="p-3 rounded bg-light">
+                        <h3 class="h2 mb-2">45k€</h3>
+                        <p class="mb-0">Salaire moyen</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="p-3 rounded bg-light">
+                        <h3 class="h2 mb-2">89%</h3>
+                        <p class="mb-0">Satisfaction carrière</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Secteurs d'Activité -->
+    <div class="card mb-5 border-0 shadow-sm">
+        <div class="card-body p-4">
+            <h2 class="h3 mb-4 text-center">Répartition par Secteur</h2>
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <canvas id="sectorChart"></canvas>
+                </div>
+                <div class="col-lg-4">
+                    <div class="list-group list-group-flush">
+                        <div class="list-group-item d-flex justify-content-between align-items-center">
+                            Banque d'investissement
+                            <span class="badge bg-primary rounded-pill">35%</span>
+                        </div>
+                        <div class="list-group-item d-flex justify-content-between align-items-center">
+                            Gestion d'actifs
+                            <span class="badge bg-primary rounded-pill">30%</span>
+                        </div>
+                        <div class="list-group-item d-flex justify-content-between align-items-center">
+                            Conseil
+                            <span class="badge bg-primary rounded-pill">20%</span>
+                        </div>
+                        <div class="list-group-item d-flex justify-content-between align-items-center">
+                            Autres secteurs financiers
+                            <span class="badge bg-primary rounded-pill">15%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Blog Étudiants -->
+    <div class="card border-0 shadow-sm">
+        <div class="card-body p-4">
+            <h2 class="h3 mb-4 text-center">Blog des Étudiants</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <article class="card h-100 border-0 bg-light">
+                        <div class="card-body">
+                            <h3 class="h5 mb-3">Mon Erasmus à Londres</h3>
+                            <p class="mb-3">Une expérience enrichissante à la LSE qui m'a permis de développer mes compétences...</p>
+                            <a href="#" class="btn btn-link p-0">Lire la suite <i class="fas fa-arrow-right ms-2"></i></a>
+                        </div>
+                        <div class="card-footer bg-transparent border-0">
+                            <small class="text-muted">Par Marie L. - Promotion 2023</small>
+                        </div>
+                    </article>
+                </div>
+                <div class="col-md-4">
+                    <article class="card h-100 border-0 bg-light">
+                        <div class="card-body">
+                            <h3 class="h5 mb-3">Stage chez Goldman Sachs</h3>
+                            <p class="mb-3">Retour sur mon expérience de stage et les compétences acquises...</p>
+                            <a href="#" class="btn btn-link p-0">Lire la suite <i class="fas fa-arrow-right ms-2"></i></a>
+                        </div>
+                        <div class="card-footer bg-transparent border-0">
+                            <small class="text-muted">Par Alexandre D. - Promotion 2022</small>
+                        </div>
+                    </article>
+                </div>
+                <div class="col-md-4">
+                    <article class="card h-100 border-0 bg-light">
+                        <div class="card-body">
+                            <h3 class="h5 mb-3">De G2C à BlackRock</h3>
+                            <p class="mb-3">Comment le master m'a préparé à ma carrière internationale...</p>
+                            <a href="#" class="btn btn-link p-0">Lire la suite <i class="fas fa-arrow-right ms-2"></i></a>
+                        </div>
+                        <div class="card-footer bg-transparent border-0">
+                            <small class="text-muted">Par Julie M. - Promotion 2021</small>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modals pour les vidéos -->
+<div class="modal fade" id="videoModal1" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Témoignage de Sophie Martin</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="ratio ratio-16x9">
+                    <iframe src="https://www.youtube.com/embed/VIDEO_ID1" title="Témoignage" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="videoModal2" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Témoignage de Thomas Dubois</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="ratio ratio-16x9">
+                    <iframe src="https://www.youtube.com/embed/VIDEO_ID2" title="Témoignage" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const ctx = document.getElementById('sectorChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: ['Banque d\'investissement', 'Gestion d\'actifs', 'Conseil', 'Autres secteurs financiers'],
+            datasets: [{
+                data: [35, 30, 20, 15],
+                backgroundColor: [
+                    'rgba(54, 162, 235, 0.8)',
+                    'rgba(75, 192, 192, 0.8)',
+                    'rgba(153, 102, 255, 0.8)',
+                    'rgba(255, 159, 64, 0.8)'
+                ]
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        }
+    });
+});
+</script>
+{% endblock %}
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'admin/master.html' %}
+
+{% block body %}
+<div class="container">
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <h1>Master G2C Administration</h1>
+            <hr>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title">Applications</h5>
+                            <p class="card-text">Manage student applications and admissions.</p>
+                            <a href="{{ url_for('application.index_view') }}" class="btn btn-primary">View Applications</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title">News</h5>
+                            <p class="card-text">Manage news articles and announcements.</p>
+                            <a href="{{ url_for('news.index_view') }}" class="btn btn-primary">Manage News</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title">Events</h5>
+                            <p class="card-text">Manage upcoming events and activities.</p>
+                            <a href="{{ url_for('event.index_view') }}" class="btn btn-primary">Manage Events</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

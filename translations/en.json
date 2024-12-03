@@ -1,0 +1,72 @@
+{
+    "nav": {
+        "home": "Home",
+        "program": "Program",
+        "why_g2c": "Why G2C?",
+        "testimonials": "Testimonials",
+        "partners": "Partners",
+        "student_life": "Student Life",
+        "admissions": "Admissions"
+    },
+    "home": {
+        "title": "Master G2C",
+        "subtitle": "Master in Asset Management, Risk Control and Compliance",
+        "learn_more": "Learn More",
+        "apply_now": "Apply Now"
+    },
+    "program": {
+        "title": "Our Program",
+        "m1": {
+            "title": "Year 1",
+            "description": "First year of the program"
+        },
+        "m2": {
+            "title": "Year 2",
+            "description": "Second year of the program"
+        },
+        "erasmus": {
+            "title": "Erasmus Program",
+            "description": "6-month international exchange"
+        }
+    },
+    "why_g2c": {
+        "title": "Why Choose Master G2C?",
+        "excellence": {
+            "title": "Academic Excellence",
+            "description": "Program recognized by professionals"
+        },
+        "international": {
+            "title": "International Dimension",
+            "description": "Erasmus program with prestigious universities"
+        },
+        "career": {
+            "title": "Career Prospects",
+            "description": "95% employment rate within 6 months"
+        }
+    },
+    "testimonials": {
+        "title": "Testimonials",
+        "students": "Student Testimonials",
+        "alumni": "Alumni Testimonials",
+        "recruiters": "Recruiter Testimonials"
+    },
+    "partners": {
+        "title": "Our Partners",
+        "companies": "Partner Companies",
+        "universities": "Partner Universities",
+        "opportunities": "Opportunities"
+    },
+    "student_life": {
+        "title": "Student Life",
+        "campus": "Campus",
+        "activities": "Activities",
+        "associations": "Associations"
+    },
+    "admissions": {
+        "title": "Admissions",
+        "requirements": "Requirements",
+        "process": "Process",
+        "deadlines": "Deadlines",
+        "apply": "Apply"
+    }
+}

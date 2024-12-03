@@ -1,0 +1,521 @@
+{% extends "public/base_public.html" %}
+
+{% block title %}Accueil - Master G2C{% endblock %}
+
+{% block extra_head %}
+<script type="module" src="https://unpkg.com/@splinetool/viewer@0.9.490/build/spline-viewer.js"></script>
+<style>
+    .hero-section {
+        position: relative;
+        padding: 8rem 0;
+        background: linear-gradient(135deg, var(--bs-light) 0%, var(--bs-gray-200) 100%);
+        border-radius: 0 0 3rem 3rem;
+        margin-bottom: 4rem;
+        overflow: hidden;
+    }
+    
+    [data-theme="dark"] .hero-section {
+        background: linear-gradient(135deg, var(--bs-dark) 0%, var(--bs-gray-800) 100%);
+    }
+    
+    .hero-content {
+        position: relative;
+        z-index: 2;
+    }
+
+    .hero-title {
+        font-size: 4.5rem;
+        font-weight: 800;
+        line-height: 1.2;
+        margin-bottom: 1.5rem;
+        background: linear-gradient(45deg, var(--bs-dark), var(--bs-gray-700));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    [data-theme="dark"] .hero-title {
+        background: linear-gradient(45deg, var(--bs-light), var(--bs-gray-200));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .hero-text {
+        font-size: 1.25rem;
+        line-height: 1.7;
+        color: var(--bs-gray-700);
+        margin-bottom: 2rem;
+        max-width: 600px;
+    }
+
+    [data-theme="dark"] .hero-text {
+        color: var(--bs-gray-300);
+    }
+
+    .feature-card {
+        padding: 2rem;
+        border-radius: 1.5rem;
+        background: var(--bs-white);
+        transition: all 0.3s ease;
+        height: 100%;
+        box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.08);
+    }
+
+    [data-theme="dark"] .feature-card {
+        background: var(--bs-gray-800);
+        box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.2);
+    }
+
+    .feature-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 1rem 2rem rgba(0,0,0,0.1);
+    }
+
+    [data-theme="dark"] .feature-card:hover {
+        box-shadow: 0 1rem 2rem rgba(0,0,0,0.3);
+    }
+
+    .feature-icon {
+        width: 80px;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--bs-light) 0%, var(--bs-gray-200) 100%);
+        margin: 0 auto 1.5rem;
+    }
+
+    [data-theme="dark"] .feature-icon {
+        background: linear-gradient(135deg, var(--bs-gray-800) 0%, var(--bs-gray-700) 100%);
+    }
+
+    .feature-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        color: var(--bs-gray-900);
+    }
+
+    [data-theme="dark"] .feature-title {
+        color: var(--bs-gray-200);
+    }
+
+    .feature-text {
+        color: var(--bs-gray-600);
+        line-height: 1.6;
+    }
+
+    [data-theme="dark"] .feature-text {
+        color: var(--bs-gray-400);
+    }
+
+    [data-theme="dark"] .fas {
+        color: var(--bs-gray-200) !important;
+    }
+
+    .cta-button {
+        display: inline-block;
+        padding: 1rem 3rem;
+        font-size: 1.2rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: #fff;
+        background: linear-gradient(45deg, #1a73e8, #0d47a1);
+        border: none;
+        border-radius: 50px;
+        box-shadow: 0 4px 15px rgba(26, 115, 232, 0.4);
+        transition: all 0.3s ease;
+    }
+
+    .cta-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(26, 115, 232, 0.5);
+        background: linear-gradient(45deg, #1557b0, #0a3578);
+        color: #fff;
+        text-decoration: none;
+    }
+
+    #globe-container {
+        position: absolute;
+        top: 65%;
+        right: -25%;
+        transform: translateY(-50%);
+        width: 1000px;
+        height: 1000px;
+        z-index: 1;
+    }
+
+    .spline-iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+        transform: scale(1.5);
+    }
+
+    .rounded-circle {
+        width: 3rem;
+        height: 3rem;
+    }
+    .rounded-circle.bg-dark.bg-opacity-10 {
+        background-color: rgba(0,0,0,0.1);
+    }
+    .rounded-circle.bg-dark.bg-opacity-10.p-3 {
+        padding: 0.75rem;
+    }
+    .rounded-circle.bg-dark.bg-opacity-10.p-3.d-inline-block.mb-3 {
+        margin-bottom: 1rem;
+    }
+    .fas.fa-chart-line.fa-2x.text-dark {
+        font-size: 2rem;
+        color: #000;
+    }
+    .fas.fa-shield-alt.fa-2x.text-dark {
+        font-size: 2rem;
+        color: #000;
+    }
+    .fas.fa-balance-scale.fa-2x.text-dark {
+        font-size: 2rem;
+        color: #000;
+    }
+    .fas.fa-calendar.text-dark {
+        color: #000;
+    }
+    .fas.fa-trophy.text-dark {
+        color: #000;
+    }
+    .fas.fa-user-tie.text-dark {
+        color: #000;
+    }
+    .fas.fa-handshake.text-dark {
+        color: #000;
+    }
+    .fas.fa-check-circle.text-dark.me-2 {
+        color: #000;
+        margin-right: 0.5rem;
+    }
+
+    /* Styles pour les cartes */
+    .card {
+        background: var(--bs-white);
+        transition: all 0.3s ease;
+    }
+
+    [data-theme="dark"] .card {
+        background: var(--bs-gray-800);
+        border-color: var(--bs-gray-700) !important;
+    }
+
+    [data-theme="dark"] .card .h3,
+    [data-theme="dark"] .card h5 {
+        color: var(--bs-gray-200);
+    }
+
+    [data-theme="dark"] .card .text-muted {
+        color: var(--bs-gray-400) !important;
+    }
+
+    [data-theme="dark"] .card small.text-dark {
+        color: var(--bs-gray-300) !important;
+    }
+
+    /* Styles pour les badges et icônes */
+    [data-theme="dark"] .badge.bg-dark {
+        background-color: var(--bs-gray-700) !important;
+        color: var(--bs-gray-200);
+    }
+
+    [data-theme="dark"] .rounded-circle.bg-dark.bg-opacity-10 {
+        background-color: var(--bs-gray-700) !important;
+    }
+
+    [data-theme="dark"] .rounded-circle i.text-dark {
+        color: var(--bs-gray-200) !important;
+    }
+
+    /* Styles pour la section finale */
+    .bg-light {
+        background-color: var(--bs-light) !important;
+    }
+
+    [data-theme="dark"] .bg-light {
+        background-color: var(--bs-gray-900) !important;
+    }
+
+    [data-theme="dark"] .btn-dark {
+        background-color: var(--bs-gray-700);
+        border-color: var(--bs-gray-600);
+    }
+
+    [data-theme="dark"] .btn-dark:hover {
+        background-color: var(--bs-gray-600);
+        border-color: var(--bs-gray-500);
+    }
+
+    [data-theme="dark"] .lead.text-muted {
+        color: var(--bs-gray-400) !important;
+    }
+
+    /* Styles pour la carte de classement */
+    .ranking-card {
+        background: var(--bs-white);
+        border-radius: 1rem;
+        padding: 2rem;
+        text-align: center;
+        transition: all 0.3s ease;
+    }
+
+    [data-theme="dark"] .ranking-card {
+        background: var(--bs-gray-800);
+        box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.2);
+    }
+
+    .ranking-badge {
+        background: var(--bs-light);
+        border-radius: 2rem;
+        padding: 0.5rem 2rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+    }
+
+    [data-theme="dark"] .ranking-badge {
+        background: var(--bs-gray-700);
+    }
+
+    [data-theme="dark"] .ranking-badge i {
+        color: var(--bs-gray-200);
+    }
+
+    .ranking-title {
+        color: var(--bs-primary);
+        font-size: 1.25rem;
+        margin-bottom: 1rem;
+    }
+
+    [data-theme="dark"] .ranking-title {
+        color: var(--bs-blue);
+    }
+
+    .ranking-heading {
+        color: var(--bs-gray-800);
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+    }
+
+    [data-theme="dark"] .ranking-heading {
+        color: var(--bs-gray-200);
+    }
+
+    .ranking-button {
+        background: var(--bs-primary);
+        color: white;
+        border: none;
+        border-radius: 0.5rem;
+        padding: 0.75rem 2rem;
+        font-weight: 500;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: all 0.3s ease;
+    }
+
+    [data-theme="dark"] .ranking-button {
+        background: var(--bs-blue);
+    }
+
+    .ranking-button:hover {
+        background: var(--bs-primary-dark);
+        transform: translateY(-2px);
+    }
+
+    [data-theme="dark"] .ranking-button:hover {
+        background: var(--bs-blue-dark);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="hero-section">
+    <div class="container">
+        <div class="hero-content">
+            <h1 class="hero-title">Master G2C</h1>
+            <p class="hero-text">Gestion d'Actifs, Contrôle des Risques et Conformité - Une formation d'excellence pour les futurs experts de la finance.</p>
+            <a href="{{ url_for('public.admissions') }}" class="cta-button">Candidater</a>
+        </div>
+    </div>
+    <div id="globe-container">
+        <iframe class="spline-iframe" src='https://my.spline.design/globe1-9c7a7c3c225ea7d8e2aaedd8fee45a6a/' frameborder='0'></iframe>
+    </div>
+</section>
+
+<div class="container">
+    <div class="row g-4 mb-5">
+        <div class="col-md-4">
+            <div class="feature-card text-center">
+                <div class="feature-icon">
+                    <i class="fas fa-chart-line fa-2x text-dark"></i>
+                </div>
+                <h3 class="feature-title">Gestion d'Actifs</h3>
+                <p class="feature-text">Maîtrisez les stratégies d'investissement et la gestion de portefeuille dans un environnement financier mondial.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="feature-card text-center">
+                <div class="feature-icon">
+                    <i class="fas fa-shield-alt fa-2x text-dark"></i>
+                </div>
+                <h3 class="feature-title">Contrôle des Risques</h3>
+                <p class="feature-text">Développez une expertise pointue en gestion des risques financiers et en analyse quantitative.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="feature-card text-center">
+                <div class="feature-icon">
+                    <i class="fas fa-balance-scale fa-2x text-dark"></i>
+                </div>
+                <h3 class="feature-title">Conformité</h3>
+                <p class="feature-text">Maîtrisez le cadre réglementaire et les meilleures pratiques de la conformité financière.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-5">
+        <div class="col-lg-6 mb-4" data-aos="fade-up">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body p-4">
+                    <h2 class="h3 mb-4">Actualités</h2>
+                    <div class="d-flex mb-4 align-items-center">
+                        <div class="flex-shrink-0">
+                            <div class="rounded-circle bg-dark bg-opacity-10 p-3">
+                                <i class="fas fa-calendar text-dark"></i>
+                            </div>
+                        </div>
+                        <div class="flex-grow-1 ms-3">
+                            <h5 class="mb-1">Ouverture des Candidatures</h5>
+                            <p class="text-muted mb-0">Les candidatures pour la promotion 2024-2025 sont ouvertes.</p>
+                            <small class="text-dark">15 Mars 2024</small>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <div class="flex-shrink-0">
+                            <div class="rounded-circle bg-dark bg-opacity-10 p-3">
+                                <i class="fas fa-trophy text-dark"></i>
+                            </div>
+                        </div>
+                        <div class="flex-grow-1 ms-3">
+                            <h5 class="mb-1">Prix de l'Innovation Financière</h5>
+                            <p class="text-muted mb-0">Nos étudiants récompensés pour leur projet sur la finance durable.</p>
+                            <small class="text-dark">20 Mars 2024</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body p-4">
+                    <h2 class="h3 mb-4">Événements à venir</h2>
+                    <div class="timeline">
+                        <div class="d-flex mb-4">
+                            <div class="flex-shrink-0">
+                                <div class="rounded-circle bg-dark bg-opacity-10 p-3">
+                                    <i class="fas fa-user-tie text-dark"></i>
+                                </div>
+                            </div>
+                            <div class="flex-grow-1 ms-3">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h5 class="mb-1">Conférence Risk Management</h5>
+                                    <span class="badge bg-dark">15 Mars</span>
+                                </div>
+                                <p class="text-muted mb-0">Intervention de professionnels sur les nouvelles approches du risque.</p>
+                            </div>
+                        </div>
+                        <div class="d-flex">
+                            <div class="flex-shrink-0">
+                                <div class="rounded-circle bg-dark bg-opacity-10 p-3">
+                                    <i class="fas fa-handshake text-dark"></i>
+                                </div>
+                            </div>
+                            <div class="flex-grow-1 ms-3">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h5 class="mb-1">Forum Asset Management</h5>
+                                    <span class="badge bg-dark">22 Mars</span>
+                                </div>
+                                <p class="text-muted mb-0">Rencontrez les plus grandes sociétés de gestion.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row align-items-center mb-5">
+        <div class="col-lg-6" data-aos="fade-right">
+            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1350&q=80" 
+                 alt="Finance Professionnelle" class="img-fluid rounded-3 shadow-lg" style="height: 400px; width: 100%; object-fit: cover;">
+        </div>
+        <div class="col-lg-6" data-aos="fade-left">
+            <div class="p-4">
+                <h2 class="h3 mb-4">Pourquoi choisir le Master G2C ?</h2>
+                <div class="d-flex mb-3">
+                    <div class="flex-shrink-0">
+                        <i class="fas fa-check-circle text-dark me-2"></i>
+                    </div>
+                    <div>
+                        <h5 class="mb-1">Excellence académique</h5>
+                        <p class="text-muted mb-0">Formation reconnue par les professionnels du secteur financier.</p>
+                    </div>
+                </div>
+                <div class="d-flex mb-3">
+                    <div class="flex-shrink-0">
+                        <i class="fas fa-check-circle text-dark me-2"></i>
+                    </div>
+                    <div>
+                        <h5 class="mb-1">Expertise technique</h5>
+                        <p class="text-muted mb-0">Maîtrise des outils quantitatifs et des logiciels financiers.</p>
+                    </div>
+                </div>
+                <div class="d-flex">
+                    <div class="flex-shrink-0">
+                        <i class="fas fa-check-circle text-dark me-2"></i>
+                    </div>
+                    <div>
+                        <h5 class="mb-1">Insertion professionnelle</h5>
+                        <p class="text-muted mb-0">Plus de 95% d'insertion dans les 6 mois suivant le diplôme.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mb-5">
+        <div class="ranking-card">
+            <div class="ranking-badge">
+                <i class="fas fa-trophy text-primary"></i>
+                <span class="ranking-title">Meilleurs Masters</span>
+            </div>
+            <h2 class="ranking-heading">Masters Gestion des Risques Financiers & Conformité</h2>
+            <a href="#" class="ranking-button">
+                VOIR LE CLASSEMENT
+                <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+
+    <div class="bg-light py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8 text-center" data-aos="fade-up">
+                    <h2 class="h3 mb-4">Prêt à rejoindre l'élite de la finance ?</h2>
+                    <p class="lead text-muted mb-4">Formez-vous aux métiers de la gestion d'actifs, du risque et de la conformité.</p>
+                    <a href="{{ url_for('public.formations') }}" class="btn btn-dark btn-lg">
+                        Découvrir le programme
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

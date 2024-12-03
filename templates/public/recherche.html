@@ -1,0 +1,102 @@
+{% extends "public/base_public.html" %}
+
+{% block title %}Recherche - Université{% endblock %}
+
+{% block content %}
+<div class="hero-section">
+    <div class="container">
+        <h1 class="display-4">Recherche & Innovation</h1>
+        <p class="lead">Découvrez nos laboratoires et projets de recherche</p>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row mb-5">
+        {% for labo in laboratoires %}
+        <div class="col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h3 class="card-title">{{ labo.nom }}</h3>
+                    <h5 class="text-muted mb-3">{{ labo.domaine }}</h5>
+                    <p class="card-text">{{ labo.description }}</p>
+                    
+                    <h6 class="mt-4">Projets en cours :</h6>
+                    <ul class="list-group list-group-flush">
+                        {% for projet in labo.projets %}
+                        <li class="list-group-item">
+                            <i class="fas fa-project-diagram me-2 text-primary"></i>
+                            {{ projet }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    
+                    <a href="#" class="btn btn-primary mt-3">En savoir plus</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <h3>Nos Partenariats</h3>
+                    <div class="row mt-4">
+                        <div class="col-md-3">
+                            <div class="text-center">
+                                <img src="https://via.placeholder.com/150" alt="Partenaire 1" class="img-fluid mb-3">
+                                <h5>Entreprise Tech</h5>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="text-center">
+                                <img src="https://via.placeholder.com/150" alt="Partenaire 2" class="img-fluid mb-3">
+                                <h5>Institut Research</h5>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="text-center">
+                                <img src="https://via.placeholder.com/150" alt="Partenaire 3" class="img-fluid mb-3">
+                                <h5>Lab Innovation</h5>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="text-center">
+                                <img src="https://via.placeholder.com/150" alt="Partenaire 4" class="img-fluid mb-3">
+                                <h5>Data Corp</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <h3>Publications Récentes</h3>
+                    <div class="list-group mt-4">
+                        <a href="#" class="list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">Avancées en Intelligence Artificielle</h5>
+                                <small class="text-muted">3 jours</small>
+                            </div>
+                            <p class="mb-1">Nouvelle publication dans Nature sur les réseaux de neurones.</p>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">Sécurité des Systèmes Distribués</h5>
+                                <small class="text-muted">1 semaine</small>
+                            </div>
+                            <p class="mb-1">Publication sur les nouvelles méthodes de cryptographie.</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
