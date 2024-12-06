@@ -2,403 +2,453 @@
 
 {% block title %}Pourquoi Choisir le Master G2C ?{% endblock %}
 
+{% block extra_head %}
 <style>
+    /* Styles généraux */
     .main-content {
         min-height: 100vh;
-        height: auto;
-        overflow: visible;
-        background-color: var(--bs-light);
+        background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
     }
-    .container {
-        height: auto;
-        overflow: visible;
-        padding-bottom: 4rem;
-    }
-    .page-title {
-        color: var(--bs-gray-900);
-        margin-bottom: 4rem;
+
+    .section-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 3rem;
+        background: linear-gradient(45deg, #1a1a1a, #444);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
         text-align: center;
-        font-size: 3rem;
-        font-weight: bold;
     }
 
-    [data-theme="dark"] .page-title {
-        color: var(--bs-gray-100);
-    }
-
-    .ranking-card {
-        background: var(--bs-white);
-        box-shadow: 0 15px 35px rgba(0,0,0,.1);
-        transition: all 0.4s ease;
+    .section-subtitle {
+        font-size: 1.25rem;
+        color: #666;
+        text-align: center;
         max-width: 800px;
-        margin: 0 auto;
-        border: none;
-        border-radius: 1rem;
+        margin: 0 auto 4rem;
+        line-height: 1.6;
+    }
+
+    /* Cards et Hover Effects */
+    .feature-card {
+        background: white;
+        border-radius: 16px;
+        padding: 2rem;
+        height: 100%;
+        transition: all 0.3s ease;
+        border: 1px solid rgba(0,0,0,0.05);
         position: relative;
         overflow: hidden;
     }
 
-    [data-theme="dark"] .ranking-card {
-        background: var(--bs-gray-800);
-        box-shadow: 0 15px 35px rgba(0,0,0,.3);
-    }
-
-    .ranking-badge {
-        background: var(--bs-light);
-        padding: 1.5rem 3rem;
-        border-radius: 2rem;
-        display: inline-flex;
-        align-items: center;
-        gap: 1rem;
-        box-shadow: 0 5px 15px rgba(0,0,0,.05);
-    }
-
-    [data-theme="dark"] .ranking-badge {
-        background: var(--bs-gray-700);
-        box-shadow: 0 5px 15px rgba(0,0,0,.2);
-    }
-
-    .ranking-position {
-        color: var(--bs-primary);
-        font-size: 2rem;
-        font-weight: bold;
-    }
-
-    [data-theme="dark"] .ranking-position {
-        color: var(--bs-blue);
-    }
-
-    .section-title {
-        color: var(--bs-gray-900);
-        margin-bottom: 3rem;
-        text-align: center;
-        font-size: 2.5rem;
-        font-weight: bold;
-    }
-
-    [data-theme="dark"] .section-title {
-        color: var(--bs-gray-100);
-    }
-
-    .stats-section {
-        background: var(--bs-white);
-        border-radius: 1rem;
-        box-shadow: 0 15px 35px rgba(0,0,0,.1);
-        padding: 3rem !important;
-        margin: 4rem 0;
-    }
-
-    [data-theme="dark"] .stats-section {
-        background: var(--bs-gray-800);
-        box-shadow: 0 15px 35px rgba(0,0,0,.3);
-    }
-
-    .stats-card {
-        background: var(--bs-light);
-        padding: 2rem;
-        border-radius: 1rem;
-        transition: all 0.3s ease;
-        text-align: center;
-        box-shadow: 0 5px 15px rgba(0,0,0,.05);
-    }
-
-    [data-theme="dark"] .stats-card {
-        background: var(--bs-gray-900);
-        box-shadow: 0 5px 15px rgba(0,0,0,.2);
-    }
-
-    .stats-card:hover {
-        transform: translateY(-5px);
-    }
-
-    [data-theme="dark"] .stats-card .display-4 {
-        color: var(--bs-blue);
-    }
-
-    [data-theme="dark"] .stats-card p {
-        color: var(--bs-gray-400);
-    }
-
-    .feature-card {
-        background: var(--bs-white);
-        padding: 3rem;
-        border-radius: 1rem;
-        transition: all 0.3s ease;
-        box-shadow: 0 15px 35px rgba(0,0,0,.1);
-        height: 100%;
-        margin-bottom: 2rem;
+    .feature-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: linear-gradient(45deg, #007bff, #00bcd4);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.3s ease;
     }
 
     .feature-card:hover {
         transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.1);
     }
 
-    [data-theme="dark"] .feature-card {
-        background: var(--bs-gray-800);
-        box-shadow: 0 15px 35px rgba(0,0,0,.3);
+    .feature-card:hover::before {
+        transform: scaleX(1);
     }
 
-    [data-theme="dark"] .feature-card h3,
-    [data-theme="dark"] .feature-card h4 {
-        color: var(--bs-gray-200);
-    }
-
-    [data-theme="dark"] .feature-card p {
-        color: var(--bs-gray-400);
-    }
-
-    [data-theme="dark"] .table {
-        color: var(--bs-gray-300);
-    }
-
-    [data-theme="dark"] .table thead th {
-        color: var(--bs-gray-200);
-        border-color: var(--bs-gray-700);
-    }
-
-    [data-theme="dark"] .table td {
-        border-color: var(--bs-gray-700);
-    }
-
-    [data-theme="dark"] .card.bg-light {
-        background: var(--bs-gray-800) !important;
-    }
-
-    [data-theme="dark"] .fas.fa-angle-right {
-        color: var(--bs-blue);
-    }
-
-    [data-theme="dark"] .fas {
-        color: var(--bs-gray-200);
-    }
-
-    [data-theme="dark"] .text-primary {
-        color: var(--bs-blue) !important;
-    }
-
-    [data-theme="dark"] .text-muted {
-        color: var(--bs-gray-400) !important;
-    }
-
-    .icon-circle {
-        width: 80px;
-        height: 80px;
-        border-radius: 50%;
-        background: var(--bs-light);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 0 auto 1.5rem;
+    .feature-icon {
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+        color: #007bff;
         transition: all 0.3s ease;
     }
 
-    .feature-card:hover .icon-circle {
-        background: var(--bs-primary);
+    .feature-card:hover .feature-icon {
+        transform: scale(1.1);
     }
 
-    .feature-card:hover .icon-circle i {
-        color: white !important;
+    .feature-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        color: #2c3e50;
     }
 
-    [data-theme="dark"] .icon-circle {
-        background: var(--bs-gray-700);
+    .feature-text {
+        color: #666;
+        line-height: 1.6;
+        margin-bottom: 0;
     }
 
-    .table {
+    /* Stats Section */
+    .stats-section {
+        background: white;
+        border-radius: 20px;
+        padding: 3rem;
+        margin: 4rem 0;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    }
+
+    .stat-item {
+        text-align: center;
+        padding: 1.5rem;
+    }
+
+    .stat-number {
+        font-size: 3rem;
+        font-weight: 700;
+        color: #007bff;
+        margin-bottom: 0.5rem;
+        line-height: 1;
+    }
+
+    .stat-label {
+        font-size: 1.1rem;
+        color: #666;
         margin: 0;
     }
 
-    .table th, .table td {
-        padding: 1rem;
-        vertical-align: middle;
+    /* Timeline Section */
+    .timeline-section {
+        position: relative;
+        padding: 3rem 0;
     }
 
-    .table thead th {
-        background: var(--bs-light);
-        border-bottom: none;
+    .timeline-card {
+        background: white;
+        border-radius: 16px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        transition: all 0.3s ease;
+        border: 1px solid rgba(0,0,0,0.05);
     }
 
-    [data-theme="dark"] .table thead th {
-        background: var(--bs-gray-900);
+    .timeline-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.1);
     }
 
-    .hover-card {
-        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-    }
-    
-    .hover-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+    /* Animations */
+    [data-aos] {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.6s ease;
     }
 
-    .icon-circle {
-        width: 60px;
-        height: 60px;
-        border-radius: 50%;
-        background-color: rgba(13, 110, 253, 0.1);
-        display: flex;
-        align-items: center;
-        justify-content: center;
+    [data-aos].aos-animate {
+        opacity: 1;
+        transform: translateY(0);
     }
 
-    .display-5 {
-        font-size: 2.5rem;
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .section-title {
+            font-size: 2rem;
+        }
+
+        .feature-card {
+            margin-bottom: 1.5rem;
+        }
+
+        .stats-section {
+            padding: 2rem;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+        }
     }
 </style>
+{% endblock %}
 
 {% block content %}
-<div class="container py-5">
-    <!-- Titre principal avec style amélioré -->
-    <h1 class="text-center mb-5 display-4 fw-bold">Pourquoi Choisir le Master G2C ?</h1>
+<div class="main-content py-5">
+    <div class="container">
+        <!-- En-tête de la page -->
+        <h1 class="section-title" data-aos="fade-up">Pourquoi Choisir le Master G2C ?</h1>
+        <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+            Une formation d'excellence pour les futurs experts de la finance, combinant expertise théorique et pratique professionnelle.
+        </p>
 
-    <!-- Section des 3 piliers avec icônes et hover effects -->
-    <div class="row g-4 mb-5">
-        <div class="col-md-4">
-            <div class="card h-100 border-0 shadow-sm hover-card">
-                <div class="card-body text-center p-4">
-                    <div class="icon-circle mb-3 mx-auto">
-                        <i class="fas fa-graduation-cap fa-2x text-primary"></i>
-                    </div>
-                    <h3 class="h4 mb-3">Excellence Académique</h3>
-                    <p class="text-muted mb-0">Programme reconnu par les professionnels du secteur financier et classé parmi les meilleurs masters en gestion d'actifs.</p>
+        <!-- Points forts -->
+        <div class="row g-4 mb-5">
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="0">
+                <div class="feature-card">
+                    <i class="bi bi-trophy feature-icon"></i>
+                    <h3 class="feature-title">Excellence Académique</h3>
+                    <p class="feature-text">Programme reconnu et accrédité, dispensé par des experts du domaine financier et de la conformité.</p>
+                </div>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="feature-card">
+                    <i class="bi bi-graph-up feature-icon"></i>
+                    <h3 class="feature-title">Perspectives Professionnelles</h3>
+                    <p class="feature-text">Débouchés variés dans des secteurs porteurs avec des opportunités de carrière internationales.</p>
+                </div>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="feature-card">
+                    <i class="bi bi-people feature-icon"></i>
+                    <h3 class="feature-title">Réseau Professionnel</h3>
+                    <p class="feature-text">Accès à un réseau d'alumni et de professionnels reconnus dans le secteur financier.</p>
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="card h-100 border-0 shadow-sm hover-card">
-                <div class="card-body text-center p-4">
-                    <div class="icon-circle mb-3 mx-auto">
-                        <i class="fas fa-globe-europe fa-2x text-primary"></i>
-                    </div>
-                    <h3 class="h4 mb-3">Dimension Internationale</h3>
-                    <p class="text-muted mb-0">Programme Erasmus avec des universités prestigieuses et un réseau international d'alumni.</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card h-100 border-0 shadow-sm hover-card">
-                <div class="card-body text-center p-4">
-                    <div class="icon-circle mb-3 mx-auto">
-                        <i class="fas fa-briefcase fa-2x text-primary"></i>
-                    </div>
-                    <h3 class="h4 mb-3">Insertion Professionnelle</h3>
-                    <p class="text-muted mb-0">Taux d'insertion professionnelle élevé avec suivi personnalisé tout au long du diplôme.</p>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <!-- Section Classement avec style amélioré -->
-    <div class="text-center mb-5 py-4 bg-light rounded-3">
-        <h2 class="h3 mb-4">Classement 2024</h2>
-        <div class="d-inline-flex align-items-center mb-3">
-            <div class="icon-circle me-3">
-                <i class="fas fa-trophy fa-2x text-primary"></i>
-            </div>
-            <h3 class="h2 mb-0">2<sup>e</sup></h3>
-        </div>
-        <p class="h5 mb-3">Meilleurs Masters</p>
-        <p class="text-muted mb-3">Masters Gestion des Risques Financiers & Conformité</p>
-        <a href="#" class="btn btn-primary">VOIR LE CLASSEMENT COMPLET</a>
-    </div>
-
-    <!-- Section Chiffres et Points Forts -->
-    <div class="row g-4 mb-5">
-        <div class="col-lg-6">
-            <div class="card border-0 shadow-sm h-100">
-                <div class="card-body p-4">
-                    <h3 class="card-title h4 mb-4">Chiffres Clés</h3>
-                    <div class="row g-4">
-                        <div class="col-6">
-                            <div class="text-center">
-                                <h4 class="display-5 fw-bold text-primary mb-2">95%</h4>
-                                <p class="text-muted mb-0">Taux d'insertion</p>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="text-center">
-                                <h4 class="display-5 fw-bold text-primary mb-2">45k€</h4>
-                                <p class="text-muted mb-0">Salaire moyen</p>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="text-center">
-                                <h4 class="display-5 fw-bold text-primary mb-2">100+</h4>
-                                <p class="text-muted mb-0">Entreprises partenaires</p>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="text-center">
-                                <h4 class="display-5 fw-bold text-primary mb-2">92%</h4>
-                                <p class="text-muted mb-0">Satisfaction</p>
-                            </div>
-                        </div>
+        <!-- Statistiques -->
+        <div class="stats-section" data-aos="fade-up">
+            <div class="row g-4">
+                <div class="col-md-3">
+                    <div class="stat-item">
+                        <div class="stat-number">95%</div>
+                        <p class="stat-label">Taux d'insertion professionnelle</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-item">
+                        <div class="stat-number">80+</div>
+                        <p class="stat-label">Partenaires professionnels</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-item">
+                        <div class="stat-number">25</div>
+                        <p class="stat-label">Années d'expertise</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-item">
+                        <div class="stat-number">500+</div>
+                        <p class="stat-label">Alumni actifs</p>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-lg-6">
-            <div class="card border-0 shadow-sm h-100">
-                <div class="card-body p-4">
-                    <h3 class="card-title h4 mb-4">Points Forts</h3>
-                    <ul class="list-unstyled mb-0">
-                        <li class="mb-3 d-flex align-items-center">
-                            <i class="fas fa-check-circle text-primary me-3"></i>
-                            <span>Erasmus 6 mois garanti</span>
-                        </li>
-                        <li class="mb-3 d-flex align-items-center">
-                            <i class="fas fa-check-circle text-primary me-3"></i>
-                            <span>Année de césure possible</span>
-                        </li>
-                        <li class="mb-3 d-flex align-items-center">
-                            <i class="fas fa-check-circle text-primary me-3"></i>
-                            <span>Stage M2 de 6 mois minimum</span>
-                        </li>
-                        <li class="d-flex align-items-center">
-                            <i class="fas fa-check-circle text-primary me-3"></i>
-                            <span>Spécialisation dès le M1</span>
-                        </li>
-                    </ul>
+
+        <!-- Section des 3 piliers avec icônes et hover effects -->
+        <div class="row g-4 mb-5">
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm hover-card">
+                    <div class="card-body text-center p-4">
+                        <div class="icon-circle mb-3 mx-auto">
+                            <i class="fas fa-graduation-cap fa-2x text-primary"></i>
+                        </div>
+                        <h3 class="h4 mb-3">Excellence Académique</h3>
+                        <p class="text-muted mb-0">Programme reconnu par les professionnels du secteur financier et classé parmi les meilleurs masters en gestion d'actifs.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm hover-card">
+                    <div class="card-body text-center p-4">
+                        <div class="icon-circle mb-3 mx-auto">
+                            <i class="fas fa-globe-europe fa-3x text-primary"></i>
+                        </div>
+                        <h3 class="h4 mb-3">Dimension Internationale</h3>
+                        <p class="text-muted mb-0">Programme Erasmus avec des universités prestigieuses et un réseau international d'alumni.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm hover-card">
+                    <div class="card-body text-center p-4">
+                        <div class="icon-circle mb-3 mx-auto">
+                            <i class="fas fa-briefcase fa-2x text-primary"></i>
+                        </div>
+                        <h3 class="h4 mb-3">Insertion Professionnelle</h3>
+                        <p class="text-muted mb-0">Taux d'insertion professionnelle élevé avec suivi personnalisé tout au long du diplôme.</p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Section Projet Universitaire avec style amélioré -->
-    <div class="bg-light rounded-3 p-5 mb-5">
-        <h2 class="text-center h3 mb-5" style="color: #2c3e50; font-weight: 600;">Projet Universitaire</h2>
-        <div class="row align-items-center">
-            <div class="col-lg-7">
-                <div class="pe-4">
-                    <p class="lead" style="font-size: 1.15rem; line-height: 1.8; color: #34495e;">
-                        Durant les deux années de formation, les étudiants développent des solutions financières innovantes en combinant expertise technique et intelligence artificielle. De la conception d'algorithmes de trading en VBA Excel aux analyses prédictives avancées en Python, nos projets intègrent les dernières technologies pour répondre aux défis de la finance moderne.
-                    </p>
+        <!-- Section Classement avec style amélioré -->
+        <div class="text-center mb-5 py-4 bg-light rounded-3">
+            <h2 class="h3 mb-4">Classement 2024</h2>
+            <div class="d-inline-flex align-items-center mb-3">
+                <div class="icon-circle me-3">
+                    <i class="fas fa-trophy fa-2x text-primary"></i>
+                </div>
+                <h3 class="h2 mb-0">2<sup>e</sup></h3>
+            </div>
+            <p class="h5 mb-3">Meilleurs Masters</p>
+            <p class="text-muted mb-3">Masters Gestion des Risques Financiers & Conformité</p>
+            <a href="https://www.meilleurs-masters.com/master-gestion-des-risques-financiers-compliance-conformite/iae-caen-master-gestion-d-actifs-controle-des-risques-et-conformite.html" class="btn btn-primary" target="_blank">VOIR LE CLASSEMENT COMPLET</a>
+        </div>
+
+        <!-- Section Chiffres et Points Forts -->
+        <div class="row g-4 mb-5">
+            <div class="col-lg-6">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body p-4">
+                        <h3 class="card-title h4 mb-4">Chiffres Clés</h3>
+                        <div class="row g-4">
+                            <div class="col-6">
+                                <div class="text-center">
+                                    <h4 class="display-5 fw-bold text-primary mb-2">95%</h4>
+                                    <p class="text-muted mb-0">Taux d'insertion</p>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="text-center">
+                                    <h4 class="display-5 fw-bold text-primary mb-2">45k€</h4>
+                                    <p class="text-muted mb-0">Salaire moyen</p>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="text-center">
+                                    <h4 class="display-5 fw-bold text-primary mb-2">100+</h4>
+                                    <p class="text-muted mb-0">Entreprises partenaires</p>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="text-center">
+                                    <h4 class="display-5 fw-bold text-primary mb-2">92%</h4>
+                                    <p class="text-muted mb-0">Satisfaction</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body p-4">
+                        <h3 class="card-title h4 mb-4">Points Forts</h3>
+                        <ul class="list-unstyled mb-0">
+                            <li class="mb-3 d-flex align-items-center">
+                                <i class="fas fa-check-circle text-primary me-3"></i>
+                                <span>Erasmus 6 mois garanti</span>
+                            </li>
+                            <li class="mb-3 d-flex align-items-center">
+                                <i class="fas fa-check-circle text-primary me-3"></i>
+                                <span>Année de césure possible</span>
+                            </li>
+                            <li class="mb-3 d-flex align-items-center">
+                                <i class="fas fa-check-circle text-primary me-3"></i>
+                                <span>Stage M2 de 6 mois minimum</span>
+                            </li>
+                            <li class="d-flex align-items-center">
+                                <i class="fas fa-check-circle text-primary me-3"></i>
+                                <span>Spécialisation dès le M1</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Projet Universitaire avec style amélioré -->
+        <div class="projet-section bg-darker rounded-3 p-4 mb-4">
+            <div class="row align-items-center">
+                <div class="col-lg-7">
+                    <h2 class="mb-4 text-mode-adapt">Projet Universitaire</h2>
+                    <div class="bg-light rounded-3 p-4 mb-4 shadow-sm border" style="background-color: rgba(255, 255, 255, 0.05) !important;">
+                        <p class="text-mode-adapt mb-0">
+                            Durant les deux années de formation, les étudiants développent des solutions financières innovantes en combinant expertise technique et intelligence artificielle. De la conception d'algorithmes de trading en VBA Excel aux analyses prédictives avancées en Python, nos projets intègrent les dernières technologies pour répondre aux défis de la finance moderne.
+                        </p>
+                    </div>
                     <div class="text-center mt-4">
-                        <a href="#" class="btn btn-primary btn-lg px-5 py-3" style="border-radius: 50px; font-weight: 500; background-color: #1a73e8; border: none; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-                            VOIR LES PROJETS
-                        </a>
+                        <a href="#" class="btn btn-primary px-4">VOIR LES PROJETS</a>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="position-relative" style="height: 400px; overflow: hidden;">
+                        <div style="position: absolute; top: 0; left: 0; right: 0; bottom: -150px;">
+                            <iframe src='https://my.spline.design/happyrobotbuttoncopy-930f8babe788a9861ad466c7ff576a81/' 
+                                    frameborder='0' 
+                                    width='100%'
+                                    height='100%'
+                                    style="transform: scale(1.1);"></iframe>
+                        </div>
+                        <div class="position-absolute bottom-0 end-0 p-3 bg-darker rounded-3 d-flex gap-3 align-items-center me-3 mb-3 shadow-sm">
+                            <img src="{{ url_for('static', filename='images/excel-logo.svg') }}" alt="Excel Logo" style="height: 45px; width: auto;">
+                            <img src="{{ url_for('static', filename='images/python-logo.svg') }}" alt="Python Logo" style="height: 45px; width: auto;">
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-5">
-                <div class="position-relative" style="min-height: 400px; margin-bottom: -100px; overflow: hidden;">
-                    <iframe src='https://my.spline.design/happyrobotbuttoncopy-930f8babe788a9861ad466c7ff576a81/' 
-                            frameborder='0' 
-                            width='100%' 
-                            height='500px' 
-                            style="position: absolute; top: 0; left: 0; transform: scale(1.1);"></iframe>
-                    <div style="position: absolute; bottom: 120px; right: 20px; display: flex; gap: 15px; align-items: center; background: rgba(255,255,255,0.9); padding: 10px 15px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-                        <img src="{{ url_for('static', filename='images/excel-logo.svg') }}" alt="Excel Logo" style="height: 35px;">
-                        <img src="{{ url_for('static', filename='images/python-logo.svg') }}" alt="Python Logo" style="height: 35px;">
+        </div>
+
+        <!-- Section Erasmus -->
+        <div class="bg-darker rounded-3 p-3 position-relative">
+            <div class="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center mb-4">
+                <h3 class="h4 mb-3 mb-sm-0 text-mode-adapt" style="font-weight: 600;">Universités partenaires</h3>
+                <div class="bg-darker rounded-3 p-2 shadow-sm" style="transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+                    <img src="{{ url_for('static', filename='images/erasmus-plus-logo.png') }}" alt="Logo Erasmus+" style="height: 35px; width: auto;">
+                </div>
+            </div>
+            <div class="row align-items-center g-3">
+                <div class="col-lg-5">
+                    <div class="position-relative d-flex flex-column align-items-center" style="height: 450px;">
+                        <div style="width: 100%; height: 100%; overflow: hidden; display: flex; align-items: center; justify-content: center; position: relative;">
+                            <iframe src='https://my.spline.design/worldpins-1a22d796bb265df7d816aa50769103f0/' 
+                                    frameborder='0' 
+                                    width='1500px'
+                                    height='1500px' 
+                                    style="transform: scale(0.5); border: none; margin: -375px -375px -375px -375px;"></iframe>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-7 d-flex align-items-center">
+                    <div class="p-3 bg-darker rounded-3 shadow-sm">
+                        <h2 class="h3 mb-3 text-mode-adapt" style="font-weight: 600;">Semestre à l'étranger</h2>
+                        <p class="text-mode-adapt" style="line-height: 1.5; font-size: 1rem; margin-bottom: 1rem;">
+                            Le programme international du Master G2C de l'IAE de Caen permet aux étudiants de réaliser l'intégralité du second semestre de M1 dans une université partenaire à l'international. Les cours, dispensés en anglais, offrent une immersion totale, renforçant les compétences académiques en gestion des actifs, contrôle des risques et conformité, tout en améliorant significativement le niveau de langue des participants. Les crédits obtenus sont intégrés au cursus grâce au système ECTS, garantissant une expérience enrichissante et reconnue.
+                        </p>
+                        <div class="text-center">
+                            <a href="#" class="btn btn-primary px-4 py-2" style="background-color: #0d6efd; border: none; font-weight: 500;">EN SAVOIR PLUS</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 {% endblock %}
 
-{% block scripts %}
-<script type="module" src="{{ url_for('static', filename='js/spline-computer.js') }}"></script>
+{% block extra_scripts %}
+<script>
+    // Animation des statistiques
+    const stats = document.querySelectorAll('.stat-number');
+    
+    const animateValue = (obj, start, end, duration) => {
+        let startTimestamp = null;
+        const step = (timestamp) => {
+            if (!startTimestamp) startTimestamp = timestamp;
+            const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+            const value = Math.floor(progress * (end - start) + start);
+            obj.innerHTML = value + (obj.dataset.suffix || '');
+            if (progress < 1) {
+                window.requestAnimationFrame(step);
+            }
+        };
+        window.requestAnimationFrame(step);
+    };
+
+    const observerCallback = (entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const el = entry.target;
+                const endValue = parseInt(el.textContent);
+                animateValue(el, 0, endValue, 2000);
+                observer.unobserve(el);
+            }
+        });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, {
+        threshold: 0.5
+    });
+
+    stats.forEach(stat => observer.observe(stat));
+</script>
 {% endblock %}

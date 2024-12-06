@@ -1,92 +1,413 @@
 {% extends "public/base_public.html" %}
 
-{% block title %}Admissions{% endblock %}
+{% block title %}Admissions - Master G2C{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+<style>
+    /* Timeline styles */
+    .timeline {
+        position: relative;
+        padding: 2rem 0;
+    }
+
+    .timeline::before {
+        content: '';
+        position: absolute;
+        width: 4px;
+        height: 100%;
+        background: var(--bs-primary);
+        left: 50%;
+        transform: translateX(-50%);
+        opacity: 0.3;
+    }
+
+    .timeline-item {
+        margin-bottom: 3rem;
+        position: relative;
+    }
+
+    .timeline-content {
+        position: relative;
+        width: calc(50% - 30px);
+        padding: 1.5rem;
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease;
+    }
+
+    .timeline-content:hover {
+        transform: translateY(-5px);
+    }
+
+    .timeline-item:nth-child(odd) .timeline-content {
+        left: 0;
+    }
+
+    .timeline-item:nth-child(even) .timeline-content {
+        left: calc(50% + 30px);
+    }
+
+    .timeline-dot {
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        background: var(--bs-primary);
+        border-radius: 50%;
+        left: 50%;
+        transform: translateX(-50%);
+        top: 20px;
+        z-index: 1;
+        transition: all 0.3s ease;
+    }
+
+    .timeline-item:hover .timeline-dot {
+        transform: translateX(-50%) scale(1.2);
+        box-shadow: 0 0 15px rgba(var(--bs-primary-rgb), 0.4);
+    }
+
+    /* Tab Navigation */
+    .admission-tabs {
+        border-radius: 15px;
+        overflow: hidden;
+        margin-bottom: 2rem;
+    }
+
+    .admission-tabs .nav-link {
+        padding: 1rem 2rem;
+        color: #666;
+        font-weight: 500;
+        position: relative;
+        transition: all 0.3s ease;
+    }
+
+    .admission-tabs .nav-link::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background: var(--bs-primary);
+        transform: scaleX(0);
+        transition: transform 0.3s ease;
+    }
+
+    .admission-tabs .nav-link.active {
+        color: var(--bs-primary);
+        background: transparent;
+    }
+
+    .admission-tabs .nav-link.active::after {
+        transform: scaleX(1);
+    }
+
+    /* Stats and Info Cards */
+    .stats-card {
+        background: white;
+        border-radius: 15px;
+        padding: 2rem;
+        text-align: center;
+        transition: transform 0.3s ease;
+        border: 1px solid rgba(0,0,0,0.08);
+    }
+
+    .stats-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .stats-number {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--bs-primary);
+        margin-bottom: 0.5rem;
+    }
+
+    .stats-label {
+        color: #666;
+        font-size: 1rem;
+    }
+
+    /* Requirements Cards */
+    .requirement-card {
+        background: white;
+        border-radius: 15px;
+        padding: 1.5rem;
+        height: 100%;
+        transition: all 0.3s ease;
+        border: 1px solid rgba(0,0,0,0.08);
+    }
+
+    .requirement-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .requirement-icon {
+        width: 60px;
+        height: 60px;
+        background: #f0f7ff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1rem;
+    }
+
+    .requirement-icon i {
+        font-size: 1.5rem;
+        color: var(--bs-primary);
+    }
+
+    /* Resources Section */
+    .resource-card {
+        background: white;
+        border-radius: 15px;
+        padding: 1.5rem;
+        height: 100%;
+        transition: all 0.3s ease;
+        border: 1px solid rgba(0,0,0,0.08);
+        display: flex;
+        align-items: center;
+    }
+
+    .resource-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .resource-icon {
+        font-size: 2rem;
+        color: var(--bs-primary);
+        margin-right: 1rem;
+    }
+</style>
+{% endblock %}
 
 {% block content %}
-<div class="page-header">
+<!-- Hero Section -->
+<div class="page-header bg-primary text-white py-5 mb-5">
     <div class="container">
-        <h1 class="display-4">Admissions Master G2C</h1>
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <h1 class="display-4 mb-3" data-aos="fade-up">Admissions Master G2C</h1>
+                <p class="lead mb-4" data-aos="fade-up" data-aos-delay="100">Rejoignez une formation d'excellence en Gestion d'Actifs, Contrôle des Risques et Conformité</p>
+            </div>
+            <div class="col-lg-4 text-center" data-aos="fade-left">
+                <div class="stats-card bg-white text-dark">
+                    <div class="stats-number text-primary">95%</div>
+                    <div class="stats-label">Taux d'insertion professionnelle</div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
 <div class="container">
-    <div class="row g-4">
-        <div class="col-12">
-            <div class="card border-0 shadow-sm">
-                <div class="card-body">
-                    <h2 class="h3 mb-4">Processus d'admission</h2>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <h3 class="h4 mb-3">Conditions d'admission</h3>
-                            <ul class="list-unstyled">
-                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Licence en économie, gestion, mathématiques ou équivalent</li>
-                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Excellent dossier académique</li>
-                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Niveau B2 minimum en anglais</li>
-                                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Expérience professionnelle appréciée (stages, alternance)</li>
-                            </ul>
+    <!-- Navigation Tabs -->
+    <ul class="nav nav-tabs admission-tabs" id="admissionTabs" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="process-tab" data-bs-toggle="tab" href="#process" role="tab">Processus d'admission</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="requirements-tab" data-bs-toggle="tab" href="#requirements" role="tab">Prérequis</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="resources-tab" data-bs-toggle="tab" href="#resources" role="tab">Ressources</a>
+        </li>
+    </ul>
+
+    <!-- Tab Content -->
+    <div class="tab-content" id="admissionTabsContent">
+        <!-- Process Tab -->
+        <div class="tab-pane fade show active" id="process" role="tabpanel">
+            <div class="timeline">
+                <div class="timeline-item" data-aos="fade-right">
+                    <div class="timeline-content">
+                        <h3 class="h5 mb-3">Phase 1: Dépôt des candidatures</h3>
+                        <p class="mb-2">Du 1er février au 31 mars</p>
+                        <ul class="list-unstyled">
+                            <li><i class="bi bi-check-circle-fill text-primary me-2"></i>Création du dossier en ligne</li>
+                            <li><i class="bi bi-check-circle-fill text-primary me-2"></i>Upload des documents requis</li>
+                            <li><i class="bi bi-check-circle-fill text-primary me-2"></i>Validation de la candidature</li>
+                        </ul>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+
+                <div class="timeline-item" data-aos="fade-left">
+                    <div class="timeline-content">
+                        <h3 class="h5 mb-3">Phase 2: Étude des dossiers</h3>
+                        <p class="mb-2">Du 1er au 15 avril</p>
+                        <ul class="list-unstyled">
+                            <li><i class="bi bi-check-circle-fill text-primary me-2"></i>Analyse du parcours académique</li>
+                            <li><i class="bi bi-check-circle-fill text-primary me-2"></i>Évaluation des compétences</li>
+                            <li><i class="bi bi-check-circle-fill text-primary me-2"></i>Présélection des candidats</li>
+                        </ul>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+
+                <div class="timeline-item" data-aos="fade-right">
+                    <div class="timeline-content">
+                        <h3 class="h5 mb-3">Phase 3: Entretiens</h3>
+                        <p class="mb-2">Du 15 avril au 15 mai</p>
+                        <ul class="list-unstyled">
+                            <li><i class="bi bi-check-circle-fill text-primary me-2"></i>Entretien de motivation</li>
+                            <li><i class="bi bi-check-circle-fill text-primary me-2"></i>Test d'anglais</li>
+                            <li><i class="bi bi-check-circle-fill text-primary me-2"></i>Étude de cas</li>
+                        </ul>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+
+                <div class="timeline-item" data-aos="fade-left">
+                    <div class="timeline-content">
+                        <h3 class="h5 mb-3">Phase 4: Résultats</h3>
+                        <p class="mb-2">Fin mai</p>
+                        <ul class="list-unstyled">
+                            <li><i class="bi bi-check-circle-fill text-primary me-2"></i>Annonce des admissions</li>
+                            <li><i class="bi bi-check-circle-fill text-primary me-2"></i>Confirmation d'inscription</li>
+                            <li><i class="bi bi-check-circle-fill text-primary me-2"></i>Finalisation du dossier</li>
+                        </ul>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Requirements Tab -->
+        <div class="tab-pane fade" id="requirements" role="tabpanel">
+            <div class="row g-4">
+                <div class="col-md-6" data-aos="fade-up">
+                    <div class="requirement-card">
+                        <div class="requirement-icon">
+                            <i class="bi bi-mortarboard"></i>
                         </div>
-                        <div class="col-md-6">
-                            <h3 class="h4 mb-3">Pièces à fournir</h3>
-                            <ul class="list-unstyled">
-                                <li class="mb-2"><i class="fas fa-file-alt me-2"></i>CV détaillé</li>
-                                <li class="mb-2"><i class="fas fa-file-alt me-2"></i>Lettre de motivation</li>
-                                <li class="mb-2"><i class="fas fa-file-alt me-2"></i>Relevés de notes des 3 dernières années</li>
-                                <li class="mb-2"><i class="fas fa-file-alt me-2"></i>Diplômes obtenus</li>
-                                <li class="mb-2"><i class="fas fa-file-alt me-2"></i>Certificat de niveau d'anglais</li>
-                                <li class="mb-2"><i class="fas fa-file-alt me-2"></i>Lettres de recommandation (optionnel)</li>
-                            </ul>
+                        <h3 class="h5 mb-3">Prérequis académiques</h3>
+                        <ul class="list-unstyled mb-0">
+                            <li class="mb-2"><i class="bi bi-check-circle text-primary me-2"></i>Licence en économie, gestion, mathématiques ou équivalent</li>
+                            <li class="mb-2"><i class="bi bi-check-circle text-primary me-2"></i>Excellent dossier académique</li>
+                            <li class="mb-2"><i class="bi bi-check-circle text-primary me-2"></i>Maîtrise des outils quantitatifs</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="requirement-card">
+                        <div class="requirement-icon">
+                            <i class="bi bi-translate"></i>
                         </div>
+                        <h3 class="h5 mb-3">Compétences linguistiques</h3>
+                        <ul class="list-unstyled mb-0">
+                            <li class="mb-2"><i class="bi bi-check-circle text-primary me-2"></i>Niveau B2 minimum en anglais</li>
+                            <li class="mb-2"><i class="bi bi-check-circle text-primary me-2"></i>TOEFL, IELTS ou équivalent apprécié</li>
+                            <li class="mb-2"><i class="bi bi-check-circle text-primary me-2"></i>Capacité à suivre des cours en anglais</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-md-6" data-aos="fade-up">
+                    <div class="requirement-card">
+                        <div class="requirement-icon">
+                            <i class="bi bi-briefcase"></i>
+                        </div>
+                        <h3 class="h5 mb-3">Expérience professionnelle</h3>
+                        <ul class="list-unstyled mb-0">
+                            <li class="mb-2"><i class="bi bi-check-circle text-primary me-2"></i>Stages en entreprise appréciés</li>
+                            <li class="mb-2"><i class="bi bi-check-circle text-primary me-2"></i>Expérience en finance un plus</li>
+                            <li class="mb-2"><i class="bi bi-check-circle text-primary me-2"></i>Projets académiques pertinents</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="requirement-card">
+                        <div class="requirement-icon">
+                            <i class="bi bi-file-earmark-text"></i>
+                        </div>
+                        <h3 class="h5 mb-3">Documents requis</h3>
+                        <ul class="list-unstyled mb-0">
+                            <li class="mb-2"><i class="bi bi-check-circle text-primary me-2"></i>CV détaillé</li>
+                            <li class="mb-2"><i class="bi bi-check-circle text-primary me-2"></i>Lettre de motivation</li>
+                            <li class="mb-2"><i class="bi bi-check-circle text-primary me-2"></i>Relevés de notes</li>
+                            <li class="mb-2"><i class="bi bi-check-circle text-primary me-2"></i>Diplômes et certifications</li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="col-12">
-            <div class="card border-0 shadow-sm">
-                <div class="card-body">
-                    <h2 class="h3 mb-4">Calendrier</h2>
-                    <div class="row g-4">
-                        <div class="col-md-4">
-                            <div class="card h-100 bg-light border-0">
-                                <div class="card-body">
-                                    <h3 class="h5 mb-3">Phase 1</h3>
-                                    <p class="mb-2"><strong>Dépôt des candidatures</strong></p>
-                                    <p class="mb-0">Du 1er février au 31 mars</p>
-                                </div>
-                            </div>
+        <!-- Resources Tab -->
+        <div class="tab-pane fade" id="resources" role="tabpanel">
+            <div class="row g-4">
+                <div class="col-md-6" data-aos="fade-up">
+                    <a href="#" class="resource-card text-decoration-none text-dark">
+                        <div class="resource-icon">
+                            <i class="bi bi-file-pdf"></i>
                         </div>
-                        <div class="col-md-4">
-                            <div class="card h-100 bg-light border-0">
-                                <div class="card-body">
-                                    <h3 class="h5 mb-3">Phase 2</h3>
-                                    <p class="mb-2"><strong>Entretiens</strong></p>
-                                    <p class="mb-0">Du 15 avril au 15 mai</p>
-                                </div>
-                            </div>
+                        <div>
+                            <h3 class="h5 mb-2">Guide du candidat</h3>
+                            <p class="mb-0 text-muted">Téléchargez notre guide complet du processus d'admission</p>
                         </div>
-                        <div class="col-md-4">
-                            <div class="card h-100 bg-light border-0">
-                                <div class="card-body">
-                                    <h3 class="h5 mb-3">Phase 3</h3>
-                                    <p class="mb-2"><strong>Résultats</strong></p>
-                                    <p class="mb-0">Fin mai</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </a>
                 </div>
-            </div>
-        </div>
 
-        <div class="col-12">
-            <div class="card border-0 shadow-sm">
-                <div class="card-body text-center">
-                    <h2 class="h3 mb-4">Prêt à postuler ?</h2>
-                    <p class="mb-4">Les candidatures pour la prochaine rentrée sont ouvertes</p>
-                    <a href="#" class="btn btn-primary btn-lg">Déposer ma candidature</a>
+                <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
+                    <a href="#" class="resource-card text-decoration-none text-dark">
+                        <div class="resource-icon">
+                            <i class="bi bi-journal-text"></i>
+                        </div>
+                        <div>
+                            <h3 class="h5 mb-2">Préparer son entretien</h3>
+                            <p class="mb-0 text-muted">Conseils et exemples de questions pour l'entretien</p>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-md-6" data-aos="fade-up">
+                    <a href="#" class="resource-card text-decoration-none text-dark">
+                        <div class="resource-icon">
+                            <i class="bi bi-file-text"></i>
+                        </div>
+                        <div>
+                            <h3 class="h5 mb-2">Modèles de CV</h3>
+                            <p class="mb-0 text-muted">Exemples de CV et conseils de rédaction</p>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
+                    <a href="#" class="resource-card text-decoration-none text-dark">
+                        <div class="resource-icon">
+                            <i class="bi bi-calendar-check"></i>
+                        </div>
+                        <div>
+                            <h3 class="h5 mb-2">Calendrier détaillé</h3>
+                            <p class="mb-0 text-muted">Toutes les dates clés du processus d'admission</p>
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Call to Action -->
+    <div class="text-center py-5 mt-5" data-aos="fade-up">
+        <h2 class="h3 mb-4">Prêt à rejoindre le Master G2C ?</h2>
+        <p class="mb-4">Les candidatures pour la prochaine rentrée sont ouvertes</p>
+        <a href="#" class="btn btn-primary btn-lg">Déposer ma candidature</a>
+    </div>
 </div>
+
+{% block extra_js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<script>
+    AOS.init({
+        duration: 800,
+        once: true
+    });
+</script>
+{% endblock %}
 {% endblock %}

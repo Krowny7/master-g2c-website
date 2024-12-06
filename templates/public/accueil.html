@@ -4,518 +4,2719 @@
 
 {% block extra_head %}
 <script type="module" src="https://unpkg.com/@splinetool/viewer@0.9.490/build/spline-viewer.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js"></script>
 <style>
+    /* Animations */
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideIn {
+        from { transform: translateX(-20px); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+
+    /* Hero Section Styles */
     .hero-section {
         position: relative;
-        padding: 8rem 0;
-        background: linear-gradient(135deg, var(--bs-light) 0%, var(--bs-gray-200) 100%);
-        border-radius: 0 0 3rem 3rem;
-        margin-bottom: 4rem;
+        padding: 120px 0 60px;
+        text-align: left;
         overflow: hidden;
+        min-height: 70vh;
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
     }
-    
-    [data-theme="dark"] .hero-section {
-        background: linear-gradient(135deg, var(--bs-dark) 0%, var(--bs-gray-800) 100%);
-    }
-    
+
     .hero-content {
         position: relative;
         z-index: 2;
+        max-width: 800px;
+        padding-left: 8%;
+        padding-top: 40px;
+        margin-top: 20px;
     }
 
     .hero-title {
-        font-size: 4.5rem;
+        font-size: 5rem;
         font-weight: 800;
-        line-height: 1.2;
-        margin-bottom: 1.5rem;
-        background: linear-gradient(45deg, var(--bs-dark), var(--bs-gray-700));
+        margin-bottom: 0.3rem;
+        letter-spacing: -0.02em;
+        line-height: 1.1;
+        background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2), 0 0 40px rgba(255, 255, 255, 0.1);
+        position: relative;
+        animation: titleShine 3s ease-in-out infinite;
     }
 
-    [data-theme="dark"] .hero-title {
-        background: linear-gradient(45deg, var(--bs-light), var(--bs-gray-200));
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+    @keyframes titleShine {
+        0%, 100% { text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2), 0 0 40px rgba(255, 255, 255, 0.1); }
+        50% { text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2), 0 0 60px rgba(255, 255, 255, 0.2); }
     }
 
-    .hero-text {
+    .hero-subtitle {
         font-size: 1.25rem;
-        line-height: 1.7;
-        color: var(--bs-gray-700);
-        margin-bottom: 2rem;
-        max-width: 600px;
+        line-height: 1.4;
+        margin-bottom: 1.4rem;
+        color: rgba(255, 255, 255, 0.96);
+        max-width: 580px;
+        font-weight: 400;
+        letter-spacing: 0.01em;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+        backdrop-filter: blur(4px);
     }
 
-    [data-theme="dark"] .hero-text {
-        color: var(--bs-gray-300);
+    .hero-subtitle br {
+        margin-bottom: 0.2rem;
+        content: "";
+        display: block;
     }
 
-    .feature-card {
-        padding: 2rem;
-        border-radius: 1.5rem;
-        background: var(--bs-white);
-        transition: all 0.3s ease;
-        height: 100%;
-        box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.08);
+    .badges-container {
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+        align-items: flex-start;
     }
 
-    [data-theme="dark"] .feature-card {
-        background: var(--bs-gray-800);
-        box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.2);
-    }
-
-    .feature-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 1rem 2rem rgba(0,0,0,0.1);
-    }
-
-    [data-theme="dark"] .feature-card:hover {
-        box-shadow: 0 1rem 2rem rgba(0,0,0,0.3);
-    }
-
-    .feature-icon {
-        width: 80px;
-        height: 80px;
+    .eduniversal-container {
         display: flex;
         align-items: center;
-        justify-content: center;
-        border-radius: 50%;
-        background: linear-gradient(135deg, var(--bs-light) 0%, var(--bs-gray-200) 100%);
-        margin: 0 auto 1.5rem;
+        gap: 1rem;
+        background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(44, 82, 130, 0.8) 100%);
+        padding: 0.6rem 1rem;
+        border-radius: 12px;
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        text-decoration: none;
+        color: inherit;
     }
 
-    [data-theme="dark"] .feature-icon {
-        background: linear-gradient(135deg, var(--bs-gray-800) 0%, var(--bs-gray-700) 100%);
+    .eduniversal-container:hover {
+        background: linear-gradient(135deg, rgba(44, 82, 130, 0.9) 0%, rgba(58, 108, 171, 0.9) 100%);
+        border-color: rgba(255, 255, 255, 0.2);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        text-decoration: none;
     }
 
-    .feature-title {
-        font-size: 1.5rem;
-        font-weight: 700;
-        margin-bottom: 1rem;
-        color: var(--bs-gray-900);
-    }
-
-    [data-theme="dark"] .feature-title {
-        color: var(--bs-gray-200);
-    }
-
-    .feature-text {
-        color: var(--bs-gray-600);
-        line-height: 1.6;
-    }
-
-    [data-theme="dark"] .feature-text {
-        color: var(--bs-gray-400);
-    }
-
-    [data-theme="dark"] .fas {
-        color: var(--bs-gray-200) !important;
-    }
-
-    .cta-button {
+    .eduniversal-logo {
+        height: 45px;
+        width: auto;
+        filter: brightness(1.05);
+        transition: all 0.3s ease;
         display: inline-block;
-        padding: 1rem 3rem;
-        font-size: 1.2rem;
+        transform: scale(1);
+        transform-origin: left center;
+    }
+
+    .eduniversal-text {
+        color: #ffd700;
+        font-size: 1.15rem;
         font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-        color: #fff;
-        background: linear-gradient(45deg, #1a73e8, #0d47a1);
-        border: none;
-        border-radius: 50px;
-        box-shadow: 0 4px 15px rgba(26, 115, 232, 0.4);
+        letter-spacing: 0.02em;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         transition: all 0.3s ease;
     }
 
-    .cta-button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(26, 115, 232, 0.5);
-        background: linear-gradient(45deg, #1557b0, #0a3578);
+    .eduniversal-container:hover .eduniversal-text {
         color: #fff;
+        text-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
+    }
+
+    .eduniversal-container:hover .eduniversal-logo {
+        filter: brightness(1.1);
+        transform: scale(1.05);
+    }
+
+    .iup-badge {
+        display: inline-flex;
+        align-items: center;
+        background: rgba(30, 41, 59, 0.75);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        padding: 0.4rem 0.8rem;
+        border-radius: 8px;
+        backdrop-filter: blur(10px);
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.95);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        gap: 6px;
+        letter-spacing: 0.01em;
+        transform: scale(1);
+        transform-origin: left center;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1), inset 0 1px 1px rgba(255, 255, 255, 0.1);
         text-decoration: none;
+    }
+
+    .iup-badge:hover {
+        transform: scale(1) translateY(-2px);
+        background: rgba(44, 82, 130, 0.85);
+        border-color: rgba(255, 255, 255, 0.25);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+    }
+
+    .iup-badge i {
+        font-size: 1rem;
+        color: #4a90e2;
+    }
+
+    .apply-button {
+        display: inline-flex;
+        align-items: center;
+        background: linear-gradient(135deg, rgb(30, 41, 59) 0%, rgb(44, 82, 130) 100%);
+        color: white;
+        padding: 0.7rem 1.4rem;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        margin-top: 2.2rem;
+        gap: 0.6rem;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        animation: buttonPulse 2s infinite;
+    }
+
+    @keyframes buttonPulse {
+        0%, 100% { box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1), inset 0 1px 1px rgba(255, 255, 255, 0.1); }
+        50% { box-shadow: 0 4px 12px rgba(100, 181, 246, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.2); }
+    }
+
+    .apply-button:hover {
+        transform: translateY(-2px);
+        background: linear-gradient(135deg, rgb(44, 82, 130) 0%, rgb(58, 108, 171) 100%);
+        border-color: rgba(255, 255, 255, 0.25);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+    }
+
+    .apply-button i {
+        font-size: 1rem;
+        color: rgb(100, 181, 246);
+        transition: all 0.3s ease;
+    }
+
+    .apply-button:hover i {
+        color: rgb(255, 255, 255);
+        transform: translateX(2px);
     }
 
     #globe-container {
         position: absolute;
-        top: 65%;
-        right: -25%;
+        right: 10%;
+        top: 50%;
         transform: translateY(-50%);
-        width: 1000px;
-        height: 1000px;
+        width: 40vw;
+        height: 40vw;
         z-index: 1;
+        margin-bottom: 110px;
     }
 
-    .spline-iframe {
+    #globe-canvas {
         width: 100%;
         height: 100%;
-        border: none;
-        transform: scale(1.5);
+        display: block;
     }
 
-    .rounded-circle {
-        width: 3rem;
-        height: 3rem;
-    }
-    .rounded-circle.bg-dark.bg-opacity-10 {
-        background-color: rgba(0,0,0,0.1);
-    }
-    .rounded-circle.bg-dark.bg-opacity-10.p-3 {
-        padding: 0.75rem;
-    }
-    .rounded-circle.bg-dark.bg-opacity-10.p-3.d-inline-block.mb-3 {
-        margin-bottom: 1rem;
-    }
-    .fas.fa-chart-line.fa-2x.text-dark {
-        font-size: 2rem;
-        color: #000;
-    }
-    .fas.fa-shield-alt.fa-2x.text-dark {
-        font-size: 2rem;
-        color: #000;
-    }
-    .fas.fa-balance-scale.fa-2x.text-dark {
-        font-size: 2rem;
-        color: #000;
-    }
-    .fas.fa-calendar.text-dark {
-        color: #000;
-    }
-    .fas.fa-trophy.text-dark {
-        color: #000;
-    }
-    .fas.fa-user-tie.text-dark {
-        color: #000;
-    }
-    .fas.fa-handshake.text-dark {
-        color: #000;
-    }
-    .fas.fa-check-circle.text-dark.me-2 {
-        color: #000;
-        margin-right: 0.5rem;
+    .glow {
+        position: absolute;
+        width: 800px;   
+        height: 800px;  
+        right: -150px;  
+        top: 50%;
+        transform: translateY(-50%);
+        border-radius: 50%;
+        background: radial-gradient(circle at center, 
+            rgba(26, 117, 255, 0.15) 0%, 
+            rgba(26, 117, 255, 0.1) 30%,
+            rgba(26, 117, 255, 0.05) 50%,
+            rgba(26, 117, 255, 0) 70%);
+        pointer-events: none;
+        z-index: 0;
     }
 
-    /* Styles pour les cartes */
-    .card {
-        background: var(--bs-white);
-        transition: all 0.3s ease;
-    }
-
-    [data-theme="dark"] .card {
-        background: var(--bs-gray-800);
-        border-color: var(--bs-gray-700) !important;
-    }
-
-    [data-theme="dark"] .card .h3,
-    [data-theme="dark"] .card h5 {
-        color: var(--bs-gray-200);
-    }
-
-    [data-theme="dark"] .card .text-muted {
-        color: var(--bs-gray-400) !important;
-    }
-
-    [data-theme="dark"] .card small.text-dark {
-        color: var(--bs-gray-300) !important;
-    }
-
-    /* Styles pour les badges et icônes */
-    [data-theme="dark"] .badge.bg-dark {
-        background-color: var(--bs-gray-700) !important;
-        color: var(--bs-gray-200);
-    }
-
-    [data-theme="dark"] .rounded-circle.bg-dark.bg-opacity-10 {
-        background-color: var(--bs-gray-700) !important;
-    }
-
-    [data-theme="dark"] .rounded-circle i.text-dark {
-        color: var(--bs-gray-200) !important;
-    }
-
-    /* Styles pour la section finale */
-    .bg-light {
-        background-color: var(--bs-light) !important;
-    }
-
-    [data-theme="dark"] .bg-light {
-        background-color: var(--bs-gray-900) !important;
-    }
-
-    [data-theme="dark"] .btn-dark {
-        background-color: var(--bs-gray-700);
-        border-color: var(--bs-gray-600);
-    }
-
-    [data-theme="dark"] .btn-dark:hover {
-        background-color: var(--bs-gray-600);
-        border-color: var(--bs-gray-500);
-    }
-
-    [data-theme="dark"] .lead.text-muted {
-        color: var(--bs-gray-400) !important;
-    }
-
-    /* Styles pour la carte de classement */
-    .ranking-card {
-        background: var(--bs-white);
-        border-radius: 1rem;
-        padding: 2rem;
-        text-align: center;
-        transition: all 0.3s ease;
-    }
-
-    [data-theme="dark"] .ranking-card {
-        background: var(--bs-gray-800);
-        box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.2);
-    }
-
-    .ranking-badge {
-        background: var(--bs-light);
-        border-radius: 2rem;
-        padding: 0.5rem 2rem;
+    .institution-info {
         display: inline-flex;
         align-items: center;
-        gap: 0.5rem;
-        margin-bottom: 1rem;
-    }
-
-    [data-theme="dark"] .ranking-badge {
-        background: var(--bs-gray-700);
-    }
-
-    [data-theme="dark"] .ranking-badge i {
-        color: var(--bs-gray-200);
-    }
-
-    .ranking-title {
-        color: var(--bs-primary);
-        font-size: 1.25rem;
-        margin-bottom: 1rem;
-    }
-
-    [data-theme="dark"] .ranking-title {
-        color: var(--bs-blue);
-    }
-
-    .ranking-heading {
-        color: var(--bs-gray-800);
-        font-size: 2rem;
-        margin-bottom: 1.5rem;
-    }
-
-    [data-theme="dark"] .ranking-heading {
-        color: var(--bs-gray-200);
-    }
-
-    .ranking-button {
-        background: var(--bs-primary);
-        color: white;
-        border: none;
-        border-radius: 0.5rem;
-        padding: 0.75rem 2rem;
-        font-weight: 500;
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
+        background: rgba(255, 255, 255, 0.1);
+        padding: 1rem 1.5rem;
+        border-radius: 12px;
+        backdrop-filter: blur(5px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
         transition: all 0.3s ease;
     }
 
-    [data-theme="dark"] .ranking-button {
-        background: var(--bs-blue);
-    }
-
-    .ranking-button:hover {
-        background: var(--bs-primary-dark);
+    .institution-info:hover {
+        background: rgba(255, 255, 255, 0.15);
         transform: translateY(-2px);
     }
 
-    [data-theme="dark"] .ranking-button:hover {
-        background: var(--bs-blue-dark);
+    .institution-info i {
+        color: #1a75ff;
+        margin-right: 1rem;
+        font-size: 1.5rem;
+    }
+
+    .institution-text {
+        font-size: 1.1rem;
+        color: rgba(255, 255, 255, 0.9);
+        font-weight: 500;
+    }
+
+    @media (max-width: 1200px) {
+        .hero-content {
+            max-width: 50%;
+        }
+
+        #globe-container {
+            width: 30vw;
+            height: 30vw;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .hero-section {
+            padding-top: 4rem;
+            padding-bottom: 1.5rem;
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+            min-height: 60vh;
+        }
+        
+        .hero-content {
+            padding-left: 1rem;
+            padding-top: 1rem;
+        }
+
+        #globe-container {
+            display: none;
+        }
+
+        .hero-title {
+            font-size: 2.5rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+        }
+    }
+
+    /* Grid Layout */
+    .grid-item {
+        background: var(--bs-white);
+        border-radius: 0.75rem;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.08);
+        height: 100%;
+        transition: transform 0.3s ease;
+        overflow: hidden;
+        margin-bottom: 1rem;
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .grid-item .img-container {
+        width: 100%;
+        height: 320px;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .grid-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        transition: transform 0.3s ease;
+    }
+
+    .grid-item:hover img {
+        transform: scale(1.05);
+    }
+
+    .grid-item-content {
+        padding: 0.75rem 1rem;
+        background: var(--bs-white);
+    }
+
+    [data-theme="dark"] .grid-item {
+        background: var(--bs-gray-800);
+    }
+
+    [data-theme="dark"] .grid-item-content {
+        background: var(--bs-gray-800);
+        color: var(--bs-light);
+    }
+
+    /* Ajuster l'espacement des colonnes */
+    .row {
+        --bs-gutter-x: 1rem;
+        --bs-gutter-y: 1rem;
+    }
+
+    /* Ajuster l'espacement vertical entre les sections */
+    .container {
+        margin-bottom: 2rem;
+    }
+
+    /* Floating Button */
+    .floating-btn {
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: var(--bs-primary);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.2);
+        transition: transform 0.3s ease;
+        z-index: 1000;
+    }
+
+    .floating-btn:hover {
+        transform: scale(1.1);
+    }
+
+    /* Testimonials */
+    .testimonial-section {
+        padding: 4rem 0;
+        background: var(--bs-light);
+    }
+
+    [data-theme="dark"] .testimonial-section {
+        background: var(--bs-gray-900);
+    }
+
+    .testimonial-card {
+        padding: 2rem;
+        border-radius: 1rem;
+        background: white;
+        margin: 1rem;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+    }
+
+    [data-theme="dark"] .testimonial-card {
+        background: var(--bs-gray-800);
+        color: var(--bs-light);
+    }
+
+    .partner-logos {
+        margin: 2rem 0;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        align-items: flex-start;
+    }
+
+    .partner-logo {
+        max-height: 24px;
+        width: auto;
+        opacity: 0.95;
+        transition: all 0.3s ease;
+        object-fit: contain;
+    }
+
+    .bloomberg-logo {
+        filter: brightness(0) invert(1);
+        height: 35px;
+        max-height: none;
+        transform-origin: center;
+        transform: scale(1.3);
+    }
+
+    .cfa-logo {
+        height: 24px;
+        padding: 2px;
+        background: white;
+        border-radius: 4px;
+    }
+
+    .partner-logo-container {
+        padding: 0.4rem 0.8rem;
+        background: rgba(32, 33, 35, 0.9);
+        margin-bottom: 0.5rem;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 120px;
+        height: 40px;
+    }
+
+    .partners-container {
+        display: flex;
+        gap: 1.5rem;
+        margin: 1.5rem 0;
+        align-items: center;
+        justify-content: flex-start;
+        padding-left: 0.5rem;
+    }
+
+    .partner-logo-container {
+        background: var(--surface-card);
+        border-radius: 8px;
+        padding: 0.5rem 1rem;
+        min-width: 200px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .partner-logo-container img {
+        max-width: 100%;
+        height: auto;
+        object-fit: contain;
+    }
+
+    .partner-logo-container img.cfa-logo {
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    @media (max-width: 768px) {
+        .partner-logo-container {
+            min-width: auto;
+            width: 100%;
+            max-width: 280px;
+            padding: 0.5rem;
+            margin: 0.5rem 0;
+        }
+
+        .partner-logo-container img {
+            max-width: 100%;
+            max-height: 40px;
+            width: auto;
+        }
+
+        .partners-container {
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0 1rem;
+        }
+    }
+
+    .hero-section {
+        position: relative;
+        min-height: 85vh;
+        display: flex;
+        align-items: center;
+        padding-bottom: 3rem;
+        overflow: hidden;
+    }
+
+    /* Ajuster le padding du contenu principal pour éviter que la barre de news ne cache du contenu */
+    main {
+        padding-bottom: 3rem;
+    }
+
+    .partners-logos {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+        margin: 2.5rem auto;
+        max-width: 800px;
+        padding: 0 1rem;
+    }
+
+    .partner-logo-item {
+        background: rgba(255, 255, 255, 0.05);
+        padding: 1rem;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(5px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        aspect-ratio: 16/9;
+        width: 100%;
+    }
+
+    .partner-logo-item:hover {
+        background: rgba(255, 255, 255, 0.1);
+        transform: translateY(-3px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .partner-logo-item img {
+        width: auto;
+        height: auto;
+        max-width: 90%;
+        max-height: 90%;
+        object-fit: contain;
+        opacity: 0.9;
+    }
+
+    .partner-logo-item:hover img {
+        opacity: 1;
+    }
+
+    .partner-logo-item.cfa-container {
+        padding: 0.5rem;
+    }
+
+    .partner-logo-item.cfa-container img {
+        max-width: 200%;
+        max-height: 200%;
+        transform: scale(1.5);
+    }
+
+    @media (max-width: 768px) {
+        .partners-logos {
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+    }
+
+    /* Style pour les logos en haut */
+    .top-partners {
+        display: flex;
+        justify-content: flex-end;
+        gap: 2.5rem;
+        padding: 1.5rem 4rem;
+        background: var(--surface-ground);
+        margin-bottom: 2rem;
+    }
+
+    .top-partner-logo {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 1rem;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(5px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        width: 180px;
+        height: 70px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+    }
+
+    .top-partner-logo.white-bg {
+        background: rgba(255, 255, 255, 0.98);
+        padding: 0.75rem;
+    }
+
+    .top-partner-logo:hover {
+        background: rgba(255, 255, 255, 0.15);
+        transform: translateY(-3px);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .top-partner-logo.white-bg:hover {
+        background: rgba(255, 255, 255, 1);
+    }
+
+    .top-partner-logo img {
+        max-width: 130%;
+        max-height: 130%;
+        object-fit: contain;
+        opacity: 1;
+    }
+
+    .top-partner-logo.white-bg img {
+        max-width: 80%;
+        max-height: 80%;
+    }
+
+    .top-partner-logo.cfa-logo {
+        width: 380px;
+    }
+
+    .top-partner-logo.cfa-logo img {
+        max-width: 130%;
+        max-height: 130%;
+        transform: scale(1.3);
+    }
+
+    @media (max-width: 1200px) {
+        .top-partners {
+            padding: 1.5rem 3rem;
+            gap: 2rem;
+        }
+        
+        .top-partner-logo {
+            width: 160px;
+            height: 65px;
+        }
+
+        .top-partner-logo.cfa-logo {
+            width: 340px;
+        }
+
+        .top-partner-logo.cfa-logo img {
+            max-width: 125%;
+            max-height: 125%;
+            transform: scale(1.08);
+        }
+    }
+
+    @media (max-width: 768px) {
+        .top-partners {
+            justify-content: center;
+            padding: 1rem;
+            gap: 1rem;
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+        
+        .top-partner-logo {
+            width: 150px;
+            height: 60px;
+        }
+
+        .top-partner-logo.cfa-logo {
+            width: 320px;
+        }
+
+        .top-partner-logo.cfa-logo img {
+            max-width: 120%;
+            max-height: 120%;
+            transform: scale(1.05);
+        }
+    }
+
+    .institution-info {
+        margin: 2rem 0;
+        animation: fadeInUp 1.4s ease-out;
+    }
+
+    .institution-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1.2rem;
+        padding: 1rem 1.5rem;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 12px;
+        transition: all 0.3s ease;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .institution-item:hover {
+        background: rgba(255, 255, 255, 0.1);
+        transform: translateX(10px);
+        border-color: rgba(255, 255, 255, 0.2);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .institution-icon {
+        margin-right: 1.2rem;
+        font-size: 1.5rem;
+        color: #3b82f6;
+        opacity: 0.9;
+        transition: all 0.3s ease;
+    }
+
+    .institution-item:hover .institution-icon {
+        transform: scale(1.1);
+        color: #60a5fa;
+    }
+
+    .institution-text {
+        font-size: 1.1rem;
+        color: rgba(255, 255, 255, 0.9);
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+    .institution-item:hover .institution-text {
+        color: #ffffff;
+    }
+
+    .bloomberg-logo {
+        filter: brightness(0) invert(1);
+        transform: scale(1.3);
+        max-height: 32px;
+    }
+
+    .bloomberg-container {
+        margin: 1rem 0 2rem;
+        padding: 1rem 1.5rem;
+        background: rgba(32, 33, 35, 0.6);
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: fit-content;
+    }
+
+    .partners-container {
+        display: flex;
+        gap: 1.5rem;
+        margin: 1.5rem 0;
+        align-items: center;
+        justify-content: flex-end; /* Changé de flex-start à flex-end */
+        padding-left: 0.5rem;
+    }
+
+    .partner-logo-container {
+        background: var(--surface-card);
+        border-radius: 8px;
+        padding: 0.5rem 1rem;
+        min-width: 200px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .partner-logo-container img {
+        max-width: 100%;
+        height: auto;
+        object-fit: contain;
+    }
+
+    .partner-logo-container img.cfa-logo {
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    .hero {
+        position: relative;
+        width: 100%;
+        height: 600px;  
+        background-color: #1a1a1a;
+        color: white;
+        overflow: hidden;
+    }
+
+    #starfield {
+        position: absolute;  
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;  
+        z-index: 0;
+    }
+
+    .star {
+        position: absolute;
+        background-color: #ffffff;
+        border-radius: 50%;
+        animation: twinkle var(--twinkle-duration) ease-in-out infinite;
+    }
+
+    @keyframes twinkle {
+        0%, 100% { opacity: 0.2; }
+        50% { opacity: 1; }
+    }
+
+    @media (max-width: 768px) {
+        .hero {
+            height: 500px;  
+        }
+    }
+
+    /* Style amélioré pour la barre de breaking news */
+    .breaking-news-container {
+        width: 100%;
+        background: linear-gradient(to right, 
+            rgba(20, 20, 25, 0.95),
+            rgba(30, 30, 35, 0.95),
+            rgba(20, 20, 25, 0.95)
+        );
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        overflow: hidden;
+        box-shadow: 0 -2px 15px rgba(0, 0, 0, 0.4);
+        height: 110px;
+        backdrop-filter: blur(10px);
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding-bottom: 8px;
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(1); opacity: 1; }
+        50% { transform: scale(1.05); opacity: 0.8; }
+        100% { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes glow {
+        0% { 
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5),
+                        0 0 10px rgba(255, 255, 255, 0.3);
+            box-shadow: 0 0 15px rgba(0, 140, 255, 0.5);
+        }
+        50% { 
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.8),
+                        0 0 30px rgba(255, 255, 255, 0.5);
+            box-shadow: 0 0 25px rgba(0, 140, 255, 0.8);
+        }
+        100% { 
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5),
+                        0 0 10px rgba(255, 255, 255, 0.3);
+            box-shadow: 0 0 15px rgba(0, 140, 255, 0.5);
+        }
+    }
+
+    @keyframes shine {
+        0% { background-position: -100% 0; }
+        100% { background-position: 200% 0; }
+    }
+
+    .breaking-news-header {
+        background: linear-gradient(135deg, #0095ff, #0055ff);
+        color: white;
+        padding: 8px 30px;
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        font-weight: 700;
+        font-size: 0.95em;
+        clip-path: polygon(0 0, 100% 0, 85% 100%, 0 100%);
+        letter-spacing: 0.8px;
+        animation: glow 3s ease-in-out infinite;
+        border-right: 2px solid rgba(255, 255, 255, 0.3);
+        text-transform: uppercase;
+        background-size: 200% 100%;
+        background-image: linear-gradient(
+            90deg,
+            #0095ff 0%,
+            #0055ff 50%,
+            #0095ff 100%
+        );
+        animation: glow 3s ease-in-out infinite,
+                  shine 8s linear infinite;
+        z-index: 10;
+    }
+
+    .breaking-news-header::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: inherit;
+        z-index: -1;
+    }
+
+    .breaking-news-header::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 30%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transform: skewX(-15deg);
+    }
+
+    .breaking-news-header span {
+        background: linear-gradient(135deg, #ffeb3b, #ffd700);
+        color: #000;
+        padding: 3px 10px;
+        border-radius: 4px;
+        font-size: 0.85em;
+        margin-right: 12px;
+        font-weight: 800;
+        text-transform: uppercase;
+        animation: pulse 2s ease-in-out infinite;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    }
+
+    .news-scroll {
+        color: rgba(255, 255, 255, 0.95);
+        white-space: nowrap;
+        padding: 2px 0;
+        margin-left: 170px;
+        font-size: 0.88em;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        letter-spacing: 0.3px;
+        line-height: 1.5;
+        font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        position: relative;
+        z-index: 1;
+    }
+
+    .news-scroll .number {
+        font-family: 'Roboto Mono', monospace;
+        font-weight: 500;
+        background: rgba(255, 255, 255, 0.08);
+        padding: 2px 5px;
+        border-radius: 3px;
+        margin: 0 1px;
+    }
+
+    .news-scroll .positive {
+        color: #4ADE80;
+        text-shadow: 0 0 10px rgba(74, 222, 128, 0.2);
+    }
+
+    .news-scroll .negative {
+        color: #FF5B5B;
+        text-shadow: 0 0 10px rgba(255, 91, 91, 0.2);
+    }
+
+    .news-scroll-1, .news-scroll-2, .news-scroll-3 {
+        position: relative;
+        &::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(to right, 
+                transparent,
+                rgba(255, 255, 255, 0.1) 20%,
+                rgba(255, 255, 255, 0.1) 80%,
+                transparent
+            );
+        }
+    }
+
+    .news-scroll-1 {
+        animation: scroll-left 30s linear infinite;
+        margin-top: 6px;
+        font-weight: 500;
+    }
+
+    .news-scroll-2 {
+        animation: scroll-left 40s linear infinite;
+        margin-top: 6px;
+        padding-top: 4px;
+        opacity: 0.9;
+    }
+
+    .news-scroll-3 {
+        animation: scroll-left 45s linear infinite;
+        margin-top: 6px;
+        padding-top: 4px;
+        opacity: 0.85;
+    }
+
+    .news-separator {
+        display: inline-block;
+        margin: 0 8px;
+        opacity: 0.4;
+        font-size: 1.2em;
+        vertical-align: middle;
+        transform: scale(0.8);
+        color: #0095FF;
+    }
+
+    @keyframes scroll-left {
+        0% {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+        5% {
+            opacity: 1;
+            transform: translateX(95%);
+        }
+        95% {
+            opacity: 1;
+            transform: translateX(-95%);
+        }
+        100% {
+            transform: translateX(-100%);
+            opacity: 0;
+        }
+    }
+
+    .highlight {
+        color: #0095FF;
+        font-weight: 500;
+    }
+
+    .news-category {
+        color: #0095FF;
+        font-weight: 600;
+        margin-right: 4px;
+    }
+
+    .index-item {
+        display: inline-flex;
+        align-items: center;
+        padding: 0 4px;
+        margin: 0 2px;
+        border-radius: 3px;
+    }
+
+    .index-name {
+        font-weight: 500;
+        margin-right: 2px;
+    }
+
+    .news-category.indices {
+        background: rgba(0, 149, 255, 0.1);
+        padding: 2px 8px;
+        border-radius: 3px;
+        margin-right: 12px;
+    }
+
+    /* Style pour la section des partenaires */
+    .partners-section {
+        background: linear-gradient(to bottom, #fff, #f8f9fa);
+        padding: 1rem 0;
+        position: relative;
+    }
+
+    .partners-container {
+        max-width: 1600px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: flex-end; /* Changé de center à flex-end */
+        align-items: center;
+        gap: 1.5rem;
+        padding: 0 2rem;
+    }
+
+    .partner-badge {
+        background-color: rgb(249, 250, 251);
+        padding: 0.5rem 1rem;
+        border-radius: 12px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.04),
+                    0 0 4px rgba(0, 0, 0, 0.02);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        border: 1px solid rgba(0, 0, 0, 0.03);
+        width: 180px;
+        height: 80px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    /* Badge CFA plus large */
+    .partner-badge img[alt="CFA"] {
+        width: auto;
+    }
+    .partner-badge:has(img[alt="CFA"]) {
+        width: 280px;  /* Augmenté de 220px à 280px */
+    }
+
+    .partner-badge:hover {
+        transform: translateY(-6px);
+        background-color: rgb(255, 255, 255);
+        border-color: rgba(255, 255, 255, 0.25);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08),
+                   0 5px 15px rgba(0, 0, 0, 0.04);
+    }
+
+    .partner-logo {
+        width: auto;
+        height: 55px;  
+        max-width: 95%;  
+        max-height: 95%;  
+        object-fit: contain;
+        transition: all 0.4s ease;
+        filter: grayscale(15%) brightness(0.9);
+        padding: 0;  
+    }
+
+    .partner-badge:hover .partner-logo {
+        filter: grayscale(0%) brightness(1);
+        transform: scale(1.03);
+    }
+
+    /* Styles spécifiques pour certains logos qui pourraient nécessiter des ajustements */
+    .partner-badge img[alt="CFA"] {
+        height: 60px;  
+        max-width: 95%;
+    }
+
+    .partner-badge img[alt="Bloomberg"] {
+        height: 50px;  
+        max-width: 95%;
+    }
+
+    .partner-badge img[alt="France Post Marché"] {
+        height: 58px;  
+        max-width: 95%;
+    }
+
+    .partner-badge img[alt="AFG"] {
+        height: 58px;
+        max-width: 95%;
+    }
+
+    @media (max-width: 1200px) {
+        .partners-container {
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .partner-badge {
+            width: 160px;
+            height: 70px;
+            padding: 0.5rem 1rem;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .partners-section {
+            padding: 0.75rem 0;
+        }
+        .partners-container {
+            padding: 0 0.75rem;
+            gap: 0.75rem;
+        }
+        .partner-badge {
+            width: 140px;
+            height: 60px;
+            padding: 0.4rem 0.75rem;
+        }
+    }
+
+    .key-features {
+        padding: 4rem 0;
+        background: rgba(255, 255, 255, 0.02);
+    }
+
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1rem;
+    }
+
+    .feature-card {
+        background: white;
+        border-radius: 1rem;
+        padding: 2rem;
+        text-align: center;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+    }
+
+    .feature-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .feature-icon {
+        width: 50px;
+        height: 50px;
+        margin-bottom: 1rem;
+        color: #1e293b;
+    }
+
+    .feature-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #1e293b;
+        margin-bottom: 0.5rem;
+    }
+
+    .feature-text {
+        font-size: 0.9rem;
+        color: #64748b;
+    }
+
+    /* Styles pour la section de description du master */
+    .master-description {
+        background: linear-gradient(135deg, rgba(30, 41, 59, 0.98) 0%, rgba(44, 82, 130, 0.98) 100%);
+        padding: 5rem 0;
+        color: white;
+    }
+
+    .master-description-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+    }
+
+    .master-description-header {
+        text-align: center;
+        margin-bottom: 4rem;
+    }
+
+    .master-description-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .master-description-subtitle {
+        font-size: 1.2rem;
+        color: rgba(255, 255, 255, 0.9);
+        max-width: 800px;
+        margin: 0 auto;
+        line-height: 1.6;
+    }
+
+    .master-features-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 3rem;
+        margin-top: 3rem;
+    }
+
+    .master-feature {
+        display: flex;
+        gap: 1.5rem;
+        align-items: flex-start;
+    }
+
+    .master-feature-icon {
+        font-size: 2rem;
+        color: #4a90e2;
+        background: rgba(255, 255, 255, 0.1);
+        padding: 1rem;
+        border-radius: 12px;
+        min-width: 4rem;
+        height: 4rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .master-feature-content {
+        flex: 1;
+    }
+
+    .master-feature-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 0.75rem;
+        color: #4a90e2;
+    }
+
+    .master-feature-text {
+        color: rgba(255, 255, 255, 0.8);
+        line-height: 1.6;
+        font-size: 1rem;
+    }
+
+    @media (max-width: 992px) {
+        .master-features-grid {
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+        
+        .master-description {
+            padding: 4rem 0;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .master-description-title {
+            font-size: 2rem;
+        }
+        
+        .master-feature {
+            flex-direction: column;
+            gap: 1rem;
+            text-align: center;
+        }
+
+        .master-feature-icon {
+            margin: 0 auto;
+        }
     }
 </style>
 {% endblock %}
 
 {% block content %}
-<section class="hero-section">
-    <div class="container">
-        <div class="hero-content">
-            <h1 class="hero-title">Master G2C</h1>
-            <p class="hero-text">Gestion d'Actifs, Contrôle des Risques et Conformité - Une formation d'excellence pour les futurs experts de la finance.</p>
-            <a href="{{ url_for('public.admissions') }}" class="cta-button">Candidater</a>
-        </div>
-    </div>
-    <div id="globe-container">
-        <iframe class="spline-iframe" src='https://my.spline.design/globe1-9c7a7c3c225ea7d8e2aaedd8fee45a6a/' frameborder='0'></iframe>
-    </div>
-</section>
-
-<div class="container">
-    <div class="row g-4 mb-5">
-        <div class="col-md-4">
-            <div class="feature-card text-center">
-                <div class="feature-icon">
-                    <i class="fas fa-chart-line fa-2x text-dark"></i>
-                </div>
-                <h3 class="feature-title">Gestion d'Actifs</h3>
-                <p class="feature-text">Maîtrisez les stratégies d'investissement et la gestion de portefeuille dans un environnement financier mondial.</p>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="feature-card text-center">
-                <div class="feature-icon">
-                    <i class="fas fa-shield-alt fa-2x text-dark"></i>
-                </div>
-                <h3 class="feature-title">Contrôle des Risques</h3>
-                <p class="feature-text">Développez une expertise pointue en gestion des risques financiers et en analyse quantitative.</p>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="feature-card text-center">
-                <div class="feature-icon">
-                    <i class="fas fa-balance-scale fa-2x text-dark"></i>
-                </div>
-                <h3 class="feature-title">Conformité</h3>
-                <p class="feature-text">Maîtrisez le cadre réglementaire et les meilleures pratiques de la conformité financière.</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="row mb-5">
-        <div class="col-lg-6 mb-4" data-aos="fade-up">
-            <div class="card border-0 shadow-sm h-100">
-                <div class="card-body p-4">
-                    <h2 class="h3 mb-4">Actualités</h2>
-                    <div class="d-flex mb-4 align-items-center">
-                        <div class="flex-shrink-0">
-                            <div class="rounded-circle bg-dark bg-opacity-10 p-3">
-                                <i class="fas fa-calendar text-dark"></i>
-                            </div>
-                        </div>
-                        <div class="flex-grow-1 ms-3">
-                            <h5 class="mb-1">Ouverture des Candidatures</h5>
-                            <p class="text-muted mb-0">Les candidatures pour la promotion 2024-2025 sont ouvertes.</p>
-                            <small class="text-dark">15 Mars 2024</small>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center">
-                        <div class="flex-shrink-0">
-                            <div class="rounded-circle bg-dark bg-opacity-10 p-3">
-                                <i class="fas fa-trophy text-dark"></i>
-                            </div>
-                        </div>
-                        <div class="flex-grow-1 ms-3">
-                            <h5 class="mb-1">Prix de l'Innovation Financière</h5>
-                            <p class="text-muted mb-0">Nos étudiants récompensés pour leur projet sur la finance durable.</p>
-                            <small class="text-dark">20 Mars 2024</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-            <div class="card border-0 shadow-sm h-100">
-                <div class="card-body p-4">
-                    <h2 class="h3 mb-4">Événements à venir</h2>
-                    <div class="timeline">
-                        <div class="d-flex mb-4">
-                            <div class="flex-shrink-0">
-                                <div class="rounded-circle bg-dark bg-opacity-10 p-3">
-                                    <i class="fas fa-user-tie text-dark"></i>
-                                </div>
-                            </div>
-                            <div class="flex-grow-1 ms-3">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <h5 class="mb-1">Conférence Risk Management</h5>
-                                    <span class="badge bg-dark">15 Mars</span>
-                                </div>
-                                <p class="text-muted mb-0">Intervention de professionnels sur les nouvelles approches du risque.</p>
-                            </div>
-                        </div>
-                        <div class="d-flex">
-                            <div class="flex-shrink-0">
-                                <div class="rounded-circle bg-dark bg-opacity-10 p-3">
-                                    <i class="fas fa-handshake text-dark"></i>
-                                </div>
-                            </div>
-                            <div class="flex-grow-1 ms-3">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <h5 class="mb-1">Forum Asset Management</h5>
-                                    <span class="badge bg-dark">22 Mars</span>
-                                </div>
-                                <p class="text-muted mb-0">Rencontrez les plus grandes sociétés de gestion.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row align-items-center mb-5">
-        <div class="col-lg-6" data-aos="fade-right">
-            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1350&q=80" 
-                 alt="Finance Professionnelle" class="img-fluid rounded-3 shadow-lg" style="height: 400px; width: 100%; object-fit: cover;">
-        </div>
-        <div class="col-lg-6" data-aos="fade-left">
-            <div class="p-4">
-                <h2 class="h3 mb-4">Pourquoi choisir le Master G2C ?</h2>
-                <div class="d-flex mb-3">
-                    <div class="flex-shrink-0">
-                        <i class="fas fa-check-circle text-dark me-2"></i>
-                    </div>
-                    <div>
-                        <h5 class="mb-1">Excellence académique</h5>
-                        <p class="text-muted mb-0">Formation reconnue par les professionnels du secteur financier.</p>
-                    </div>
-                </div>
-                <div class="d-flex mb-3">
-                    <div class="flex-shrink-0">
-                        <i class="fas fa-check-circle text-dark me-2"></i>
-                    </div>
-                    <div>
-                        <h5 class="mb-1">Expertise technique</h5>
-                        <p class="text-muted mb-0">Maîtrise des outils quantitatifs et des logiciels financiers.</p>
-                    </div>
-                </div>
-                <div class="d-flex">
-                    <div class="flex-shrink-0">
-                        <i class="fas fa-check-circle text-dark me-2"></i>
-                    </div>
-                    <div>
-                        <h5 class="mb-1">Insertion professionnelle</h5>
-                        <p class="text-muted mb-0">Plus de 95% d'insertion dans les 6 mois suivant le diplôme.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="container mb-5">
-        <div class="ranking-card">
-            <div class="ranking-badge">
-                <i class="fas fa-trophy text-primary"></i>
-                <span class="ranking-title">Meilleurs Masters</span>
-            </div>
-            <h2 class="ranking-heading">Masters Gestion des Risques Financiers & Conformité</h2>
-            <a href="#" class="ranking-button">
-                VOIR LE CLASSEMENT
-                <i class="fas fa-arrow-right"></i>
+<!-- Hero Section -->
+<div class="hero">
+    <div id="starfield"></div>
+    <div class="hero-content">
+        <h1 class="hero-title">Master G2C</h1>
+        <p class="hero-subtitle">Gestion d'Actifs, Contrôle des Risques et Conformité<br>Une formation d'excellence pour les futurs experts de la finance.</p>
+        <div class="badges-container">
+            <a href="https://www.iae.unicaen.fr/iup-bfa.php" class="iup-badge" target="_blank">
+                <i class="fas fa-university"></i>IUP Banque Finance Assurance - CAEN
+            </a>
+            <a href="https://meilleurs-masters.com/master-gestion-des-risques-financiers-compliance-conformite/iae-caen-master-gestion-d-actifs-controle-des-risques-et-conformite.html" class="eduniversal-container" target="_blank">
+                <img src="{{ url_for('static', filename='images/logo-eduniversal.jpeg') }}" alt="Eduniversal" class="eduniversal-logo">
+                <span class="eduniversal-text">Top 2 2024</span>
+            </a>
+            <a href="{{ url_for('public.admissions') }}" class="apply-button">
+                <i class="fas fa-paper-plane"></i>Candidater
             </a>
         </div>
     </div>
+    <div id="globe-container">
+        <canvas id="globe-canvas"></canvas>
+    </div>
+    <div class="breaking-news-container">
+        <div class="breaking-news-header">
+            <span>LIVE</span>
+            BREAKING NEWS
+        </div>
+        <div class="news-scroll news-scroll-1">
+            <span class="news-category">Master G2C :</span> Ouverture des inscriptions 2024 <span class="news-separator">•</span> 
+            <span class="highlight">Nouveau partenariat</span> avec l'université de Tokyo <span class="news-separator">•</span> 
+            <span class="number">95%</span> de taux d'insertion professionnelle <span class="news-separator">•</span> 
+            Visite des étudiants de Kansai Gaidai University le mois prochain
+        </div>
+        <div class="news-scroll news-scroll-2">
+            <span class="news-category">ÉCONOMIE :</span> La BCE maintient ses taux directeurs <span class="news-separator">•</span> 
+            L'inflation en zone euro atteint <span class="number">2.4%</span> <span class="news-separator">•</span> 
+            <span class="highlight">La croissance française</span> revue à la hausse pour 2024 <span class="news-separator">•</span> 
+            Les entreprises du CAC 40 affichent des résultats records
+        </div>
+        <div class="news-scroll news-scroll-3">
+            <span class="news-category indices">INDICES</span>
+            <span class="index-item">
+                <span class="index-name">CAC 40</span>
+                <span class="number positive">+0.8%</span>
+                <span class="number">7,680</span>
+            </span><span class="news-separator">•</span>
+            <span class="index-item">
+                <span class="index-name">S&P 500</span>
+                <span class="number positive">+0.4%</span>
+                <span class="number">5,150</span>
+            </span><span class="news-separator">•</span>
+            <span class="index-item">
+                <span class="index-name">Dow Jones</span>
+                <span class="number positive">+0.3%</span>
+                <span class="number">38,790</span>
+            </span><span class="news-separator">•</span>
+            <span class="index-item">
+                <span class="index-name">Nasdaq</span>
+                <span class="number positive">+0.7%</span>
+                <span class="number">16,248</span>
+            </span><span class="news-separator">•</span>
+            <span class="index-item">
+                <span class="index-name">Nikkei 225</span>
+                <span class="number positive">+1.2%</span>
+                <span class="number">39,098</span>
+            </span><span class="news-separator">•</span>
+            <span class="index-item">
+                <span class="index-name">DAX 40</span>
+                <span class="number positive">+0.5%</span>
+                <span class="number">17,850</span>
+            </span><span class="news-separator">•</span>
+            <span class="index-item">
+                <span class="index-name">FTSE 100</span>
+                <span class="number negative">-0.2%</span>
+                <span class="number">7,725</span>
+            </span><span class="news-separator">•</span>
+            <span class="index-item">
+                <span class="index-name">Shanghai</span>
+                <span class="number positive">+0.6%</span>
+                <span class="number">3,045</span>
+            </span><span class="news-separator">•</span>
+            <span class="index-item">
+                <span class="index-name">Hang Seng</span>
+                <span class="number positive">+1.1%</span>
+                <span class="number">16,720</span>
+            </span><span class="news-separator">•</span>
+            <span class="index-item">
+                <span class="index-name">Euro Stoxx 50</span>
+                <span class="number positive">+0.4%</span>
+                <span class="number">4,885</span>
+            </span>
+        </div>
+    </div>
+</div>
 
-    <div class="bg-light py-5">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-8 text-center" data-aos="fade-up">
-                    <h2 class="h3 mb-4">Prêt à rejoindre l'élite de la finance ?</h2>
-                    <p class="lead text-muted mb-4">Formez-vous aux métiers de la gestion d'actifs, du risque et de la conformité.</p>
-                    <a href="{{ url_for('public.formations') }}" class="btn btn-dark btn-lg">
-                        Découvrir le programme
-                    </a>
+<!-- Section Partenaires -->
+<div class="partners-section">
+    <div class="partners-container">
+        <div class="partner-badge">
+            <img src="{{ url_for('static', filename='images/AFG.png') }}" alt="AFG" class="partner-logo">
+        </div>
+        <div class="partner-badge">
+            <img src="{{ url_for('static', filename='images/France post marché.png') }}" alt="France Post Marché" class="partner-logo">
+        </div>
+        <div class="partner-badge">
+            <img src="{{ url_for('static', filename='images/CFA.png') }}" alt="CFA" class="partner-logo">
+        </div>
+        <div class="partner-badge">
+            <img src="{{ url_for('static', filename='images/Bloomberg.png') }}" alt="Bloomberg" class="partner-logo">
+        </div>
+    </div>
+</div>
+
+<!-- Caractéristiques du Programme -->
+<section class="key-features">
+    <div class="features-grid">
+        <div class="info-card">
+            <div class="info-icon">
+                <i class="fas fa-graduation-cap"></i>
+            </div>
+            <h3>ECTS</h3>
+            <p>120 crédits</p>
+            <p class="info-detail">Formation complète sur 4 semestres</p>
+        </div>
+
+        <div class="info-card">
+            <div class="info-icon">
+                <i class="fas fa-clock"></i>
+            </div>
+            <h3>Durée</h3>
+            <p>2 ans</p>
+            <p class="info-detail">Formation initiale à temps plein</p>
+        </div>
+
+        <div class="info-card">
+            <div class="info-icon">
+                <i class="fas fa-university"></i>
+            </div>
+            <h3>Institution</h3>
+            <p>IAE de Caen</p>
+            <p class="info-detail">Master Finance parcours G2C</p>
+        </div>
+
+        <div class="info-card">
+            <div class="info-icon">
+                <i class="fas fa-award"></i>
+            </div>
+            <h3>Diplôme</h3>
+            <p>Master 2 Finance</p>
+            <p class="info-detail">Grade Master - Diplôme d'État Bac+5</p>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials -->
+<section class="testimonial-section mt-5">
+    <div class="container">
+        <h2 class="text-center mb-5">Témoignages</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="testimonial-card">
+                    <p>"Une formation complète qui m'a ouvert les portes du monde professionnel."</p>
+                    <div class="d-flex align-items-center mt-3">
+                        <div>
+                            <h5 class="mb-0">Jean Dupont</h5>
+                            <small>Promotion 2022</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="testimonial-card">
+                    <p>"L'alternance m'a permis d'acquérir une vraie expérience professionnelle."</p>
+                    <div class="d-flex align-items-center mt-3">
+                        <div>
+                            <h5 class="mb-0">Marie Martin</h5>
+                            <small>Promotion 2023</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="testimonial-card">
+                    <p>"Des intervenants de qualité et un contenu pédagogique pertinent."</p>
+                    <div class="d-flex align-items-center mt-3">
+                        <div>
+                            <h5 class="mb-0">Pierre Durand</h5>
+                            <small>Promotion 2021</small>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+</section>
+
+<!-- Floating Button -->
+<a href="#" class="floating-btn">
+    <i class="fas fa-paper-plane fa-lg"></i>
+</a>
+
+<script>
+    // Création du fond étoilé
+    function createStarfield() {
+        const starfield = document.getElementById('starfield');
+        const numberOfStars = 200;
+
+        for (let i = 0; i < numberOfStars; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            
+            // Position aléatoire
+            const x = Math.random() * 100;
+            const y = Math.random() * 100;
+            
+            // Taille aléatoire entre 1 et 3 pixels
+            const size = Math.random() * 2 + 1;
+            
+            // Durée de scintillement aléatoire
+            const twinkleDuration = Math.random() * 3 + 2 + 's';
+            
+            star.style.cssText = `
+                left: ${x}%;
+                top: ${y}%;
+                width: ${size}px;
+                height: ${size}px;
+                opacity: ${Math.random() * 0.8 + 0.2};
+                --twinkle-duration: ${twinkleDuration};
+            `;
+            
+            starfield.appendChild(star);
+        }
+    }
+
+    // Création du globe
+    const container = document.getElementById('globe-container');
+    const renderer = new THREE.WebGLRenderer({
+        canvas: document.getElementById('globe-canvas'),
+        antialias: true,
+        alpha: true
+    });
+
+    // Set size based on container dimensions
+    const size = Math.min(container.offsetWidth, container.offsetHeight);
+    renderer.setSize(size, size);
+    renderer.setPixelRatio(window.devicePixelRatio);
+
+    // Create scene and camera with correct aspect ratio
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
+
+    // Function to convert latitude/longitude to 3D coordinates
+    function latLongToVector3(lat, lon, radius) {
+        const phi = (90 - lat) * (Math.PI / 180);
+        const theta = (lon + 180) * (Math.PI / 180);
+        
+        // Inversion des coordonnées pour correspondre à l'orientation du globe
+        const x = -radius * Math.sin(phi) * Math.cos(theta);
+        const y = radius * Math.cos(phi);
+        const z = -radius * Math.sin(phi) * Math.sin(theta);
+        
+        return new THREE.Vector3(x, y, z);
+    }
+
+    // Create Earth
+    const earthGeometry = new THREE.SphereGeometry(5, 96, 96);
+    const earthMaterial = new THREE.MeshPhongMaterial({
+        map: new THREE.TextureLoader().load("{{ url_for('static', filename='images/1_earth_8k.jpg') }}"),
+        bumpScale: 0.05,
+    });
+    const earthMesh = new THREE.Mesh(earthGeometry, earthMaterial);
+    earthMesh.rotation.y = -Math.PI / 1.8; // Rotation initiale vers la gauche
+    earthMesh.rotation.x = Math.PI / 6; // Inclinaison vers le haut
+    scene.add(earthMesh);
+
+    // Create marker for France (Caen)
+    const markerGeometry = new THREE.SphereGeometry(0.12, 32, 32);
+    const markerMaterial = new THREE.MeshPhongMaterial({ 
+        color: 0x000000,
+        emissive: 0x000000,
+        emissiveIntensity: 0.8,
+        transparent: true,
+        opacity: 0.9,
+        shininess: 100,
+        specular: 0xffffff
+    });
+    const franceMaker = new THREE.Mesh(markerGeometry, markerMaterial);
+
+    // Création d'un halo autour du marqueur
+    const glowGeometry = new THREE.SphereGeometry(0.18, 32, 32);
+    const glowMaterial = new THREE.MeshBasicMaterial({
+        color: 0x000000,
+        transparent: true,
+        opacity: 0.15,
+        side: THREE.BackSide
+    });
+    const glowMesh = new THREE.Mesh(glowGeometry, glowMaterial);
+    franceMaker.add(glowMesh);
+
+    // Position the marker (Caen: 49.1829° N, -0.3707° O)
+    const markerPosition = latLongToVector3(49.1829, -0.3707, 5.05);
+    franceMaker.position.copy(markerPosition);
+    
+    // Attacher le marqueur à la Terre au lieu de la scène
+    earthMesh.add(franceMaker);
+    
+    // Ajout d'un halo lumineux
+    const markerLight = new THREE.PointLight(0x000000, 2, 3);
+    markerLight.position.copy(markerPosition);
+    earthMesh.add(markerLight); // Attacher aussi la lumière à la Terre
+
+    // Create marker for Fribourg
+    const friburgMarkerGeometry = new THREE.SphereGeometry(0.12, 32, 32);
+    const friburgMarkerMaterial = new THREE.MeshPhongMaterial({ 
+        color: 0xFF0000,
+        emissive: 0xFF0000,
+        emissiveIntensity: 0.8,
+        transparent: true,
+        opacity: 0.9,
+        shininess: 100,
+        specular: 0xffffff
+    });
+    const friburgMarker = new THREE.Mesh(friburgMarkerGeometry, friburgMarkerMaterial);
+    const friburgGlowGeometry = new THREE.SphereGeometry(0.18, 32, 32);
+    const friburgGlowMaterial = new THREE.MeshBasicMaterial({
+        color: 0xFF0000,
+        transparent: true,
+        opacity: 0.15,
+        side: THREE.BackSide
+    });
+    const friburgGlowMesh = new THREE.Mesh(friburgGlowGeometry, friburgGlowMaterial);
+    friburgMarker.add(friburgGlowMesh);
+    const friburgPosition = latLongToVector3(46.8, -7, 5.05); // Coordonnées de Fribourg
+    friburgMarker.position.copy(friburgPosition);
+    earthMesh.add(friburgMarker);
+
+    const friburgTextSprite = new THREE.Sprite(
+        new THREE.SpriteMaterial({
+            map: createTextTexture("Albert-Ludwigs-Universität Freiburg"),
+            transparent: true,
+            opacity: 0,
+            depthTest: false,
+            sizeAttenuation: false
+        })
+    );
+    friburgTextSprite.scale.set(0.7, 0.35, 1);
+    friburgTextSprite.position.set(0.6, 0.1, 0);
+    friburgMarker.add(friburgTextSprite);
+
+    // Create marker for Incheon
+    const incheonMarkerGeometry = new THREE.SphereGeometry(0.12, 32, 32);
+    const incheonMarkerMaterial = new THREE.MeshPhongMaterial({ 
+        color: 0xFF0000,
+        emissive: 0xFF0000,
+        emissiveIntensity: 0.8,
+        transparent: true,
+        opacity: 0.9,
+        shininess: 100,
+        specular: 0xffffff
+    });
+    const incheonMarker = new THREE.Mesh(incheonMarkerGeometry, incheonMarkerMaterial);
+    const incheonGlowGeometry = new THREE.SphereGeometry(0.18, 32, 32);
+    const incheonGlowMaterial = new THREE.MeshBasicMaterial({
+        color: 0xFF0000,
+        transparent: true,
+        opacity: 0.15,
+        side: THREE.BackSide
+    });
+    const incheonGlowMesh = new THREE.Mesh(incheonGlowGeometry, incheonGlowMaterial);
+    incheonMarker.add(incheonGlowMesh);
+    const incheonPosition = latLongToVector3(37.4563, 233.7052, 5.05);
+    incheonMarker.position.copy(incheonPosition);
+    earthMesh.add(incheonMarker);
+
+    const incheonTextSprite = new THREE.Sprite(
+        new THREE.SpriteMaterial({
+            map: createTextTexture("인천대학교 (Université d'Incheon)"),
+            transparent: true,
+            opacity: 0,
+            depthTest: false,
+            sizeAttenuation: false
+        })
+    );
+    incheonTextSprite.scale.set(0.7, 0.35, 1);
+    incheonTextSprite.position.set(0.6, 0.1, 0);
+    incheonMarker.add(incheonTextSprite);
+
+    // Create marker for Xiamen (copie d'Incheon)
+    const xiamenMarkerGeometry = new THREE.SphereGeometry(0.12, 32, 32);
+    const xiamenMarkerMaterial = new THREE.MeshPhongMaterial({ 
+        color: 0xFF0000,
+        emissive: 0xFF0000,
+        emissiveIntensity: 0.8,
+        transparent: true,
+        opacity: 0.9,
+        shininess: 100,
+        specular: 0xffffff
+    });
+    const xiamenMarker = new THREE.Mesh(xiamenMarkerGeometry, xiamenMarkerMaterial);
+    const xiamenGlowGeometry = new THREE.SphereGeometry(0.18, 32, 32);
+    const xiamenGlowMaterial = new THREE.MeshBasicMaterial({
+        color: 0xFF0000,
+        transparent: true,
+        opacity: 0.15,
+        side: THREE.BackSide
+    });
+    const xiamenGlowMesh = new THREE.Mesh(xiamenGlowGeometry, xiamenGlowMaterial);
+    xiamenMarker.add(xiamenGlowMesh);
+    const xiamenPosition = latLongToVector3(24.4798, 241.2052, 5.05); // Coordonnées de Xiamen
+    xiamenMarker.position.copy(xiamenPosition);
+    earthMesh.add(xiamenMarker);
+
+    const xiamenTextSprite = new THREE.Sprite(
+        new THREE.SpriteMaterial({
+            map: createTextTexture("厦门大学 (Université de Xiamen)"),
+            transparent: true,
+            opacity: 0,
+            depthTest: false,
+            sizeAttenuation: false
+        })
+    );
+    xiamenTextSprite.scale.set(0.7, 0.35, 1);
+    xiamenTextSprite.position.set(0.6, 0.1, 0);
+    xiamenMarker.add(xiamenTextSprite);
+
+    // Create marker for Beijing
+    const beijingMarkerGeometry = new THREE.SphereGeometry(0.12, 32, 32);
+    const beijingMarkerMaterial = new THREE.MeshPhongMaterial({ 
+        color: 0xFF0000,
+        emissive: 0xFF0000,
+        emissiveIntensity: 0.8,
+        transparent: true,
+        opacity: 0.9,
+        shininess: 100,
+        specular: 0xffffff
+    });
+    const beijingMarker = new THREE.Mesh(beijingMarkerGeometry, beijingMarkerMaterial);
+    const beijingGlowGeometry = new THREE.SphereGeometry(0.18, 32, 32);
+    const beijingGlowMaterial = new THREE.MeshBasicMaterial({
+        color: 0xFF0000,
+        transparent: true,
+        opacity: 0.15,
+        side: THREE.BackSide
+    });
+    const beijingGlowMesh = new THREE.Mesh(beijingGlowGeometry, beijingGlowMaterial);
+    beijingMarker.add(beijingGlowMesh);
+    const beijingPosition = latLongToVector3(39.9385, 241.2052, 5.05); // Coordonnées de Beijing
+    beijingMarker.position.copy(beijingPosition);
+    earthMesh.add(beijingMarker);
+
+    const beijingTextSprite = new THREE.Sprite(
+        new THREE.SpriteMaterial({
+            map: createTextTexture("Beijing Language University"),
+            transparent: true,
+            opacity: 0,
+            depthTest: false,
+            sizeAttenuation: false
+        })
+    );
+    beijingTextSprite.scale.set(0.7, 0.35, 1);
+    beijingTextSprite.position.set(0.6, 0.1, 0);
+    beijingMarker.add(beijingTextSprite);
+
+    // Create marker for Madrid
+    const madridMarkerGeometry = new THREE.SphereGeometry(0.12, 32, 32);
+    const madridMarkerMaterial = new THREE.MeshPhongMaterial({ 
+        color: 0xFF0000,
+        emissive: 0xFF0000,
+        emissiveIntensity: 0.8,
+        transparent: true,
+        opacity: 0.9,
+        shininess: 100,
+        specular: 0xffffff
+    });
+    const madridMarker = new THREE.Mesh(madridMarkerGeometry, madridMarkerMaterial);
+    const madridGlowGeometry = new THREE.SphereGeometry(0.18, 32, 32);
+    const madridGlowMaterial = new THREE.MeshBasicMaterial({
+        color: 0xFF0000,
+        transparent: true,
+        opacity: 0.15,
+        side: THREE.BackSide
+    });
+    const madridGlowMesh = new THREE.Mesh(madridGlowGeometry, madridGlowMaterial);
+    madridMarker.add(madridGlowMesh);
+    const madridPosition = latLongToVector3(40.4168, 3.7962, 5.05);
+    madridMarker.position.copy(madridPosition);
+    earthMesh.add(madridMarker);
+
+    const madridTextSprite = new THREE.Sprite(
+        new THREE.SpriteMaterial({
+            map: createTextTexture("Universidad Autónoma de Madrid"),
+            transparent: true,
+            opacity: 0,
+            depthTest: false,
+            sizeAttenuation: false
+        })
+    );
+    madridTextSprite.scale.set(0.7, 0.35, 1);
+    madridTextSprite.position.set(0.6, 0.1, 0);
+    madridMarker.add(madridTextSprite);
+
+    // Create marker for Seville
+    const sevilleMarkerGeometry = new THREE.SphereGeometry(0.12, 32, 32);
+    const sevilleMarkerMaterial = new THREE.MeshPhongMaterial({ 
+        color: 0xFF0000,
+        emissive: 0xFF0000,
+        emissiveIntensity: 0.8,
+        transparent: true,
+        opacity: 0.9,
+        shininess: 100,
+        specular: 0xffffff
+    });
+    const sevilleMarker = new THREE.Mesh(sevilleMarkerGeometry, sevilleMarkerMaterial);
+    const sevilleGlowGeometry = new THREE.SphereGeometry(0.18, 32, 32);
+    const sevilleGlowMaterial = new THREE.MeshBasicMaterial({
+        color: 0xFF0000,
+        transparent: true,
+        opacity: 0.15,
+        side: THREE.BackSide
+    });
+    const sevilleGlowMesh = new THREE.Mesh(sevilleGlowGeometry, sevilleGlowMaterial);
+    sevilleMarker.add(sevilleGlowMesh);
+    const sevillePosition = latLongToVector3(37.3891, 7.0155, 5.05);
+    sevilleMarker.position.copy(sevillePosition);
+    earthMesh.add(sevilleMarker);
+
+    const sevilleTextSprite = new THREE.Sprite(
+        new THREE.SpriteMaterial({
+            map: createTextTexture("Universidad de Sevilla"),
+            transparent: true,
+            opacity: 0,
+            depthTest: false,
+            sizeAttenuation: false
+        })
+    );
+    sevilleTextSprite.scale.set(0.7, 0.35, 1);
+    sevilleTextSprite.position.set(0.6, 0.1, 0);
+    sevilleMarker.add(sevilleTextSprite);
+
+    // Create marker for Würzburg
+    const wurzburgMarkerGeometry = new THREE.SphereGeometry(0.12, 32, 32);
+    const wurzburgMarkerMaterial = new THREE.MeshPhongMaterial({ 
+        color: 0xFF0000,
+        emissive: 0xFF0000,
+        emissiveIntensity: 0.8,
+        transparent: true,
+        opacity: 0.9,
+        shininess: 100,
+        specular: 0xffffff
+    });
+    const wurzburgMarker = new THREE.Mesh(wurzburgMarkerGeometry, wurzburgMarkerMaterial);
+    const wurzburgGlowGeometry = new THREE.SphereGeometry(0.18, 32, 32);
+    const wurzburgGlowMaterial = new THREE.MeshBasicMaterial({
+        color: 0xFF0000,
+        transparent: true,
+        opacity: 0.15,
+        side: THREE.BackSide
+    });
+    const wurzburgGlowMesh = new THREE.Mesh(wurzburgGlowGeometry, wurzburgGlowMaterial);
+    wurzburgMarker.add(wurzburgGlowMesh);
+    const wurzburgPosition = latLongToVector3(49.7913, -11, 5.05);
+    wurzburgMarker.position.copy(wurzburgPosition);
+    earthMesh.add(wurzburgMarker);
+
+    const wurzburgTextSprite = new THREE.Sprite(
+        new THREE.SpriteMaterial({
+            map: createTextTexture("Julius-Maximilians-Universität Würzburg"),
+            transparent: true,
+            opacity: 0,
+            depthTest: false,
+            sizeAttenuation: false
+        })
+    );
+    wurzburgTextSprite.scale.set(0.7, 0.35, 1);
+    wurzburgTextSprite.position.set(0.6, 0.1, 0);
+    wurzburgMarker.add(wurzburgTextSprite);
+
+    // Create marker for Würzburg 2
+    const wurzburg2MarkerGeometry = new THREE.SphereGeometry(0.12, 32, 32);
+    const wurzburg2MarkerMaterial = new THREE.MeshPhongMaterial({ 
+        color: 0xFF0000,
+        emissive: 0xFF0000,
+        emissiveIntensity: 0.8,
+        transparent: true,
+        opacity: 0.9,
+        shininess: 100,
+        specular: 0xffffff
+    });
+    const wurzburg2Marker = new THREE.Mesh(wurzburg2MarkerGeometry, wurzburg2MarkerMaterial);
+    const wurzburg2GlowGeometry = new THREE.SphereGeometry(0.18, 32, 32);
+    const wurzburg2GlowMaterial = new THREE.MeshBasicMaterial({
+        color: 0xFF0000,
+        transparent: true,
+        opacity: 0.15,
+        side: THREE.BackSide
+    });
+    const wurzburg2GlowMesh = new THREE.Mesh(wurzburg2GlowGeometry, wurzburg2GlowMaterial);
+    wurzburg2Marker.add(wurzburg2GlowMesh);
+    const wurzburg2Position = latLongToVector3(36.8341, 2.0, 5.0); // Coordonnées d'Alméria
+    wurzburg2Marker.position.copy(wurzburg2Position);
+    earthMesh.add(wurzburg2Marker);
+
+    const wurzburg2TextSprite = new THREE.Sprite(
+        new THREE.SpriteMaterial({
+            map: createTextTexture("Université d'Alméria"),
+            transparent: true,
+            opacity: 0,
+            depthTest: false,
+            sizeAttenuation: false
+        })
+    );
+    wurzburg2TextSprite.scale.set(0.7, 0.35, 1);
+    wurzburg2TextSprite.position.set(0.6, 0.1, 0);
+    wurzburg2Marker.add(wurzburg2TextSprite);
+
+    // Create marker for Carthage
+    const carthageMarkerGeometry = new THREE.SphereGeometry(0.12, 32, 32);
+    const carthageMarkerMaterial = new THREE.MeshPhongMaterial({ 
+        color: 0xFF0000,
+        emissive: 0xFF0000,
+        emissiveIntensity: 0.8,
+        transparent: true,
+        opacity: 0.9,
+        shininess: 100,
+        specular: 0xffffff
+    });
+    const carthageMarker = new THREE.Mesh(carthageMarkerGeometry, carthageMarkerMaterial);
+    const carthageGlowGeometry = new THREE.SphereGeometry(0.18, 32, 32);
+    const carthageGlowMaterial = new THREE.MeshBasicMaterial({
+        color: 0xFF0000,
+        transparent: true,
+        opacity: 0.15,
+        side: THREE.BackSide
+    });
+    const carthageGlowMesh = new THREE.Mesh(carthageGlowGeometry, carthageGlowMaterial);
+    carthageMarker.add(carthageGlowMesh);
+    const carthagePosition = latLongToVector3(37.6019, -0.3, 5.05);
+    carthageMarker.position.copy(carthagePosition);
+    earthMesh.add(carthageMarker);
+
+    const carthageTextSprite = new THREE.Sprite(
+        new THREE.SpriteMaterial({
+            map: createTextTexture("Universidad de Cartagena"),
+            transparent: true,
+            opacity: 0,
+            depthTest: false,
+            sizeAttenuation: false
+        })
+    );
+    carthageTextSprite.scale.set(0.7, 0.35, 1);
+    carthageTextSprite.position.set(0.6, 0.1, 0);
+    carthageMarker.add(carthageTextSprite);
+
+    // Create marker for Texas A&M
+    const texasMarkerGeometry = new THREE.SphereGeometry(0.12, 32, 32);
+    const texasMarkerMaterial = new THREE.MeshPhongMaterial({ 
+        color: 0xFF0000,
+        emissive: 0xFF0000,
+        emissiveIntensity: 0.8,
+        transparent: true,
+        opacity: 0.9,
+        shininess: 100,
+        specular: 0xffffff
+    });
+    const texasMarker = new THREE.Mesh(texasMarkerGeometry, texasMarkerMaterial);
+    const texasGlowGeometry = new THREE.SphereGeometry(0.18, 32, 32);
+    const texasGlowMaterial = new THREE.MeshBasicMaterial({
+        color: 0xFF0000,
+        transparent: true,
+        opacity: 0.15,
+        side: THREE.BackSide
+    });
+    const texasGlowMesh = new THREE.Mesh(texasGlowGeometry, texasGlowMaterial);
+    texasMarker.add(texasGlowMesh);
+    const texasPosition = latLongToVector3(30.6188, -264.3365, 5.05);
+    texasMarker.position.copy(texasPosition);
+    earthMesh.add(texasMarker);
+
+    const texasTextSprite = new THREE.Sprite(
+        new THREE.SpriteMaterial({
+            map: createTextTexture("Texas A&M University"),
+            transparent: true,
+            opacity: 0,
+            depthTest: false,
+            sizeAttenuation: false
+        })
+    );
+    texasTextSprite.scale.set(0.7, 0.35, 1);
+    texasTextSprite.position.set(0.6, 0.1, 0);
+    texasMarker.add(texasTextSprite);
+
+    // Create marker for Wisconsin (copie du Texas avec latitude plus élevée)
+    const wisconsinMarkerGeometry = new THREE.SphereGeometry(0.12, 32, 32);
+    const wisconsinMarkerMaterial = new THREE.MeshPhongMaterial({ 
+        color: 0xFF0000,
+        emissive: 0xFF0000,
+        emissiveIntensity: 0.8,
+        transparent: true,
+        opacity: 0.9,
+        shininess: 100,
+        specular: 0xffffff
+    });
+    const wisconsinMarker = new THREE.Mesh(wisconsinMarkerGeometry, wisconsinMarkerMaterial);
+    const wisconsinGlowGeometry = new THREE.SphereGeometry(0.18, 32, 32);
+    const wisconsinGlowMaterial = new THREE.MeshBasicMaterial({
+        color: 0xFF0000,
+        transparent: true,
+        opacity: 0.15,
+        side: THREE.BackSide
+    });
+    const wisconsinGlowMesh = new THREE.Mesh(wisconsinGlowGeometry, wisconsinGlowMaterial);
+    wisconsinMarker.add(wisconsinGlowMesh);
+    const wisconsinPosition = latLongToVector3(43.0766, -269.4125, 5.05);
+    wisconsinMarker.position.copy(wisconsinPosition);
+    earthMesh.add(wisconsinMarker);
+
+    const wisconsinTextSprite = new THREE.Sprite(
+        new THREE.SpriteMaterial({
+            map: createTextTexture("University of Wisconsin"),
+            transparent: true,
+            opacity: 0,
+            depthTest: false,
+            sizeAttenuation: false
+        })
+    );
+    wisconsinTextSprite.scale.set(0.7, 0.35, 1);
+    wisconsinTextSprite.position.set(0.6, 0.1, 0);
+    wisconsinMarker.add(wisconsinTextSprite);
+
+    // Create marker for Kansai Gaidai
+    const kansaiMarkerGeometry = new THREE.SphereGeometry(0.12, 32, 32);
+    const kansaiMarkerMaterial = new THREE.MeshPhongMaterial({ 
+        color: 0xFF0000,
+        emissive: 0xFF0000,
+        emissiveIntensity: 0.8,
+        transparent: true,
+        opacity: 0.9,
+        shininess: 100,
+        specular: 0xffffff
+    });
+    const kansaiMarker = new THREE.Mesh(kansaiMarkerGeometry, kansaiMarkerMaterial);
+    const kansaiGlowGeometry = new THREE.SphereGeometry(0.18, 32, 32);
+    const kansaiGlowMaterial = new THREE.MeshBasicMaterial({
+        color: 0xFF0000,
+        transparent: true,
+        opacity: 0.15,
+        side: THREE.BackSide
+    });
+    const kansaiGlowMesh = new THREE.Mesh(kansaiGlowGeometry, kansaiGlowMaterial);
+    kansaiMarker.add(kansaiGlowMesh);
+    const kansaiPosition = latLongToVector3(34.8136, 226.2052, 5.05); // Coordonnées de Kansai
+    kansaiMarker.position.copy(kansaiPosition);
+    earthMesh.add(kansaiMarker);
+
+    const kansaiTextSprite = new THREE.Sprite(
+        new THREE.SpriteMaterial({
+            map: createTextTexture("Kansai Gaidai University"),
+            transparent: true,
+            opacity: 0,
+            depthTest: false,
+            sizeAttenuation: false
+        })
+    );
+    kansaiTextSprite.scale.set(0.7, 0.35, 1);
+    kansaiTextSprite.position.set(0.6, 0.1, 0);
+    kansaiMarker.add(kansaiTextSprite);
+
+    // Create marker for Luxembourg
+    const luxembourgMarkerGeometry = new THREE.SphereGeometry(0.12, 32, 32);
+    const luxembourgMarkerMaterial = new THREE.MeshPhongMaterial({ 
+        color: 0xFF0000,
+        emissive: 0xFF0000,
+        emissiveIntensity: 0.8,
+        transparent: true,
+        opacity: 0.9,
+        shininess: 100,
+        specular: 0xffffff
+    });
+    const luxembourgMarker = new THREE.Mesh(luxembourgMarkerGeometry, luxembourgMarkerMaterial);
+    const luxembourgGlowGeometry = new THREE.SphereGeometry(0.18, 32, 32);
+    const luxembourgGlowMaterial = new THREE.MeshBasicMaterial({
+        color: 0xFF0000,
+        transparent: true,
+        opacity: 0.15,
+        side: THREE.BackSide
+    });
+    const luxembourgGlowMesh = new THREE.Mesh(luxembourgGlowGeometry, luxembourgGlowMaterial);
+    luxembourgMarker.add(luxembourgGlowMesh);
+    const luxembourgPosition = latLongToVector3(49.6233, -3.8203, 5.0); // Coordonnées de Luxembourg
+    luxembourgMarker.position.copy(luxembourgPosition);
+    earthMesh.add(luxembourgMarker);
+
+    const luxembourgTextSprite = new THREE.Sprite(
+        new THREE.SpriteMaterial({
+            map: createTextTexture("Université du Luxembourg"),
+            transparent: true,
+            opacity: 0,
+            depthTest: false,
+            sizeAttenuation: false
+        })
+    );
+    luxembourgTextSprite.scale.set(0.7, 0.35, 1);
+    luxembourgTextSprite.position.set(0.6, 0.1, 0);
+    luxembourgMarker.add(luxembourgTextSprite);
+
+    // Create marker for Cluj-Napoca
+    const clujMarkerGeometry = new THREE.SphereGeometry(0.12, 32, 32);
+    const clujMarkerMaterial = new THREE.MeshPhongMaterial({ 
+        color: 0xFF0000,
+        emissive: 0xFF0000,
+        emissiveIntensity: 0.8,
+        transparent: true,
+        opacity: 0.9,
+        shininess: 100,
+        specular: 0xffffff
+    });
+    const clujMarker = new THREE.Mesh(clujMarkerGeometry, clujMarkerMaterial);
+    const clujGlowGeometry = new THREE.SphereGeometry(0.18, 32, 32);
+    const clujGlowMaterial = new THREE.MeshBasicMaterial({
+        color: 0xFF0000,
+        transparent: true,
+        opacity: 0.15,
+        side: THREE.BackSide
+    });
+    const clujGlowMesh = new THREE.Mesh(clujGlowGeometry, clujGlowMaterial);
+    clujMarker.add(clujGlowMesh);
+    const clujPosition = latLongToVector3(46.7712, -22.3764, 5.0); // Coordonnées de Cluj-Napoca
+    clujMarker.position.copy(clujPosition);
+    earthMesh.add(clujMarker);
+
+    const clujTextSprite = new THREE.Sprite(
+        new THREE.SpriteMaterial({
+            map: createTextTexture("Universitatea Babeș-Bolyai"),
+            transparent: true,
+            opacity: 0,
+            depthTest: false,
+            sizeAttenuation: false
+        })
+    );
+    clujTextSprite.scale.set(0.7, 0.35, 1);
+    clujTextSprite.position.set(0.6, 0.1, 0);
+    clujMarker.add(clujTextSprite);
+
+    // Create marker for Oslo 2
+    const oslo2MarkerGeometry = new THREE.SphereGeometry(0.12, 32, 32);
+    const oslo2MarkerMaterial = new THREE.MeshPhongMaterial({ 
+        color: 0xFF0000,
+        emissive: 0xFF0000,
+        emissiveIntensity: 0.8,
+        transparent: true,
+        opacity: 0.9,
+        shininess: 100,
+        specular: 0xffffff
+    });
+    const oslo2Marker = new THREE.Mesh(oslo2MarkerGeometry, oslo2MarkerMaterial);
+    const oslo2GlowGeometry = new THREE.SphereGeometry(0.18, 32, 32);
+    const oslo2GlowMaterial = new THREE.MeshBasicMaterial({
+        color: 0xFF0000,
+        transparent: true,
+        opacity: 0.15,
+        side: THREE.BackSide
+    });
+    const oslo2GlowMesh = new THREE.Mesh(oslo2GlowGeometry, oslo2GlowMaterial);
+    oslo2Marker.add(oslo2GlowMesh);
+    const oslo2Position = latLongToVector3(59.9139, -10.2478, 5.0); // Longitude réduite de 2 degrés supplémentaires
+    oslo2Marker.position.copy(oslo2Position);
+    earthMesh.add(oslo2Marker);
+
+    const oslo2TextSprite = new THREE.Sprite(
+        new THREE.SpriteMaterial({
+            map: createTextTexture("Universitetet i Oslo"),
+            transparent: true,
+            opacity: 0,
+            depthTest: false,
+            sizeAttenuation: false
+        })
+    );
+    oslo2TextSprite.scale.set(0.7, 0.35, 1);
+    oslo2TextSprite.position.set(0.6, 0.1, 0);
+    oslo2Marker.add(oslo2TextSprite);
+
+    // Create marker for Oslo 3
+    const oslo3MarkerGeometry = new THREE.SphereGeometry(0.12, 32, 32);
+    const oslo3MarkerMaterial = new THREE.MeshPhongMaterial({ 
+        color: 0xFF0000,
+        emissive: 0xFF0000,
+        emissiveIntensity: 0.8,
+        transparent: true,
+        opacity: 0.9,
+        shininess: 100,
+        specular: 0xffffff
+    });
+    const oslo3Marker = new THREE.Mesh(oslo3MarkerGeometry, oslo3MarkerMaterial);
+    const oslo3GlowGeometry = new THREE.SphereGeometry(0.18, 32, 32);
+    const oslo3GlowMaterial = new THREE.MeshBasicMaterial({
+        color: 0xFF0000,
+        transparent: true,
+        opacity: 0.15,
+        side: THREE.BackSide
+    });
+    const oslo3GlowMesh = new THREE.Mesh(oslo3GlowGeometry, oslo3GlowMaterial);
+    oslo3Marker.add(oslo3GlowMesh);
+    const oslo3Position = latLongToVector3(14.0717, -100.0, 5.0); // Coordonnées de Thammasat
+    oslo3Marker.position.copy(oslo3Position);
+    earthMesh.add(oslo3Marker);
+
+    const oslo3TextSprite = new THREE.Sprite(
+        new THREE.SpriteMaterial({
+            map: createTextTexture("Thammasat University"),
+            transparent: true,
+            opacity: 0,
+            depthTest: false,
+            sizeAttenuation: false
+        })
+    );
+    oslo3TextSprite.scale.set(0.7, 0.35, 1);
+    oslo3TextSprite.position.set(0.6, 0.1, 0);
+    oslo3Marker.add(oslo3TextSprite);
+
+    camera.position.z = 10;
+
+    // Variables for drag rotation
+    let isDragging = false;
+    let previousMousePosition = {
+        x: 0,
+        y: 0
+    };
+    let rotationSpeed = 0.001;
+    let autoRotate = true;
+
+    // Variables for smooth transitions
+    let currentRotationSpeed = rotationSpeed;
+    let targetRotationSpeed = rotationSpeed;
+    let manualRotationSpeed = {
+        x: 0,
+        y: 0
+    };
+
+    // Fonction d'interpolation (lerp)
+    function lerp(start, end, factor) {
+        return start + (end - start) * factor;
+    }
+
+    // Mouse events for drag rotation
+    document.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        autoRotate = false;
+        previousMousePosition = {
+            x: e.clientX,
+            y: e.clientY
+        };
+        manualRotationSpeed = {
+            x: 0,
+            y: 0
+        };
+    });
+
+    document.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+
+        const deltaMove = {
+            x: e.clientX - previousMousePosition.x,
+            y: e.clientY - previousMousePosition.y
+        };
+
+        const rotationSpeedFactor = 0.002;
+        manualRotationSpeed = {
+            x: deltaMove.y * rotationSpeedFactor,
+            y: deltaMove.x * rotationSpeedFactor
+        };
+
+        earthMesh.rotation.y += manualRotationSpeed.y;
+        earthMesh.rotation.x += manualRotationSpeed.x;
+
+        previousMousePosition = {
+            x: e.clientX,
+            y: e.clientY
+        };
+    });
+
+    document.addEventListener('mouseup', () => {
+        isDragging = false;
+        // Transition progressive vers la rotation automatique
+        setTimeout(() => {
+            autoRotate = true;
+        }, 500);
+    });
+
+    // Initialisation du raycaster et de la souris
+    const raycaster = new THREE.Raycaster();
+    const mouse = new THREE.Vector2();
+
+    // Mise à jour de la gestion du survol
+    container.addEventListener('mousemove', (event) => {
+        const rect = container.getBoundingClientRect();
+        mouse.x = ((event.clientX - rect.left) / container.offsetWidth) * 2 - 1;
+        mouse.y = -((event.clientY - rect.top) / container.offsetHeight) * 2 + 1;
+
+        raycaster.setFromCamera(mouse, camera);
+        
+        const markers = [
+            { marker: franceMaker, text: textSprite },
+            { marker: friburgMarker, text: friburgTextSprite },
+            { marker: incheonMarker, text: incheonTextSprite },
+            { marker: madridMarker, text: madridTextSprite },
+            { marker: sevilleMarker, text: sevilleTextSprite },
+            { marker: wurzburgMarker, text: wurzburgTextSprite },
+            { marker: carthageMarker, text: carthageTextSprite },
+            { marker: texasMarker, text: texasTextSprite },
+            { marker: wisconsinMarker, text: wisconsinTextSprite },
+            { marker: xiamenMarker, text: xiamenTextSprite },
+            { marker: beijingMarker, text: beijingTextSprite },
+            { marker: kansaiMarker, text: kansaiTextSprite },
+            { marker: wurzburg2Marker, text: wurzburg2TextSprite },
+            { marker: luxembourgMarker, text: luxembourgTextSprite },
+            { marker: clujMarker, text: clujTextSprite },
+            { marker: oslo2Marker, text: oslo2TextSprite },
+            { marker: oslo3Marker, text: oslo3TextSprite }
+        ];
+
+        markers.forEach(({ marker, text }) => {
+            const intersects = raycaster.intersectObject(marker);
+            if (intersects.length > 0 && intersects[0].distance < 10) {
+                if (text.material.opacity !== 1) {
+                    gsap.to(text.material, {
+                        opacity: 1,
+                        duration: 0.2,
+                        ease: "power2.out"
+                    });
+                }
+            } else {
+                if (text.material.opacity !== 0) {
+                    gsap.to(text.material, {
+                        opacity: 0,
+                        duration: 0.2,
+                        ease: "power2.in"
+                    });
+                }
+            }
+        });
+    });
+
+    // Animation plus prononcée du marqueur
+    const time = Date.now() * 0.003;
+    // Pulsation du marqueur principal
+    const scale = 1 + Math.sin(time) * 0.1;
+    franceMaker.scale.set(scale, scale, scale);
+    
+    // Animation du halo
+    const glowScale = 1 + Math.sin(time * 1.5) * 0.15;
+    glowMesh.scale.set(glowScale, glowScale, glowScale);
+    
+    // Animation de l'opacité du halo
+    glowMaterial.opacity = 0.15 + Math.sin(time * 2) * 0.05;
+    
+    // Animation de l'intensité émissive
+    markerMaterial.emissiveIntensity = 0.8 + Math.sin(time * 2.5) * 0.2;
+    
+    // Animation Fribourg
+    const friburgScale = 1 + Math.sin(time + Math.PI) * 0.1;  // Décalage de phase pour animation alternée
+    friburgMarker.scale.set(friburgScale, friburgScale, friburgScale);
+    friburgGlowMesh.scale.set(1 + Math.sin((time + Math.PI) * 1.5) * 0.15, 1 + Math.sin((time + Math.PI) * 1.5) * 0.15, 1 + Math.sin((time + Math.PI) * 1.5) * 0.15);
+    friburgGlowMaterial.opacity = 0.15 + Math.sin((time + Math.PI) * 2) * 0.05;
+    friburgMarkerMaterial.emissiveIntensity = 0.8 + Math.sin((time + Math.PI) * 2.5) * 0.2;
+
+    // Animation pour les nouveaux marqueurs
+    const markers = [
+        { marker: franceMaker, glow: glowMesh, glowMat: glowMaterial, markerMat: markerMaterial, phase: 0 },
+        { marker: friburgMarker, glow: friburgGlowMesh, glowMat: friburgGlowMaterial, markerMat: friburgMarkerMaterial, phase: Math.PI / 6 },
+        { marker: incheonMarker, glow: incheonGlowMesh, glowMat: incheonGlowMaterial, markerMat: incheonMarkerMaterial, phase: Math.PI / 3 },
+        { marker: xiamenMarker, glow: xiamenGlowMesh, glowMat: xiamenGlowMaterial, markerMat: xiamenMarkerMaterial, phase: Math.PI / 2 },
+        { marker: beijingMarker, glow: beijingGlowMesh, glowMat: beijingGlowMaterial, markerMat: beijingMarkerMaterial, phase: Math.PI * 2/3 },
+        { marker: madridMarker, glow: madridGlowMesh, glowMat: madridGlowMaterial, markerMat: madridMarkerMaterial, phase: Math.PI * 5/6 },
+        { marker: sevilleMarker, glow: sevilleGlowMesh, glowMat: sevilleGlowMaterial, markerMat: sevilleMarkerMaterial, phase: Math.PI },
+        { marker: wurzburgMarker, glow: wurzburgGlowMesh, glowMat: wurzburgGlowMaterial, markerMat: wurzburgMarkerMaterial, phase: Math.PI * 7/6 },
+        { marker: wurzburg2Marker, glow: wurzburg2GlowMesh, glowMat: wurzburg2GlowMaterial, markerMat: wurzburg2MarkerMaterial, phase: Math.PI * 4/3 },
+        { marker: carthageMarker, glow: carthageGlowMesh, glowMat: carthageGlowMaterial, markerMat: carthageMarkerMaterial, phase: Math.PI * 3/2 },
+        { marker: texasMarker, glow: texasGlowMesh, glowMat: texasGlowMaterial, markerMat: texasMarkerMaterial, phase: Math.PI * 5/3 },
+        { marker: wisconsinMarker, glow: wisconsinGlowMesh, glowMat: wisconsinGlowMaterial, markerMat: wisconsinMarkerMaterial, phase: Math.PI * 11/6 },
+        { marker: kansaiMarker, glow: kansaiGlowMesh, glowMat: kansaiGlowMaterial, markerMat: kansaiMarkerMaterial, phase: Math.PI * 2 },
+        { marker: luxembourgMarker, glow: luxembourgGlowMesh, glowMat: luxembourgGlowMaterial, markerMat: luxembourgMarkerMaterial, phase: Math.PI * 13/6 },
+        { marker: clujMarker, glow: clujGlowMesh, glowMat: clujGlowMaterial, markerMat: clujMarkerMaterial, phase: Math.PI * 7/3 },
+        { marker: oslo2Marker, glow: oslo2GlowMesh, glowMat: oslo2GlowMaterial, markerMat: oslo2MarkerMaterial, phase: Math.PI * 5/2 },
+        { marker: oslo3Marker, glow: oslo3GlowMesh, glowMat: oslo3GlowMaterial, markerMat: oslo3MarkerMaterial, phase: Math.PI * 8/3 }
+    ];
+
+    markers.forEach(({ marker, glow, glowMat, markerMat, phase }) => {
+        const scale = 1 + Math.sin(time + phase) * 0.1;
+        marker.scale.set(scale, scale, scale);
+        glow.scale.set(1 + Math.sin((time + phase) * 1.5) * 0.15, 1 + Math.sin((time + phase) * 1.5) * 0.15, 1 + Math.sin((time + phase) * 1.5) * 0.15);
+        glowMat.opacity = 0.15 + Math.sin((time + phase) * 2) * 0.05;
+        markerMat.emissiveIntensity = 0.8 + Math.sin((time + phase) * 2.5) * 0.2;
+    });
+
+    // Fonction pour créer un anneau d'ondulation
+    function createRipple(position, isMainMarker) {
+        const rippleGeometry = new THREE.RingGeometry(0.08, 0.11, 32);
+        const rippleMaterial = new THREE.MeshBasicMaterial({
+            color: isMainMarker ? 0x000000 : 0xFF0000,
+            transparent: true,
+            opacity: 0.5,
+            side: THREE.DoubleSide
+        });
+        const ripple = new THREE.Mesh(rippleGeometry, rippleMaterial);
+        ripple.position.copy(position);
+        ripple.lookAt(new THREE.Vector3(0, 0, 0));
+        ripple.scale.set(1, 1, 1);
+        earthMesh.add(ripple);
+        return { mesh: ripple, material: rippleMaterial, initialScale: 1 };
+    }
+
+    // Liste pour stocker les ondulations
+    const ripples = [];
+
+    // Créer les ondulations pour chaque marqueur
+    markers.forEach(({ marker }, index) => {
+        ripples.push({
+            ripple: createRipple(marker.position, index === 0), // index 0 est le marqueur principal (Caen)
+            lastRippleTime: 0
+        });
+    });
+
+    // Modifier la fonction animate pour inclure l'animation des ondulations
+    function animate() {
+        requestAnimationFrame(animate);
+
+        const time = Date.now() * 0.001;
+
+        // Animation existante des marqueurs
+        markers.forEach((markerObj, index) => {
+            const scale = 1 + Math.sin(time * 2 + markerObj.phase) * 0.1;
+            markerObj.marker.scale.set(scale, scale, scale);
+
+            if (markerObj.glow) {
+                const glowScale = 1 + Math.sin(time * 2 + markerObj.phase + Math.PI) * 0.15;
+                markerObj.glow.scale.set(glowScale, glowScale, glowScale);
+                
+                if (markerObj.glowMat) {
+                    markerObj.glowMat.opacity = 0.15 + Math.sin(time * 3 + markerObj.phase) * 0.05;
+                }
+            }
+
+            if (markerObj.markerMat) {
+                markerObj.markerMat.emissiveIntensity = 0.8 + Math.sin(time * 2.5 + markerObj.phase) * 0.2;
+            }
+
+            // Animation des ondulations
+            const rippleObj = ripples[index];
+            if (time - rippleObj.lastRippleTime > 2) { // Nouvelle ondulation toutes les 2 secondes
+                rippleObj.ripple.mesh.scale.set(1, 1, 1);
+                rippleObj.ripple.material.opacity = 0.5;
+                rippleObj.lastRippleTime = time;
+            }
+
+            const timeSinceLastRipple = time - rippleObj.lastRippleTime;
+            const rippleScale = 1 + timeSinceLastRipple * 2; // Grossit progressivement
+            const rippleOpacity = Math.max(0, 0.5 - timeSinceLastRipple * 0.25); // Devient transparent progressivement
+
+            rippleObj.ripple.mesh.scale.set(rippleScale, rippleScale, rippleScale);
+            rippleObj.ripple.material.opacity = rippleOpacity;
+        });
+
+        // Variables globales pour la rotation
+        const baseRotationSpeed = 0.0008; // Vitesse de rotation réduite (était 0.002)
+        let rotationSpeed = baseRotationSpeed;
+        let autoRotate = true;
+        let isDragging = false;
+        let previousMousePosition = { x: 0, y: 0 };
+        let rotationMomentum = { x: 0, y: 0 };
+        const dampingFactor = 0.95; // Facteur de ralentissement pour l'inertie
+
+        // Gestion de la rotation
+        if (autoRotate) {
+            earthMesh.rotation.y += baseRotationSpeed;
+        } else if (!isDragging) {
+            // Appliquer l'inertie avec amortissement
+            earthMesh.rotation.y += rotationMomentum.y;
+            earthMesh.rotation.x += rotationMomentum.x;
+            
+            rotationMomentum.x *= dampingFactor;
+            rotationMomentum.y *= dampingFactor;
+        }
+
+        renderer.render(scene, camera);
+    }
+
+    // Lights setup
+    const ambientLight = new THREE.AmbientLight(0x404040, 0.8); // Increased ambient light intensity
+    scene.add(ambientLight);
+
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 1.0); // Augmentation de l'intensité à 1.0
+    directionalLight.position.set(5, 3, 5);
+    scene.add(directionalLight);
+
+    const backLight = new THREE.DirectionalLight(0xffffff, 0.5);
+    backLight.position.set(-5, -3, -5);
+    scene.add(backLight);
+
+    // Animation loop
+    animate();
+
+    // Fonction pour créer une texture de texte améliorée
+    function createTextTexture(text) {
+        const canvas = document.createElement('canvas');
+        const context = canvas.getContext('2d');
+        canvas.width = 512;
+        canvas.height = 256;
+        
+        // Fond transparent
+        context.fillStyle = 'rgba(0, 0, 0, 0)';
+        context.fillRect(0, 0, canvas.width, canvas.height);
+
+        // Configuration du texte
+        context.font = '600 28px Inter, system-ui, -apple-system, sans-serif';
+        context.textAlign = 'center';
+        context.textBaseline = 'middle';
+        
+        // Calcul des dimensions
+        const textWidth = context.measureText(text).width;
+        const padding = 12;
+        const boxWidth = textWidth + (padding * 2);
+        const boxHeight = 34;
+        const boxX = (canvas.width - boxWidth) / 2;
+        const boxY = (canvas.height - boxHeight) / 2;
+        
+        // Fond avec coins très arrondis (style pill)
+        context.beginPath();
+        context.roundRect(boxX, boxY, boxWidth, boxHeight, boxHeight / 2);
+        context.fillStyle = 'rgba(0, 0, 0, 0.85)';
+        context.fill();
+        
+        // Ajout d'une bordure subtile
+        context.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+        context.lineWidth = 1;
+        context.stroke();
+        
+        // Texte blanc pur - ajustement vertical
+        const textY = boxY + (boxHeight / 2);
+        context.fillStyle = '#ffffff';
+        context.fillText(text, canvas.width/2, textY);
+
+        const texture = new THREE.CanvasTexture(canvas);
+        texture.needsUpdate = true;
+        return texture;
+    }
+
+    // Création du texte avec une taille ajustée
+    const textSprite = new THREE.Sprite(
+        new THREE.SpriteMaterial({
+            map: createTextTexture("IAE Caen"),
+            transparent: true,
+            opacity: 0,
+            depthTest: false,
+            sizeAttenuation: false
+        })
+    );
+    textSprite.scale.set(0.7, 0.35, 1);
+    textSprite.position.set(0.6, 0.1, 0);
+    franceMaker.add(textSprite);
+
+    // Handle window resize
+    window.addEventListener('resize', () => {
+        const size = Math.min(container.offsetWidth, container.offsetHeight);
+        renderer.setSize(size, size);
+        camera.aspect = 1; 
+        camera.updateProjectionMatrix();
+    });
+
+    // Initialize starfield
+    createStarfield();
+
+    animate();
+</script>
 {% endblock %}
+
+<!-- Section Description du Master -->
+<section class="master-description">
+    <div class="master-description-container">
+        <div class="master-description-header">
+            <h2 class="master-description-title">Une Formation d'Excellence en Finance</h2>
+            <p class="master-description-subtitle">Le Master G2C forme les futurs experts en gestion d'actifs, contrôle des risques et conformité, répondant aux exigences croissantes du secteur financier moderne.</p>
+        </div>
+        <div class="master-features-grid">
+            <div class="master-feature">
+                <div class="master-feature-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="master-feature-content">
+                    <h3 class="master-feature-title">Gestion d'Actifs Avancée</h3>
+                    <p class="master-feature-text">Formation approfondie en gestion de portefeuille, analyse financière et stratégies d'investissement. Maîtrisez les derniers outils et techniques de gestion d'actifs utilisés par les professionnels.</p>
+                </div>
+            </div>
+            <div class="master-feature">
+                <div class="master-feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <div class="master-feature-content">
+                    <h3 class="master-feature-title">Risk Management</h3>
+                    <p class="master-feature-text">Développez une expertise en identification, évaluation et gestion des risques financiers. Apprentissage des modèles quantitatifs et des meilleures pratiques en matière de gestion des risques.</p>
+                </div>
+            </div>
+            <div class="master-feature">
+                <div class="master-feature-icon">
+                    <i class="fas fa-balance-scale"></i>
+                </div>
+                <div class="master-feature-content">
+                    <h3 class="master-feature-title">Conformité et Régulation</h3>
+                    <p class="master-feature-text">Maîtrisez le cadre réglementaire du secteur financier, les normes internationales et les procédures de conformité. Formation aux dernières évolutions réglementaires (MiFID II, AIFM, UCITS).</p>
+                </div>
+            </div>
+            <div class="master-feature">
+                <div class="master-feature-icon">
+                    <i class="fas fa-laptop-code"></i>
+                </div>
+                <div class="master-feature-content">
+                    <h3 class="master-feature-title">Outils et Technologies</h3>
+                    <p class="master-feature-text">Formation pratique sur les plateformes professionnelles (Bloomberg, Reuters) et les langages de programmation financière. Développez des compétences techniques essentielles pour l'analyse de données.</p>
+                </div>
+            </div>
+            <div class="master-feature">
+                <div class="master-feature-icon">
+                    <i class="fas fa-globe-europe"></i>
+                </div>
+                <div class="master-feature-content">
+                    <h3 class="master-feature-title">Dimension Internationale</h3>
+                    <p class="master-feature-text">Programme en partenariat avec des universités internationales renommées. Possibilités d'échanges et de stages à l'étranger pour une exposition aux marchés financiers mondiaux.</p>
+                </div>
+            </div>
+            <div class="master-feature">
+                <div class="master-feature-icon">
+                    <i class="fas fa-handshake"></i>
+                </div>
+                <div class="master-feature-content">
+                    <h3 class="master-feature-title">Réseau Professionnel</h3>
+                    <p class="master-feature-text">Interactions régulières avec des professionnels du secteur, conférences d'experts et événements de networking. Bénéficiez d'un réseau d'alumni actif dans le secteur financier.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Section Témoignages -->
+<section class="testimonial-section mt-5">
+    <div class="container">
+        <h2 class="text-center mb-5">Témoignages</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="testimonial-card">
+                    <p>"Une formation complète qui m'a ouvert les portes du monde professionnel."</p>
+                    <div class="d-flex align-items-center mt-3">
+                        <div>
+                            <h5 class="mb-0">Jean Dupont</h5>
+                            <small>Promotion 2022</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="testimonial-card">
+                    <p>"L'alternance m'a permis d'acquérir une vraie expérience professionnelle."</p>
+                    <div class="d-flex align-items-center mt-3">
+                        <div>
+                            <h5 class="mb-0">Marie Martin</h5>
+                            <small>Promotion 2023</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="testimonial-card">
+                    <p>"Des intervenants de qualité et un contenu pédagogique pertinent."</p>
+                    <div class="d-flex align-items-center mt-3">
+                        <div>
+                            <h5 class="mb-0">Pierre Durand</h5>
+                            <small>Promotion 2021</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

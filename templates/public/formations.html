@@ -2,8 +2,409 @@
 
 {% block title %}Programme - Master G2C{% endblock %}
 
+{% block extra_head %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+<style>
+    /* Header and Hero Section */
+    .hero-section {
+        position: relative;
+        overflow: hidden;
+        height: 60vh;
+        min-height: 400px;
+        background-color: #000;
+    }
+    .hero-image {
+        width: 100%;
+        height: 400px;
+        object-fit: cover;
+        margin-bottom: 3rem;
+    }
+    .hero-content {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.3));
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 2rem;
+        text-align: center;
+    }
+    .hero-title {
+        color: #ffffff;
+        font-size: 4rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeInUp 1s ease forwards;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        letter-spacing: 1px;
+    }
+    .hero-subtitle {
+        color: #ffffff;
+        font-size: 1.8rem;
+        font-weight: 300;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeInUp 1s ease forwards 0.3s;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+        max-width: 800px;
+        margin: 0 auto;
+        line-height: 1.4;
+    }
+    /* Timeline Section */
+    .timeline {
+        position: relative;
+        margin: 4rem 0;
+    }
+    .timeline-container {
+        display: flex;
+        justify-content: space-between;
+        position: relative;
+        margin-top: 2rem;
+        padding: 2rem 0;
+    }
+    .timeline-container::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--bs-primary) 0%, var(--bs-info) 100%);
+        z-index: 1;
+        transform: scaleX(0);
+        transform-origin: left;
+        animation: progressLine 1.5s ease-out forwards;
+    }
+    .timeline-item {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        width: 18%;
+        position: relative;
+        z-index: 2;
+        transition: all 0.3s ease;
+        border: 1px solid rgba(0,0,0,0.05);
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    .timeline-item.aos-animate {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    .timeline-item:hover {
+        transform: translateY(-10px) scale(1.05);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    }
+    .timeline-item::before {
+        content: '';
+        position: absolute;
+        width: 24px;
+        height: 24px;
+        background: var(--bs-primary);
+        border-radius: 50%;
+        top: -12px;
+        left: calc(50% - 12px);
+        border: 4px solid white;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        transition: all 0.3s ease;
+    }
+    .timeline-item:hover::before {
+        transform: scale(1.2);
+        box-shadow: 0 0 15px var(--bs-primary);
+    }
+
+    /* Semester Cards */
+    .semester-card {
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+        margin-bottom: 2rem;
+    }
+    .semester-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    }
+    .semester-header {
+        background: linear-gradient(135deg, var(--bs-primary) 0%, var(--bs-info) 100%);
+        color: white;
+        padding: 1.5rem;
+        border-radius: 15px 15px 0 0;
+    }
+    .course-list {
+        list-style: none;
+        padding: 0;
+    }
+    .course-item {
+        padding: 1rem;
+        border-bottom: 1px solid rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+    }
+    .course-item:hover {
+        background: rgba(0,0,0,0.02);
+        padding-left: 1.5rem;
+    }
+    .course-item i {
+        margin-right: 0.5rem;
+        color: var(--bs-primary);
+    }
+
+    /* Partnerships Section */
+    .partnerships {
+        background-color: #f8f9fa;
+        padding: 4rem 0;
+        margin: 3rem 0 0 0;
+    }
+
+    .partnerships h2 {
+        text-align: center;
+        margin-bottom: 3rem;
+        color: var(--bs-primary);
+        font-weight: 600;
+    }
+
+    .partnership-card {
+        background: white;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        margin-bottom: 2rem;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .partnership-image {
+        width: 100%;
+        height: 250px;
+        object-fit: contain;
+        background-color: #f8f9fa;
+        padding: 2rem;
+        border-bottom: 3px solid var(--bs-primary);
+    }
+
+    .bloomberg-image {
+        object-fit: cover;
+        padding: 0;
+    }
+
+    .partnership-content {
+        padding: 2rem;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .partnership-content h3 {
+        color: var(--bs-primary);
+        margin-bottom: 1rem;
+        font-weight: 600;
+    }
+
+    .partnership-content p {
+        color: #666;
+        margin-bottom: 1.5rem;
+        line-height: 1.6;
+    }
+
+    .partnership-features {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .partnership-features li {
+        padding: 0.5rem 0;
+        color: #555;
+        display: flex;
+        align-items: center;
+    }
+
+    .partnership-features li i {
+        color: var(--bs-primary);
+        margin-right: 10px;
+    }
+
+    .partnership-features {
+        margin-top: auto;
+    }
+
+    @media (max-width: 768px) {
+        .partnership-image {
+            height: 200px;
+        }
+    }
+
+    /* Points Forts */
+    .points-forts {
+        padding: 4rem 0;
+    }
+
+    .point-fort-card {
+        background: white;
+        border-radius: 15px;
+        padding: 2rem;
+        height: 100%;
+        text-align: center;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border: 1px solid rgba(0,0,0,0.08);
+    }
+
+    .point-fort-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    }
+
+    .point-fort-icon {
+        width: 80px;
+        height: 80px;
+        background-color: #f0f7ff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.5rem;
+        transition: all 0.3s ease;
+    }
+
+    .point-fort-icon i {
+        font-size: 2rem;
+        color: var(--bs-primary);
+    }
+
+    .point-fort-card:hover .point-fort-icon {
+        background-color: var(--bs-primary);
+    }
+
+    .point-fort-card:hover .point-fort-icon i {
+        color: white;
+    }
+
+    .point-fort-title {
+        color: #2c3e50;
+        font-size: 1.25rem;
+        margin-bottom: 1rem;
+        font-weight: 600;
+    }
+
+    .point-fort-text {
+        color: #666;
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+
+    /* CTA Section */
+    .cta-section {
+        text-align: center;
+        padding: 4rem 0;
+        background: linear-gradient(135deg, var(--bs-primary) 0%, var(--bs-info) 100%);
+        color: white;
+        position: relative;
+        overflow: hidden;
+    }
+    .cta-button {
+        padding: 1rem 2.5rem;
+        font-size: 1.2rem;
+        border-radius: 50px;
+        background: white;
+        color: var(--bs-primary);
+        border: none;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+    .cta-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    }
+    .cta-button::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        background: rgba(255,255,255,0.2);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        transition: width 0.6s ease, height 0.6s ease;
+    }
+    .cta-button:hover::after {
+        width: 300px;
+        height: 300px;
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    @keyframes progressLine {
+        from {
+            transform: scaleX(0);
+        }
+        to {
+            transform: scaleX(1);
+        }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .timeline-container {
+            flex-direction: column;
+            align-items: center;
+            padding: 0;
+        }
+        .timeline-item {
+            width: 80%;
+            margin-bottom: 2rem;
+        }
+        .timeline-container::before {
+            display: none;
+        }
+        .hero-title {
+            font-size: 2rem;
+        }
+        .hero-subtitle {
+            font-size: 1.2rem;
+        }
+    }
+    .page-header {
+        background: linear-gradient(135deg, var(--bs-primary) 0%, var(--bs-info) 100%);
+        color: white;
+        padding: 4rem 0;
+        margin-bottom: 3rem;
+    }
+    .page-header h1 {
+        font-weight: 700;
+        margin-bottom: 1rem;
+    }
+    .page-header p {
+        font-size: 1.25rem;
+        opacity: 0.9;
+    }
+</style>
+{% endblock %}
+
 {% block content %}
-<div class="page-header bg-light py-5 mb-5">
+<!-- Header -->
+<div class="page-header">
     <div class="container">
         <h1 class="display-4" data-aos="fade-up">Programme du Master G2C</h1>
         <p class="lead" data-aos="fade-up" data-aos-delay="100">Formation d'excellence en Gestion d'Actifs, Contrôle des Risques et Conformité</p>
@@ -11,130 +412,235 @@
 </div>
 
 <div class="container">
-    <!-- Présentation générale -->
-    <section class="mb-5" data-aos="fade-up">
-        <h2 class="h3 mb-4">Une formation complète sur 2 ans</h2>
-        <div class="row g-4">
-            <div class="col-md-6">
-                <div class="card h-100 border-0 shadow-sm">
-                    <div class="card-body">
-                        <h3 class="h5 mb-3">Master 1</h3>
-                        <p>Fondamentaux en finance et gestion des risques</p>
-                        <ul class="list-unstyled">
-                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Finance de marché</li>
-                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Analyse quantitative</li>
-                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Gestion de portefeuille</li>
-                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Risk management</li>
-                        </ul>
-                    </div>
-                </div>
+    <!-- Hero Image -->
+    <img src="https://bibliotheque.unicaen.fr/wp-content/uploads/sites/8/2021/11/BURF-1000-400.jpg" 
+         alt="Bibliothèque Universitaire" 
+         class="hero-image"
+         data-aos="fade-up">
+
+    <!-- Timeline -->
+    <section class="timeline mb-5" data-aos="fade-up">
+        <h2 class="h3 mb-4">Déroulement de la formation</h2>
+        <div class="timeline-container">
+            <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
+                <h4><i class="bi bi-book text-primary"></i>M1 - S1</h4>
+                <p>Cours en France</p>
             </div>
-            <div class="col-md-6">
-                <div class="card h-100 border-0 shadow-sm">
-                    <div class="card-body">
-                        <h3 class="h5 mb-3">Master 2</h3>
-                        <p>Spécialisation et professionnalisation</p>
-                        <ul class="list-unstyled">
-                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Asset management avancé</li>
-                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Conformité et régulation</li>
-                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>ESG et finance durable</li>
-                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Stage professionnel</li>
-                        </ul>
-                    </div>
-                </div>
+            <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
+                <h4><i class="bi bi-globe text-primary"></i>M1 - S2</h4>
+                <p>Semestre à l'étranger</p>
+            </div>
+            <div class="timeline-item" data-aos="fade-up" data-aos-delay="300">
+                <h4><i class="bi bi-briefcase text-primary"></i>Année de césure</h4>
+                <p>2 stages de 6 mois</p>
+            </div>
+            <div class="timeline-item" data-aos="fade-up" data-aos-delay="400">
+                <h4><i class="bi bi-book text-primary"></i>M2 - S3</h4>
+                <p>Cours en France</p>
+            </div>
+            <div class="timeline-item" data-aos="fade-up" data-aos-delay="500">
+                <h4><i class="bi bi-briefcase text-primary"></i>M2 - S4</h4>
+                <p>Stage final</p>
             </div>
         </div>
     </section>
 
-    <!-- Détail des cours -->
+    <!-- Master 1 -->
     <section class="mb-5" data-aos="fade-up">
-        <h2 class="h3 mb-4">Programme détaillé</h2>
+        <h2 class="h2 mb-4">Master 1 - Fondamentaux</h2>
         
         <!-- Semestre 1 -->
-        <div class="card mb-4 border-0 shadow-sm">
+        <div class="card semester-card mb-4">
             <div class="card-body">
-                <h3 class="h4 mb-4">Semestre 1</h3>
-                <div class="row g-4">
-                    <div class="col-md-6">
-                        <h4 class="h5 mb-3">Finance fondamentale</h4>
-                        <ul class="list-unstyled">
-                            <li class="mb-2"><i class="fas fa-book me-2"></i>Théorie financière</li>
-                            <li class="mb-2"><i class="fas fa-book me-2"></i>Analyse financière</li>
-                            <li class="mb-2"><i class="fas fa-book me-2"></i>Mathématiques financières</li>
-                        </ul>
-                    </div>
-                    <div class="col-md-6">
-                        <h4 class="h5 mb-3">Gestion des risques</h4>
-                        <ul class="list-unstyled">
-                            <li class="mb-2"><i class="fas fa-book me-2"></i>Introduction au risk management</li>
-                            <li class="mb-2"><i class="fas fa-book me-2"></i>Modèles de risque</li>
-                            <li class="mb-2"><i class="fas fa-book me-2"></i>Réglementation bancaire</li>
-                        </ul>
-                    </div>
-                </div>
+                <h3 class="semester-header">Semestre 1 - Fondamentaux (54h)</h3>
+                <h4 class="h5 mb-3">Maîtriser les fondamentaux</h4>
+                <ul class="course-list">
+                    <li><strong>Pour les entrants :</strong></li>
+                    <li>Maîtriser les mathématiques financières</li>
+                    <li>Comprendre le fonctionnement des marchés financiers</li>
+                    <li>Analyser les états financiers des entreprises</li>
+                    <li><strong>Pour les anciens :</strong></li>
+                    <li>Analyse financière</li>
+                    <li>Challenge recherche</li>
+                </ul>
+
+                <h4 class="h5 mb-3 mt-4">Concevoir des opérations d'ingénierie financière (69h)</h4>
+                <ul class="course-list">
+                    <li>Réaliser des analyses d'entreprises</li>
+                    <li>Maîtriser les techniques de la finance internationale</li>
+                </ul>
+
+                <h4 class="h5 mb-3 mt-4">Analyser et gérer des actifs (85h)</h4>
+                <ul class="course-list">
+                    <li>Analyser et évaluer des actifs</li>
+                    <li>Comprendre les mécanismes de la macroéconomie</li>
+                </ul>
+
+                <h4 class="h5 mb-3 mt-4">Analyser et maîtriser les risques et la conformité (123h)</h4>
+                <ul class="course-list">
+                    <li>Maîtriser l'environnement juridique de la gestion d'actifs</li>
+                    <li>Connaître l'encadrement des activités financières</li>
+                    <li>Cartographier les risques d'un établissement financier</li>
+                    <li>Appréhender l'éthique et la déontologie</li>
+                </ul>
+
+                <h4 class="h5 mb-3 mt-4">Acquérir des compétences professionnalisantes (93h)</h4>
+                <ul class="course-list">
+                    <li>Maîtriser MS Excel et VBA</li>
+                    <li>Communiquer en anglais</li>
+                    <li>Entreprendre un projet</li>
+                    <li>Préparer une certification</li>
+                </ul>
             </div>
         </div>
 
         <!-- Semestre 2 -->
-        <div class="card mb-4 border-0 shadow-sm">
+        <div class="card semester-card">
             <div class="card-body">
-                <h3 class="h4 mb-4">Semestre 2</h3>
-                <div class="row g-4">
-                    <div class="col-md-6">
-                        <h4 class="h5 mb-3">Marchés financiers</h4>
-                        <ul class="list-unstyled">
-                            <li class="mb-2"><i class="fas fa-book me-2"></i>Produits dérivés</li>
-                            <li class="mb-2"><i class="fas fa-book me-2"></i>Trading algorithmique</li>
-                            <li class="mb-2"><i class="fas fa-book me-2"></i>Gestion de portefeuille</li>
-                        </ul>
+                <h3 class="semester-header">Semestre 2 - Semestre International</h3>
+                <p class="lead mb-4">Le second semestre se déroule à l'étranger dans l'une de nos universités partenaires.</p>
+                <ul class="course-list">
+                    <li>Cours spécialisés en finance internationale</li>
+                    <li>Immersion culturelle et linguistique</li>
+                    <li>Développement du réseau international</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Master 2 -->
+    <section class="mb-5" data-aos="fade-up">
+        <h2 class="h2 mb-4">Master 2 - Spécialisation</h2>
+
+        <!-- Semestre 3 -->
+        <div class="card semester-card mb-4">
+            <div class="card-body">
+                <h3 class="semester-header">Semestre 3</h3>
+
+                <h4 class="h5 mb-3">Réfléchir et élaborer une stratégie d'un établissement financier (37h)</h4>
+                <ul class="course-list">
+                    <li>Maîtriser et appréhender la finance durable</li>
+                    <li>Concevoir des opérations de haut de bilan et d'ingénierie financière</li>
+                </ul>
+
+                <h4 class="h5 mb-3 mt-4">Analyser et gérer des actifs 2 (104h)</h4>
+                <ul class="course-list">
+                    <li>Analyser et évaluer des actifs 2</li>
+                    <li>Évaluer les instruments dérivés</li>
+                </ul>
+
+                <h4 class="h5 mb-3 mt-4">Analyser et maîtriser les risques et la conformité 2 (60h)</h4>
+                <ul class="course-list">
+                    <li>Maîtriser les techniques de la conformité et sa supervision</li>
+                    <li>Gérer l'épargne publique (OPC)</li>
+                    <li>Gérer les risques financiers</li>
+                </ul>
+
+                <h4 class="h5 mb-3 mt-4">Développer ses compétences professionnelles (127h)</h4>
+                <ul class="course-list">
+                    <li>Élaborer des modèles financiers</li>
+                    <li>Entreprendre un projet</li>
+                    <li>Accompagner l'insertion professionnelle</li>
+                    <li>Communiquer professionnellement</li>
+                    <li>Préparer une certification</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Semestre 4 -->
+        <div class="card semester-card">
+            <div class="card-body">
+                <h3 class="semester-header">Semestre 4</h3>
+                <p class="lead mb-4">Stage de fin d'études de 6 mois en entreprise</p>
+                <ul class="course-list">
+                    <li>Mise en pratique des compétences acquises</li>
+                    <li>Immersion professionnelle complète</li>
+                    <li>Rédaction d'un mémoire de fin d'études</li>
+                    <li>Soutenance devant un jury</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partnerships Section -->
+    <section class="partnerships" data-aos="fade-up">
+        <div class="container">
+            <h2 class="display-5 mb-5" data-aos="fade-up">Nos Partenariats d'Excellence</h2>
+            
+            <div class="row g-4">
+                <!-- Bloomberg Partnership -->
+                <div class="col-lg-6 d-flex">
+                    <div class="partnership-card">
+                        <img src="https://club-phenix.unicaen.fr/wp-content/uploads/sites/10/2023/12/Bloomberg.png" 
+                             alt="Bloomberg Terminal" 
+                             class="partnership-image bloomberg-image">
+                        <div class="partnership-content">
+                            <h3>Partenariat Bloomberg</h3>
+                            <p>Le Master G2C bénéficie d'un partenariat privilégié avec Bloomberg, leader mondial de l'information financière. Les étudiants ont accès à la salle des marchés de l'IAE équipée de terminaux Bloomberg, leur permettant de :</p>
+                            <ul class="partnership-features">
+                                <li><i class="bi bi-check-circle"></i>Se former sur la plateforme Bloomberg Terminal</li>
+                                <li><i class="bi bi-check-circle"></i>Obtenir la certification Bloomberg Market Concepts (BMC)</li>
+                                <li><i class="bi bi-check-circle"></i>Accéder aux données financières en temps réel</li>
+                                <li><i class="bi bi-check-circle"></i>Réaliser des analyses de marché professionnelles</li>
+                            </ul>
+                        </div>
                     </div>
-                    <div class="col-md-6">
-                        <h4 class="h5 mb-3">Conformité</h4>
-                        <ul class="list-unstyled">
-                            <li class="mb-2"><i class="fas fa-book me-2"></i>Droit financier</li>
-                            <li class="mb-2"><i class="fas fa-book me-2"></i>Conformité bancaire</li>
-                            <li class="mb-2"><i class="fas fa-book me-2"></i>Éthique des affaires</li>
-                        </ul>
+                </div>
+
+                <!-- CFA Partnership -->
+                <div class="col-lg-6 d-flex">
+                    <div class="partnership-card">
+                        <img src="https://media.licdn.com/dms/image/v2/D4E22AQF2edEZqAfhYQ/feedshare-shrink_800/feedshare-shrink_800/0/1712069495223?e=2147483647&v=beta&t=zisl5iFtbouz4yt-pYY8D8mkGGxNzbO7_rNJyKNbw7U" 
+                             alt="CFA Institute Logo" 
+                             class="partnership-image">
+                        <div class="partnership-content">
+                            <h3>Programme partenaire CFA</h3>
+                            <p>Le Master G2C est reconnu comme programme partenaire du CFA Institute, garantissant une formation alignée avec les standards internationaux les plus exigeants. Les avantages incluent :</p>
+                            <ul class="partnership-features">
+                                <li><i class="bi bi-check-circle"></i>Programme aligné avec le curriculum CFA</li>
+                                <li><i class="bi bi-check-circle"></i>Bourses pour l'examen CFA</li>
+                                <li><i class="bi bi-check-circle"></i>Accès aux ressources éducatives du CFA Institute</li>
+                                <li><i class="bi bi-check-circle"></i>Reconnaissance internationale</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Points forts -->
-    <section class="mb-5" data-aos="fade-up">
-        <h2 class="h3 mb-4">Points forts de la formation</h2>
-        <div class="row row-cols-1 row-cols-md-3 g-4">
-            <div class="col">
-                <div class="card h-100 border-0 shadow-sm">
-                    <div class="card-body text-center">
-                        <div class="rounded-circle bg-primary bg-opacity-10 p-3 mx-auto mb-3" style="width: fit-content;">
-                            <i class="fas fa-users-cog fa-2x text-primary"></i>
+    <!-- Points Forts -->
+    <section class="points-forts bg-light" data-aos="fade-up">
+        <div class="container">
+            <h2 class="display-5 text-center mb-5">Points Forts du Programme</h2>
+            <div class="row g-4">
+                <div class="col-md-4" data-aos="fade-up">
+                    <div class="point-fort-card">
+                        <div class="point-fort-icon">
+                            <i class="bi bi-building"></i>
                         </div>
-                        <h3 class="h5">Expertise professionnelle</h3>
-                        <p class="card-text">Intervenants professionnels de haut niveau</p>
+                        <h3 class="point-fort-title">Partenariats Prestigieux</h3>
+                        <p class="point-fort-text">Bloomberg et CFA Institute comme partenaires stratégiques pour une formation d'excellence</p>
                     </div>
                 </div>
-            </div>
-            <div class="col">
-                <div class="card h-100 border-0 shadow-sm">
-                    <div class="card-body text-center">
-                        <div class="rounded-circle bg-primary bg-opacity-10 p-3 mx-auto mb-3" style="width: fit-content;">
-                            <i class="fas fa-laptop-code fa-2x text-primary"></i>
+                
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="point-fort-card">
+                        <div class="point-fort-icon">
+                            <i class="bi bi-globe"></i>
                         </div>
-                        <h3 class="h5">Outils modernes</h3>
-                        <p class="card-text">Formation aux dernières technologies financières</p>
+                        <h3 class="point-fort-title">Dimension Internationale</h3>
+                        <p class="point-fort-text">Un semestre à l'étranger et des opportunités de stages internationaux</p>
                     </div>
                 </div>
-            </div>
-            <div class="col">
-                <div class="card h-100 border-0 shadow-sm">
-                    <div class="card-body text-center">
-                        <div class="rounded-circle bg-primary bg-opacity-10 p-3 mx-auto mb-3" style="width: fit-content;">
-                            <i class="fas fa-globe fa-2x text-primary"></i>
+                
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="point-fort-card">
+                        <div class="point-fort-icon">
+                            <i class="bi bi-briefcase"></i>
                         </div>
-                        <h3 class="h5">Dimension internationale</h3>
-                        <p class="card-text">Partenariats avec des institutions étrangères</p>
+                        <h3 class="point-fort-title">Professionnalisation</h3>
+                        <p class="point-fort-text">18 mois de stages sur 3 ans pour une expérience professionnelle significative</p>
                     </div>
                 </div>
             </div>
@@ -146,8 +652,17 @@
         <h2 class="h3 mb-4">Prêt à nous rejoindre ?</h2>
         <p class="lead mb-4">Découvrez le processus d'admission et postulez dès maintenant</p>
         <a href="{{ url_for('public.admissions') }}" class="btn btn-primary btn-lg">
-            Candidater
+            <i class="bi bi-arrow-right-circle me-2"></i>Candidater
         </a>
     </section>
 </div>
 {% endblock %}
+
+<!-- AOS Script -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<script>
+    AOS.init({
+        duration: 800,
+        once: true
+    });
+</script>

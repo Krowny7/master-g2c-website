@@ -80,4 +80,4 @@ Les contributions sont les bienvenues ! N'hésitez pas à ouvrir une issue ou à
 
 ## Licence
 
-Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
+Ce projet est sous licence MIT. Voir le![alt text](image.png) fichier `LICENSE` pour plus de détails.

@@ -1,0 +1,346 @@
+{% extends "public/base_public.html" %}
+
+{% block title %}Carrières - Master G2C{% endblock %}
+
+{% block extra_head %}
+<style>
+    .careers-hero {
+        background: linear-gradient(135deg, rgba(30, 41, 59, 0.98) 0%, rgba(44, 82, 130, 0.98) 100%);
+        padding: 5rem 0 3rem;
+        color: white;
+        text-align: center;
+    }
+
+    .careers-title {
+        font-size: 3rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .careers-subtitle {
+        font-size: 1.2rem;
+        color: rgba(255, 255, 255, 0.9);
+        max-width: 800px;
+        margin: 0 auto 2rem;
+    }
+
+    .job-categories {
+        padding: 4rem 0;
+        background: #f8f9fa;
+    }
+
+    .job-category {
+        background: white;
+        border-radius: 1rem;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        transition: transform 0.3s ease;
+    }
+
+    .job-category:hover {
+        transform: translateY(-5px);
+    }
+
+    .job-category h3 {
+        color: #1e293b;
+        margin-bottom: 1rem;
+        font-size: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .job-category i {
+        color: #4a90e2;
+        font-size: 1.8rem;
+    }
+
+    .job-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .job-list li {
+        padding: 0.5rem 0;
+        color: #64748b;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .job-list li:before {
+        content: "•";
+        color: #4a90e2;
+        font-weight: bold;
+    }
+
+    .alumni-map-section {
+        padding: 4rem 0;
+        background: white;
+    }
+
+    .map-container {
+        height: 500px;
+        background: #f8f9fa;
+        border-radius: 1rem;
+        overflow: hidden;
+        margin: 2rem 0;
+    }
+
+    .statistics-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        margin-top: 3rem;
+    }
+
+    .statistic-card {
+        background: linear-gradient(135deg, #1e293b 0%, #2c5282 100%);
+        padding: 2rem;
+        border-radius: 1rem;
+        color: white;
+        text-align: center;
+    }
+
+    .statistic-number {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .statistic-label {
+        font-size: 1rem;
+        color: rgba(255, 255, 255, 0.9);
+    }
+
+    .sector-distribution {
+        padding: 4rem 0;
+        background: #f8f9fa;
+    }
+
+    .chart-container {
+        background: white;
+        border-radius: 1rem;
+        padding: 2rem;
+        margin: 2rem 0;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    }
+
+    @media (max-width: 768px) {
+        .careers-title {
+            font-size: 2rem;
+        }
+        
+        .statistics-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .map-container {
+            height: 300px;
+        }
+    }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="careers-hero">
+    <div class="container">
+        <h1 class="careers-title">Carrières & Alumni</h1>
+        <p class="careers-subtitle">Découvrez les opportunités professionnelles qui s'offrent à vous après le Master G2C et où se trouvent nos anciens étudiants à travers le monde.</p>
+    </div>
+</section>
+
+<!-- Métiers Section -->
+<section class="job-categories">
+    <div class="container">
+        <h2 class="text-center mb-5">Les Métiers après le Master G2C</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="job-category">
+                    <h3><i class="fas fa-chart-line"></i>Gestion d'Actifs</h3>
+                    <ul class="job-list">
+                        <li>Gestionnaire de portefeuille</li>
+                        <li>Analyste financier</li>
+                        <li>Gérant OPCVM</li>
+                        <li>Stratégiste d'investissement</li>
+                        <li>Portfolio Manager Assistant</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="job-category">
+                    <h3><i class="fas fa-shield-alt"></i>Risk Management</h3>
+                    <ul class="job-list">
+                        <li>Risk Manager</li>
+                        <li>Analyste des risques</li>
+                        <li>Quantitative Risk Analyst</li>
+                        <li>Credit Risk Manager</li>
+                        <li>Market Risk Analyst</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="job-category">
+                    <h3><i class="fas fa-balance-scale"></i>Conformité</h3>
+                    <ul class="job-list">
+                        <li>Compliance Officer</li>
+                        <li>Responsable conformité</li>
+                        <li>Regulatory Reporting Analyst</li>
+                        <li>KYC Analyst</li>
+                        <li>AML Specialist</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Distribution Sectorielle -->
+<section class="sector-distribution">
+    <div class="container">
+        <h2 class="text-center mb-5">Répartition des Alumni par Secteur</h2>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="chart-container">
+                    <canvas id="sectorChart"></canvas>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="chart-container">
+                    <canvas id="locationChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Carte des Alumni -->
+<section class="alumni-map-section">
+    <div class="container">
+        <h2 class="text-center mb-5">Nos Alumni à travers le Monde</h2>
+        <div class="map-container" id="alumniMap"></div>
+        
+        <div class="statistics-grid">
+            <div class="statistic-card">
+                <div class="statistic-number">95%</div>
+                <div class="statistic-label">Taux d'insertion professionnelle</div>
+            </div>
+            <div class="statistic-card">
+                <div class="statistic-number">25+</div>
+                <div class="statistic-label">Pays où travaillent nos alumni</div>
+            </div>
+            <div class="statistic-card">
+                <div class="statistic-number">500+</div>
+                <div class="statistic-label">Alumni actifs</div>
+            </div>
+            <div class="statistic-card">
+                <div class="statistic-number">45K€</div>
+                <div class="statistic-label">Salaire moyen à la sortie</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    // Configuration des graphiques
+    const sectorData = {
+        labels: ['Asset Management', 'Banque', 'Assurance', 'Conseil', 'Fintech', 'Autres'],
+        datasets: [{
+            data: [35, 25, 15, 12, 8, 5],
+            backgroundColor: [
+                '#4a90e2',
+                '#2c5282',
+                '#1e293b',
+                '#64748b',
+                '#94a3b8',
+                '#cbd5e1'
+            ]
+        }]
+    };
+
+    const locationData = {
+        labels: ['France', 'Europe', 'Asie', 'Amérique du Nord', 'Autres'],
+        datasets: [{
+            data: [45, 30, 15, 7, 3],
+            backgroundColor: [
+                '#4a90e2',
+                '#2c5282',
+                '#1e293b',
+                '#64748b',
+                '#94a3b8'
+            ]
+        }]
+    };
+
+    // Création des graphiques
+    window.addEventListener('load', () => {
+        new Chart(document.getElementById('sectorChart'), {
+            type: 'pie',
+            data: sectorData,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    },
+                    title: {
+                        display: true,
+                        text: 'Répartition par Secteur d\'Activité'
+                    }
+                }
+            }
+        });
+
+        new Chart(document.getElementById('locationChart'), {
+            type: 'pie',
+            data: locationData,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    },
+                    title: {
+                        display: true,
+                        text: 'Répartition Géographique'
+                    }
+                }
+            }
+        });
+
+        // Initialisation de la carte
+        const map = L.map('alumniMap').setView([48.8566, 2.3522], 2);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Ajout des marqueurs pour les principales villes
+        const cities = [
+            {lat: 48.8566, lon: 2.3522, name: 'Paris', count: 150},
+            {lat: 51.5074, lon: -0.1278, name: 'Londres', count: 45},
+            {lat: 40.7128, lon: -74.0060, name: 'New York', count: 20},
+            {lat: 35.6762, lon: 139.6503, name: 'Tokyo', count: 15},
+            {lat: 1.3521, lon: 103.8198, name: 'Singapour', count: 25},
+            {lat: 22.3193, lon: 114.1694, name: 'Hong Kong', count: 20}
+        ];
+
+        cities.forEach(city => {
+            L.marker([city.lat, city.lon])
+                .bindPopup(`<b>${city.name}</b><br>${city.count} alumni`)
+                .addTo(map);
+        });
+    });
+</script>
+{% endblock %}

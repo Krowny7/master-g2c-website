@@ -3,135 +3,319 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    
-    <!-- Preload des ressources critiques -->
-    <link rel="preload" href="{{ url_for('static', filename='css/style.css') }}" as="style">
-    <link rel="preload" href="{{ url_for('static', filename='js/theme.js') }}" as="script">
-    <link rel="preconnect" href="https://cdn.jsdelivr.net">
-    
     <title>{% block title %}{% endblock %} - Master G2C</title>
-    
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <!-- AOS CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    {% block styles %}{% endblock %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     {% block extra_head %}{% endblock %}
-</head>
-<body data-theme="light">
-    <!-- Skip to main content -->
-    <a href="#main-content" class="skip-link visually-hidden-focusable">
-        Aller au contenu principal
-    </a>
+    <style>
+        :root {
+            --bs-primary: #0d6efd;
+            --bs-primary-rgb: 13, 110, 253;
+        }
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Navbar styles */
+        .navbar {
+            padding: 0.8rem 0;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            transform: translateY(0);
+        }
+
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            padding: 0.6rem 0;
+            backdrop-filter: blur(10px);
+        }
+
+        .navbar.nav-hidden {
+            transform: translateY(-100%);
+        }
+
+        .navbar .container {
+            padding-left: 0;
+        }
+
+        .navbar-brand {
+            font-weight: 600;
+            font-size: 1.4rem;
+            padding: 0;
+            color: #1a1a1a;
+            margin-left: 0;
+        }
+
+        .navbar-brand img {
+            transition: transform 0.3s ease;
+        }
+
+        .navbar-brand:hover img {
+            transform: scale(1.05);
+        }
+
+        .nav-link {
+            position: relative;
+            padding: 0.6rem 1.2rem !important;
+            font-weight: 500;
+            color: #444 !important;
+            font-size: 0.95rem;
+            letter-spacing: 0.3px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--bs-primary) !important;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 80%;
+            height: 2px;
+            bottom: 0;
+            left: 10%;
+            background-color: var(--bs-primary);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            transform: scaleX(1);
+        }
+
+        .navbar-toggler {
+            padding: 0.4rem 0.6rem;
+            border: none;
+            border-radius: 8px;
+            background: #f8f9fa;
+        }
+
+        .navbar-toggler:focus {
+            box-shadow: none;
+            outline: none;
+        }
+
+        .navbar-nav {
+            gap: 0.5rem;
+        }
+
+        @media (max-width: 991.98px) {
+            .navbar-collapse {
+                background: white;
+                padding: 1rem;
+                border-radius: 10px;
+                margin-top: 0.5rem;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            }
+
+            .nav-link::after {
+                display: none;
+            }
+
+            .nav-link {
+                padding: 0.8rem 1rem !important;
+                border-radius: 6px;
+            }
+
+            .nav-link:hover {
+                background: #f8f9fa;
+            }
+        }
+
+        /* Footer styles */
+        footer {
+            margin-top: auto;
+            padding: 3rem 0;
+            background: #f8f9fa;
+        }
+
+        .footer-heading {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-link {
+            color: #6c757d;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: var(--bs-primary);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: white;
+            color: #6c757d;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-link:hover {
+            background: var(--bs-primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .navbar-brand {
+                font-size: 1.25rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top bg-white">
         <div class="container">
-            <a class="navbar-brand" href="{{ url_for('public.accueil') }}">Master G2C</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <a class="navbar-brand d-flex align-items-center" href="{{ url_for('public.accueil') }}">
+                <img src="https://media.licdn.com/dms/image/v2/C4E0BAQGoxhFjwMSKSw/company-logo_200_200/company-logo_200_200/0/1631301716518?e=2147483647&v=beta&t=nGs0WdvrR4VaUD-bxaOHX5Now7QHPrfsNVS1OqLhoWQ" alt="IUP Logo" style="height: 38px; margin-right: 12px;">
+                <span style="background: linear-gradient(45deg, #1a1a1a, #333); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Master G2C</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav align-items-center">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('public.formations') }}">Programme</a>
+                        <a class="nav-link {{ 'active' if request.endpoint == 'public.accueil' }}" href="{{ url_for('public.accueil') }}">Accueil</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('public.pourquoi_g2c') }}">Pourquoi G2C ?</a>
+                        <a class="nav-link {{ 'active' if request.endpoint == 'public.formations' }}" href="{{ url_for('public.formations') }}">Programme</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('public.equipe') }}">Équipe</a>
+                        <a class="nav-link {{ 'active' if request.endpoint == 'public.pourquoi_g2c' }}" href="{{ url_for('public.pourquoi_g2c') }}">Pourquoi G2C</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('public.temoignages') }}">Témoignages</a>
+                        <a class="nav-link {{ 'active' if request.endpoint == 'public.equipe' }}" href="{{ url_for('public.equipe') }}">Équipe</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ 'active' if request.endpoint == 'public.admissions' }}" href="{{ url_for('public.admissions') }}">Admissions</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ 'active' if request.endpoint == 'public.contact' }}" href="{{ url_for('public.contact') }}">Contact</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('public.vie_etudiante') }}">Vie Étudiante</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('public.admissions') }}">Admissions</a>
+                        <a class="nav-link" href="{{ url_for('public.debouches') }}">Carrières</a>
+                    </li>
+                    <li class="nav-item ms-2">
+                        <a class="btn btn-primary rounded-pill px-4 py-2" href="{{ url_for('auth.login') }}" style="font-weight: 500; font-size: 0.95rem;">
+                            Espace étudiant
+                        </a>
                     </li>
                 </ul>
-                <div class="d-flex align-items-center">
-                    <div>
-                        <button class="btn btn-outline-light btn-sm" id="theme-toggle">
-                            <i class="fas fa-moon"></i>
-                        </button>
-                    </div>
-                </div>
             </div>
         </div>
     </nav>
 
-    <main id="main-content" role="main">
+    <!-- Main Content -->
+    <main class="flex-grow-1" style="margin-top: 76px;">
         {% block content %}{% endblock %}
     </main>
-    
+
     <!-- Footer -->
-    <footer class="footer mt-auto py-5">
+    <footer>
         <div class="container">
-            <div class="row">
-                <div class="col-md-4" data-aos="fade-up">
-                    <h5 class="text-white mb-4">Master G2C</h5>
-                    <p class="text-white-50">Formation d'excellence en gestion d'actifs, contrôle des risques et conformité.</p>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <h3 class="footer-heading">Master G2C</h3>
+                    <p class="text-muted">Formation d'excellence en Gestion d'Actifs, Contrôle des Risques et Conformité</p>
                 </div>
-                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
-                    <h5 class="text-white mb-4">Navigation</h5>
+                <div class="col-md-4">
+                    <h3 class="footer-heading">Liens rapides</h3>
                     <ul class="list-unstyled">
-                        <li class="mb-2"><a href="{{ url_for('public.accueil') }}" class="text-white-50">Accueil</a></li>
-                        <li class="mb-2"><a href="{{ url_for('public.formations') }}" class="text-white-50">Programme</a></li>
-                        <li class="mb-2"><a href="{{ url_for('public.pourquoi_g2c') }}" class="text-white-50">Pourquoi G2C ?</a></li>
-                        <li class="mb-2"><a href="{{ url_for('public.equipe') }}" class="text-white-50">Équipe</a></li>
-                        <li class="mb-2"><a href="{{ url_for('public.temoignages') }}" class="text-white-50">Témoignages</a></li>
-                        <li class="mb-2"><a href="{{ url_for('public.vie_etudiante') }}" class="text-white-50">Vie Étudiante</a></li>
-                        <li class="mb-2"><a href="{{ url_for('public.admissions') }}" class="text-white-50">Admissions</a></li>
+                        <li><a href="{{ url_for('public.accueil') }}" class="footer-link">Accueil</a></li>
+                        <li><a href="{{ url_for('public.formations') }}" class="footer-link">Programme</a></li>
+                        <li><a href="{{ url_for('public.pourquoi_g2c') }}" class="footer-link">Pourquoi G2C</a></li>
+                        <li><a href="{{ url_for('public.equipe') }}" class="footer-link">Équipe</a></li>
+                        <li><a href="{{ url_for('public.admissions') }}" class="footer-link">Admissions</a></li>
+                        <li><a href="{{ url_for('public.contact') }}" class="footer-link">Contact</a></li>
                     </ul>
                 </div>
-                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
-                    <h5 class="text-white mb-4">Contact</h5>
-                    <ul class="list-unstyled text-white-50">
-                        <li class="mb-2"><i class="fas fa-map-marker-alt me-2"></i>123 Avenue de l'Université, Paris</li>
-                        <li class="mb-2"><i class="fas fa-phone me-2"></i>+33 (0)1 23 45 67 89</li>
-                        <li><i class="fas fa-envelope me-2"></i>contact@master-g2c.fr</li>
-                    </ul>
+                <div class="col-md-4">
+                    <h3 class="footer-heading">Suivez-nous</h3>
+                    <div class="social-links">
+                        <a href="https://www.linkedin.com/company/master-g2c-gestion-d-actifs-contr%C3%B4le-des-risques-et-conformit%C3%A9/posts/?feedView=all" class="social-link" target="_blank"><i class="bi bi-linkedin"></i></a>
+                    </div>
                 </div>
             </div>
-            <hr class="my-4 bg-white-50">
-            <div class="row">
-                <div class="col-md-6 text-center text-md-start">
-                    <p class="text-white-50 mb-0">&copy; 2024 Master G2C. Tous droits réservés.</p>
-                </div>
-                <div class="col-md-6 text-center text-md-end">
-                    <a href="#" class="text-white-50 me-3"><i class="fab fa-linkedin"></i></a>
-                    <a href="#" class="text-white-50 me-3"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="text-white-50"><i class="fab fa-instagram"></i></a>
-                </div>
+            <hr class="my-4">
+            <div class="text-center text-muted">
+                <small>&copy; {{ current_year }} Master G2C. Tous droits réservés.</small>
             </div>
         </div>
     </footer>
 
     <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" defer></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
-    <script src="{{ url_for('static', filename='js/theme.js') }}" defer></script>
-    <script src="{{ url_for('static', filename='js/lazy-loading.js') }}" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     
+    {% block scripts %}
     <script>
-        // Initialize AOS with optimized settings
-        document.addEventListener('DOMContentLoaded', function() {
-            AOS.init({
-                duration: 800,
-                once: true,
-                offset: 100,
-                disable: 'mobile' // Désactive sur mobile pour de meilleures performances
-            });
+        AOS.init();
+        
+        let lastScrollTop = 0;
+        let navbar = document.querySelector('.navbar');
+        const navbarHeight = navbar.offsetHeight;
+        let isScrolling;
+
+        window.addEventListener('scroll', function() {
+            clearTimeout(isScrolling);
+            
+            const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // Détermine la direction du défilement
+            if (currentScroll > lastScrollTop && currentScroll > navbarHeight) {
+                // Défilement vers le bas
+                navbar.classList.add('nav-hidden');
+            } else {
+                // Défilement vers le haut
+                navbar.classList.remove('nav-hidden');
+                
+                // Ajoute/supprime la classe scrolled en fonction de la position
+                if (currentScroll > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            }
+            
+            lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+            
+            // Réinitialise le timer
+            isScrolling = setTimeout(function() {
+                // Montre la navbar après 2 secondes d'inactivité
+                navbar.classList.remove('nav-hidden');
+            }, 2000);
         });
     </script>
-    {% block scripts %}{% endblock %}
+    {% endblock %}
+    {% block extra_scripts %}{% endblock %}
 </body>
 </html>

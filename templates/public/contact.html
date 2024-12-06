@@ -1,106 +1,711 @@
 {% extends "public/base_public.html" %}
 
-{% block title %}Contact - Université{% endblock %}
+{% block title %}Contact - Master G2C{% endblock %}
+
+{% block extra_head %}
+<style>
+    .hero-section {
+        background: linear-gradient(135deg, #0d6efd 0%, #0dcaf0 100%);
+        padding: 5rem 0;
+        position: relative;
+        overflow: hidden;
+        margin-bottom: 4rem;
+    }
+
+    .hero-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23ffffff20' d='M0,128L48,144C96,160,192,192,288,197.3C384,203,480,181,576,181.3C672,181,768,203,864,213.3C960,224,1056,224,1152,208C1248,192,1344,160,1392,144L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
+        background-position: center bottom;
+        background-repeat: no-repeat;
+        background-size: cover;
+        opacity: 0.1;
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 1;
+        color: white;
+        text-align: center;
+    }
+
+    .hero-title {
+        font-size: 3.5rem;
+        font-weight: 800;
+        margin-bottom: 1rem;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .hero-subtitle {
+        font-size: 1.5rem;
+        opacity: 0.9;
+        max-width: 600px;
+        margin: 0 auto;
+        line-height: 1.6;
+    }
+
+    .contact-container {
+        margin-top: -4rem;
+        position: relative;
+        z-index: 2;
+    }
+
+    .contact-form {
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        padding: 2rem;
+        height: 100%;
+    }
+
+    .contact-form::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #0d6efd, #0dcaf0);
+    }
+
+    .form-floating > label {
+        padding-left: 1rem;
+    }
+
+    .form-control, .form-select {
+        border-radius: 10px;
+        border: 2px solid #e9ecef;
+        padding: 1rem;
+        transition: all 0.3s ease;
+    }
+
+    .form-control:focus, .form-select:focus {
+        border-color: #0d6efd;
+        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.15);
+    }
+
+    .btn-contact {
+        padding: 1rem 2rem;
+        border-radius: 10px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        background: linear-gradient(45deg, #0d6efd, #0dcaf0);
+        border: none;
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+        transition: all 0.3s ease;
+    }
+
+    .btn-contact::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(45deg, #0dcaf0, #0d6efd);
+        z-index: -1;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .btn-contact:hover::before {
+        opacity: 1;
+    }
+
+    .btn-contact:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(13, 110, 253, 0.2);
+    }
+
+    .contact-info-card {
+        background: white;
+        border-radius: 16px;
+        padding: 24px;
+        margin-bottom: 24px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .contact-info-logo {
+        width: 64px;
+        height: 64px;
+        background: rgba(0, 123, 255, 0.1);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 16px;
+    }
+
+    .contact-info-logo i {
+        font-size: 24px;
+        color: #0d6efd;
+    }
+
+    .linkedin-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 16px;
+        background-color: white;
+        border: 1px solid #0A66C2;
+        border-radius: 6px;
+        color: #0A66C2;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 500;
+        transition: all 0.2s ease;
+    }
+
+    .linkedin-button:hover {
+        background-color: #f8f9fa;
+        text-decoration: none;
+        color: #0A66C2;
+    }
+
+    .linkedin-button .linkedin-icon {
+        width: 16px;
+        height: 16px;
+        fill: #0A66C2;
+    }
+
+    .chat-float-button {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, #0d6efd 0%, #0dcaf0 100%);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        text-decoration: none;
+        box-shadow: 0 10px 20px rgba(13, 110, 253, 0.3);
+        transition: all 0.3s ease;
+        z-index: 1000;
+    }
+
+    .chat-float-button:hover {
+        transform: translateY(-5px) scale(1.1);
+        box-shadow: 0 15px 30px rgba(13, 110, 253, 0.4);
+        color: white;
+    }
+
+    .chat-float-button i {
+        font-size: 24px;
+    }
+
+    .chat-float-button::after {
+        content: 'Chat en direct';
+        position: absolute;
+        right: 70px;
+        background: rgba(0, 0, 0, 0.8);
+        color: white;
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-size: 14px;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        pointer-events: none;
+        white-space: nowrap;
+    }
+
+    .chat-float-button:hover::after {
+        opacity: 1;
+    }
+
+    .chat-container {
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        overflow: hidden;
+        height: 100%;
+        min-height: 500px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .chat-header {
+        background: linear-gradient(135deg, #0d6efd 0%, #0dcaf0 100%);
+        color: white;
+        padding: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .chat-header-icon {
+        width: 40px;
+        height: 40px;
+        background: rgba(255,255,255,0.2);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .chat-header-info h2 {
+        margin: 0;
+        font-size: 1.25rem;
+    }
+
+    .chat-header-info p {
+        margin: 0;
+        font-size: 0.875rem;
+        opacity: 0.9;
+    }
+
+    .chat-messages {
+        flex: 1;
+        overflow-y: auto;
+        padding: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .message {
+        max-width: 80%;
+        padding: 1rem;
+        border-radius: 15px;
+        position: relative;
+        animation: messageAppear 0.3s ease;
+    }
+
+    @keyframes messageAppear {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .message-user {
+        background: linear-gradient(135deg, #0d6efd 0%, #0dcaf0 100%);
+        color: white;
+        align-self: flex-end;
+        border-bottom-right-radius: 5px;
+    }
+
+    .message-bot {
+        background: #f8f9fa;
+        color: #212529;
+        align-self: flex-start;
+        border-bottom-left-radius: 5px;
+    }
+
+    .message-time {
+        font-size: 0.75rem;
+        opacity: 0.7;
+        margin-top: 0.5rem;
+        text-align: right;
+    }
+
+    .chat-input {
+        padding: 1.5rem;
+        background: #f8f9fa;
+        border-top: 1px solid #dee2e6;
+    }
+
+    .chat-input form {
+        display: flex;
+        gap: 1rem;
+    }
+
+    .chat-input input {
+        flex: 1;
+        padding: 1rem;
+        border: 2px solid #dee2e6;
+        border-radius: 10px;
+        transition: all 0.3s ease;
+    }
+
+    .chat-input input:focus {
+        border-color: #0d6efd;
+        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.15);
+        outline: none;
+    }
+
+    .chat-input button {
+        padding: 1rem;
+        width: 50px;
+        min-width: 50px;
+        background: linear-gradient(45deg, #0d6efd, #0dcaf0);
+        border: none;
+        border-radius: 10px;
+        color: white;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .chat-input button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(13, 110, 253, 0.2);
+    }
+
+    .chat-input button span {
+        display: none;
+    }
+
+    .typing-indicator {
+        display: flex;
+        gap: 0.5rem;
+        padding: 1rem;
+        background: #f8f9fa;
+        border-radius: 15px;
+        align-self: flex-start;
+        margin-top: 0.5rem;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .typing-indicator.visible {
+        opacity: 1;
+    }
+
+    .typing-dot {
+        width: 8px;
+        height: 8px;
+        background: #adb5bd;
+        border-radius: 50%;
+        animation: typingAnimation 1.4s infinite;
+    }
+
+    .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes typingAnimation {
+        0%, 60%, 100% { transform: translateY(0); }
+        30% { transform: translateY(-5px); }
+    }
+
+    @media (max-width: 992px) {
+        .chat-container {
+            min-height: 400px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .hero-section {
+            padding: 4rem 0;
+        }
+
+        .hero-title {
+            font-size: 2.5rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+        }
+
+        .contact-container {
+            margin-top: -4rem;
+        }
+
+        .contact-form {
+            padding: 2rem;
+        }
+    }
+</style>
+{% endblock %}
 
 {% block content %}
 <div class="hero-section">
-    <div class="container">
-        <h1 class="display-4">Contactez-nous</h1>
-        <p class="lead">Nous sommes à votre écoute</p>
+    <div class="hero-content">
+        <div class="container">
+            <h1 class="hero-title" data-aos="fade-up">Contactez-nous</h1>
+            <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="100">
+                Notre équipe est à votre écoute pour répondre à toutes vos questions sur le Master G2C
+            </p>
+        </div>
     </div>
 </div>
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-body">
-                    <h3 class="mb-4">Formulaire de Contact</h3>
-                    <form>
-                        <div class="mb-3">
-                            <label for="nom" class="form-label">Nom complet</label>
-                            <input type="text" class="form-control" id="nom" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="sujet" class="form-label">Sujet</label>
-                            <select class="form-select" id="sujet" required>
-                                <option value="">Choisir un sujet...</option>
-                                <option value="admission">Admission</option>
-                                <option value="formation">Formation</option>
-                                <option value="recherche">Recherche</option>
-                                <option value="autre">Autre</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="message" class="form-label">Message</label>
-                            <textarea class="form-control" id="message" rows="5" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Envoyer</button>
-                    </form>
+<div class="container contact-container">
+    <div class="row g-4">
+        <div class="col-lg-8">
+            <div class="row g-4">
+                <!-- Formulaire de contact -->
+                <div class="col-md-6" data-aos="fade-up">
+                    <div class="contact-form">
+                        <h3 class="mb-4">Envoyez-nous un message</h3>
+                        <form id="contactForm">
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="nom" placeholder="Votre nom" required>
+                                        <label for="nom">Nom complet</label>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-floating">
+                                        <input type="email" class="form-control" id="email" placeholder="Votre email" required>
+                                        <label for="email">Adresse email</label>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-floating">
+                                        <select class="form-select" id="sujet" required>
+                                            <option value="">Sélectionnez un sujet...</option>
+                                            <option value="admission">Admission</option>
+                                            <option value="formation">Formation</option>
+                                            <option value="stage">Stage & Alternance</option>
+                                            <option value="international">Programme International</option>
+                                            <option value="autre">Autre demande</option>
+                                        </select>
+                                        <label for="sujet">Sujet de votre message</label>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-floating">
+                                        <textarea class="form-control" id="message" style="height: 120px" placeholder="Votre message" required></textarea>
+                                        <label for="message">Votre message</label>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-contact w-100">
+                                        <i class="fas fa-paper-plane me-2"></i>Envoyer le message
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-            </div>
-        </div>
 
-        <div class="col-md-4">
-            <div class="card mb-4">
-                <div class="card-body">
-                    <h3>Coordonnées</h3>
-                    <ul class="list-unstyled">
-                        <li class="mb-3">
-                            <i class="fas fa-map-marker-alt me-2 text-primary"></i>
-                            123 Rue de l'Université<br>
-                            75000 Paris, France
-                        </li>
-                        <li class="mb-3">
-                            <i class="fas fa-phone me-2 text-primary"></i>
-                            +33 1 23 45 67 89
-                        </li>
-                        <li class="mb-3">
-                            <i class="fas fa-envelope me-2 text-primary"></i>
-                            contact@universite.fr
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-body">
-                    <h3>Horaires d'ouverture</h3>
-                    <ul class="list-unstyled">
-                        <li class="mb-2">
-                            <strong>Lundi - Vendredi:</strong><br>
-                            9h00 - 18h00
-                        </li>
-                        <li class="mb-2">
-                            <strong>Samedi:</strong><br>
-                            9h00 - 12h00
-                        </li>
-                        <li>
-                            <strong>Dimanche:</strong><br>
-                            Fermé
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row mt-5">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-body">
-                    <h3>Nous Trouver</h3>
-                    <div class="ratio ratio-16x9">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2624.9914406081493!2d2.3414861!3d48.8534951!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e671d5670a6b31%3A0x2f2c10d1b3bf6bb8!2sUniversit%C3%A9%20Paris%201%20Panth%C3%A9on-Sorbonne!5e0!3m2!1sfr!2sfr!4v1647875674521!5m2!1sfr!2sfr" 
-                                style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                <!-- Informations de contact -->
+                <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="row g-4">
+                        <div class="col-12">
+                            <div class="contact-info-card">
+                                <div class="contact-info-logo address-logo">
+                                    <i class="bi bi-geo-alt"></i>
+                                </div>
+                                <h4 class="contact-info-title">Notre adresse</h4>
+                                <p class="mb-0">3 rue Claude Bloch<br>14000 Caen, France</p>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="contact-info-card">
+                                <div class="contact-info-logo phone-logo">
+                                    <i class="bi bi-telephone"></i>
+                                </div>
+                                <h4 class="contact-info-title">Téléphone</h4>
+                                <p class="mb-2">02 31 56 65 00</p>
+                                <p class="small text-muted mb-1">Horaires d'ouverture :</p>
+                                <p class="small mb-0">Lun - Ven : 9h00 - 18h00<br>Sam : 9h00 - 12h00</p>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="contact-info-card">
+                                <div class="contact-info-logo email-logo">
+                                    <i class="bi bi-envelope"></i>
+                                </div>
+                                <h4 class="contact-info-title">Email & Réseaux sociaux</h4>
+                                <p class="mb-3">contact@iae.unicaen.fr</p>
+                                <div class="social-links">
+                                    <a href="https://www.linkedin.com/company/master-g2c-gestion-d-actifs-contr%C3%B4le-des-risques-et-conformit%C3%A9/posts/?feedView=all" target="_blank" class="linkedin-button">
+                                        <svg class="linkedin-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                                        </svg>
+                                        LinkedIn
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- Chatbox -->
+        <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+            <div class="chat-container">
+                <div class="chat-header">
+                    <div class="chat-header-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <div class="chat-header-info">
+                        <h2>Assistant Master G2C</h2>
+                        <p>En ligne - Réponse instantanée</p>
+                    </div>
+                </div>
+
+                <div class="chat-messages" id="chatMessages">
+                    <div class="message message-bot">
+                        Bonjour ! Je suis l'assistant virtuel du Master G2C. Comment puis-je vous aider aujourd'hui ?
+                        <div class="message-time">14:00</div>
+                    </div>
+                </div>
+
+                <div class="typing-indicator" id="typingIndicator">
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                </div>
+
+                <div class="chat-input">
+                    <form id="chatForm">
+                        <input type="text" id="messageInput" placeholder="Tapez votre message ici..." required>
+                        <button type="submit">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Carte Google Maps -->
+    <div class="row mt-4" data-aos="fade-up">
+        <div class="col-12">
+            <div class="map-container">
+                <div class="ratio ratio-21x9">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2607.0557874235247!2d-0.3645297!3d49.2141824!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x480a42bd3c0c8925%3A0xd2c698eec4b52391!2sIAE%20Caen!5e0!3m2!1sfr!2sfr!4v1647875674521!5m2!1sfr!2sfr"
+                            style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // Animation du bouton
+    const button = this.querySelector('button[type="submit"]');
+    const originalText = button.innerHTML;
+    
+    button.innerHTML = '<div class="d-flex align-items-center justify-content-center"><i class="fas fa-circle-notch fa-spin me-2"></i>Envoi en cours...</div>';
+    button.disabled = true;
+
+    // Simuler l'envoi (à remplacer par votre logique d'envoi réelle)
+    setTimeout(() => {
+        button.innerHTML = '<div class="d-flex align-items-center justify-content-center"><i class="fas fa-check me-2"></i>Message envoyé !</div>';
+        button.classList.remove('btn-primary');
+        button.classList.add('btn-success');
+
+        // Réinitialiser le formulaire après un délai
+        setTimeout(() => {
+            this.reset();
+            button.innerHTML = originalText;
+            button.classList.remove('btn-success');
+            button.classList.add('btn-primary');
+            button.disabled = false;
+        }, 2000);
+    }, 1500);
+});
+
+// Animation des cartes d'information au survol
+document.querySelectorAll('.contact-info-card').forEach(card => {
+    card.addEventListener('mouseenter', function() {
+        const icon = this.querySelector('.contact-icon');
+        icon.style.transform = 'scale(1.1) rotate(10deg)';
+    });
+    
+    card.addEventListener('mouseleave', function() {
+        const icon = this.querySelector('.contact-icon');
+        icon.style.transform = 'scale(1) rotate(0)';
+    });
+});
+
+// Animation des champs du formulaire
+document.querySelectorAll('.form-control, .form-select').forEach(input => {
+    input.addEventListener('focus', function() {
+        this.closest('.form-floating').style.transform = 'translateY(-2px)';
+    });
+    
+    input.addEventListener('blur', function() {
+        this.closest('.form-floating').style.transform = 'translateY(0)';
+    });
+});
+
+const chatMessages = document.getElementById('chatMessages');
+const chatForm = document.getElementById('chatForm');
+const messageInput = document.getElementById('messageInput');
+const typingIndicator = document.getElementById('typingIndicator');
+
+// Réponses prédéfinies simples
+const responses = {
+    'bonjour': 'Bonjour ! Comment puis-je vous aider ?',
+    'admission': 'Pour les admissions au Master G2C, vous devez avoir un Bac+3 ou équivalent. La sélection se fait sur dossier et entretien.',
+    'formation': 'Le Master G2C est une formation en 2 ans qui couvre la gestion d\'actifs, le contrôle des risques et la conformité.',
+    'stage': 'Le Master G2C inclut des périodes de stage : 4 à 6 mois en M1 et 6 mois en M2.',
+    'contact': 'Vous pouvez nous contacter par email à contact@iae.unicaen.fr ou par téléphone au +33 2 31 56 65 00',
+    'default': 'Je vous invite à contacter directement notre équipe pour plus d\'informations spécifiques.'
+};
+
+function addMessage(content, isUser = false) {
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `message message-${isUser ? 'user' : 'bot'}`;
+    messageDiv.innerHTML = `
+        ${content}
+        <div class="message-time">${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
+    `;
+    chatMessages.appendChild(messageDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+function showTypingIndicator() {
+    typingIndicator.classList.add('visible');
+}
+
+function hideTypingIndicator() {
+    typingIndicator.classList.remove('visible');
+}
+
+function getResponse(message) {
+    message = message.toLowerCase();
+    for (const [key, value] of Object.entries(responses)) {
+        if (message.includes(key)) {
+            return value;
+        }
+    }
+    return responses.default;
+}
+
+chatForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const message = messageInput.value.trim();
+    if (!message) return;
+
+    // Ajouter le message de l'utilisateur
+    addMessage(message, true);
+    messageInput.value = '';
+
+    // Simuler la réponse du bot
+    showTypingIndicator();
+    setTimeout(() => {
+        hideTypingIndicator();
+        addMessage(getResponse(message));
+    }, 1000 + Math.random() * 1000); // Délai aléatoire entre 1 et 2 secondes
+});
+
+// Animation de frappe
+messageInput.addEventListener('focus', function() {
+    this.style.transform = 'translateY(-2px)';
+});
+
+messageInput.addEventListener('blur', function() {
+    this.style.transform = 'translateY(0)';
+});
+</script>
 {% endblock %}
