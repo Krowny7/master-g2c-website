@@ -133,8 +133,7 @@ def equipe():
 
 @public.route('/pourquoi_g2c')
 def pourquoi_g2c():
-    ranking = Ranking.query.order_by(Ranking.year.desc()).first()
-    return render_template('public/pourquoi_g2c.html', ranking=ranking)
+    return render_template('public/pourquoi_g2c.html')
 
 @public.route('/temoignages')
 def temoignages():
