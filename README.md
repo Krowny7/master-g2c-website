@@ -40,6 +40,81 @@ pip install -r requirements.txt
 python app.py
 ```
 
+## Déploiement
+
+### Déploiement local
+
+1. Cloner le repository
+```bash
+git clone [URL_DU_REPO]
+cd unisocial
+```
+
+2. Créer un environnement virtuel
+```bash
+python -m venv venv
+source venv/bin/activate  # Sur Unix
+venv\Scripts\activate     # Sur Windows
+```
+
+3. Installer les dépendances
+```bash
+pip install -r requirements.txt
+```
+
+4. Configurer les variables d'environnement
+Créer un fichier `.env` à la racine du projet :
+```
+FLASK_APP=app.py
+FLASK_ENV=development
+SECRET_KEY=votre_clé_secrète
+```
+
+5. Initialiser la base de données
+```bash
+flask db upgrade
+```
+
+6. Lancer l'application
+```bash
+python app.py
+```
+
+L'application sera accessible à l'adresse : http://localhost:5000
+
+### Déploiement sur PythonAnywhere
+
+1. Créer un compte sur [PythonAnywhere](https://www.pythonanywhere.com)
+
+2. Dans la console PythonAnywhere :
+```bash
+git clone [URL_DU_REPO]
+cd unisocial
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
+3. Configuration Web App :
+- Aller dans l'onglet "Web"
+- Créer une nouvelle application
+- Choisir Flask et Python 3.9
+- Configurer le fichier WSGI avec le contenu de wsgi.py
+- Définir le répertoire de travail
+- Configurer les variables d'environnement
+
+4. Base de données :
+```bash
+flask db upgrade
+```
+
+5. Fichiers statiques :
+- Configurer le chemin des fichiers statiques dans l'interface Web
+- URL: /static/
+- Directory: /home/[username]/unisocial/static/
+
+6. Redémarrer l'application
+
 ## Utilisation
 
 1. Démarrez le serveur :
@@ -80,4 +155,4 @@ Les contributions sont les bienvenues ! N'hésitez pas à ouvrir une issue ou à
 
 ## Licence
 
-Ce projet est sous licence MIT. Voir le![alt text](image.png) fichier `LICENSE` pour plus de détails.
+Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.

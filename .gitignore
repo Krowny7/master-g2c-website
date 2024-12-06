@@ -1,3 +1,4 @@
+# Python
 __pycache__/
 *.py[cod]
 *$py.class
@@ -18,11 +19,33 @@ var/
 *.egg-info/
 .installed.cfg
 *.egg
-.env
-.venv
+
+# Virtual Environment
 venv/
 ENV/
+
+# IDE
 .idea/
 .vscode/
-*.sqlite
+*.swp
+*.swo
+
+# Database
 *.db
+*.sqlite
+*.sqlite3
+
+# Environment variables
+.env
+.env.local
+
+# Logs
+*.log
+
+# Media files
+uploads/
+media/
+
+# Temporary files
+.DS_Store
+Thumbs.db
